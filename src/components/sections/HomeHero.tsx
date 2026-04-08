@@ -102,7 +102,7 @@ export function HomeHero() {
       {/* When card is open: hidden (close via header hover+click) */}
       {/* When card is closed: shows "Aperçu" button to reopen */}
       <button
-        onClick={() => setPreviewOpen(true)}
+        onClick={() => setPreviewOpen((v) => !v)}
         className="absolute z-20 flex items-center justify-center text-sm font-medium cursor-pointer hover:-translate-y-[5px] transition-transform"
         style={{
           backgroundImage: "linear-gradient(#c4c4c4, #f3f2f0)",
@@ -111,7 +111,6 @@ export function HomeHero() {
           height: "2rem",
           bottom: "4rem",
           left: "6.5rem",
-          display: previewOpen ? "none" : "flex",
           border: "none",
         }}
       >
