@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 
 const navLinks = [
@@ -14,13 +15,17 @@ export function Header() {
 
   return (
     <header className="fixed top-0 left-0 w-full z-50 bg-white">
-      <div className="flex items-center justify-between px-8 py-4 md:px-12">
-        {/* Logo */}
-        <Link href="/" className="flex items-baseline gap-1">
-          <span className="font-[family-name:var(--font-merriweather)] text-2xl md:text-3xl font-black tracking-tight text-[color:var(--color-foreground)]">
-            JULES STUDIO
-          </span>
-          <span className="text-[color:var(--color-accent)] text-lg">✦</span>
+      <div className="flex items-center justify-between px-8 py-3 md:px-12">
+        {/* Logo SVG */}
+        <Link href="/">
+          <Image
+            src="/images/jslogo.svg"
+            alt="Jules Studio"
+            width={220}
+            height={50}
+            className="h-10 w-auto"
+            priority
+          />
         </Link>
 
         {/* Nav desktop */}
