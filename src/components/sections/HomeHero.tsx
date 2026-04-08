@@ -24,57 +24,54 @@ export function HomeHero() {
       </video>
 
       {/* ===== PREVIEW CARD (btn-teasing-wrapper + teasing) ===== */}
-      <div className="absolute top-0 left-0 z-10">
-        {/* btn-teasing-wrapper — header bar with "Aperçu", dots, always visible */}
+      {/* studio-main-preview-teasing-wrapper — contains BOTH header + teasing video */}
+      <motion.div
+        initial={false}
+        animate={{
+          opacity: previewOpen ? 1 : 0,
+          y: previewOpen ? 0 : -20,
+        }}
+        transition={{ duration: 0.4, ease: [0.5, 0, 0, 1] }}
+        className="absolute top-0 left-0 z-10"
+        style={{
+          width: "28rem",
+          marginLeft: "6.5rem",
+          background: "rgba(230, 230, 230, 0.77)",
+          backdropFilter: "blur(10px)",
+          WebkitBackdropFilter: "blur(10px)",
+          borderBottomLeftRadius: "5px",
+          borderBottomRightRadius: "5px",
+          overflow: "clip",
+          pointerEvents: previewOpen ? "auto" : "none",
+        }}
+      >
+        {/* btn-teasing-wrapper — header bar */}
         <div
           className="flex items-center"
           style={{
-            width: "28rem",
-            marginLeft: "6.5rem",
+            width: "100%",
             height: "6vh",
             paddingLeft: "0.5rem",
             paddingRight: "0.5rem",
-            background: "rgba(230,230,230,0.77)",
-            backdropFilter: "blur(10px)",
-            WebkitBackdropFilter: "blur(10px)",
           }}
         >
-          {/* btn-teasing-content */}
           <div className="flex items-center justify-between w-full h-full relative">
-            {/* col-left: Aperçu label */}
             <span className="text-base font-semibold">Aperçu</span>
-            {/* col-right: dots */}
             <div className="flex items-center gap-2">
               <span className="rounded-full" style={{ width: 12, height: 12, backgroundColor: "#c4c4c4" }} />
               <span className="rounded-full" style={{ width: 12, height: 12, backgroundColor: "#c4c4c4" }} />
-              {/* scrollbar indicator */}
               <span className="rounded-full ml-4" style={{ width: "2rem", height: 4, backgroundColor: "rgba(0,0,0,0.15)" }} />
             </div>
           </div>
         </div>
 
-        {/* studio-main-preview-teasing-wrapper — the teasing video card */}
-        <motion.div
-          initial={false}
-          animate={{
-            height: previewOpen ? "18.7rem" : 0,
-            opacity: previewOpen ? 1 : 0,
-          }}
-          transition={{ duration: 0.4, ease: [0.5, 0, 0, 1] }}
+        {/* teasing-content — video */}
+        <div
           style={{
-            width: "28rem",
-            left: "6.5rem",
-            marginLeft: "6.5rem",
-            background: "rgba(230, 230, 230, 0.77)",
-            backdropFilter: "blur(10px)",
-            WebkitBackdropFilter: "blur(10px)",
-            borderBottomLeftRadius: "5px",
-            borderBottomRightRadius: "5px",
-            padding: previewOpen ? "0 0.5rem 0.5rem" : "0 0.5rem 0",
-            overflow: "clip",
+            height: "18.7rem",
+            padding: "0 0.5rem 0.5rem",
           }}
         >
-          {/* teasing-content */}
           <div className="w-full h-full" style={{ borderRadius: "5px", overflow: "clip" }}>
             <video
               autoPlay
@@ -90,8 +87,8 @@ export function HomeHero() {
               />
             </video>
           </div>
-        </motion.div>
-      </div>
+        </div>
+      </motion.div>
 
       {/* ===== TOGGLE BUTTONS — show/hide preview ===== */}
       {/* home-bottom-btn-preview-off (visible when card is open → click to close) */}
