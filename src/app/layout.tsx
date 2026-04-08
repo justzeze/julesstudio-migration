@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Montserrat, Merriweather } from "next/font/google";
 import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
+import { ConditionalFooter } from "@/components/layout/ConditionalFooter";
 import { SmoothScroll } from "@/components/layout/SmoothScroll";
 import "./globals.css";
 
@@ -41,7 +41,7 @@ export default function RootLayout({
         <SmoothScroll />
         <Header />
         <main className="flex-1">{children}</main>
-        <Footer />
+        <ConditionalFooter />
       </body>
     </html>
   );
