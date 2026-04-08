@@ -1,0 +1,166 @@
+@import "tailwindcss";
+
+/* ============================================
+   JULES STUDIO — Global Styles
+   Inspired by madebynull.com aesthetic
+   ============================================ */
+
+@theme inline {
+  --color-background: #ffffff;
+  --color-foreground: #1b1d22;
+  --color-muted: #888a86;
+  --color-beige: #f3f2f0;
+  --color-accent: #e87b1c;
+  --color-border: rgba(27, 29, 34, 0.1);
+
+  --font-display: var(--font-merriweather);
+  --font-body: var(--font-montserrat);
+}
+
+/* ---- Reset & Base ---- */
+
+html {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+html::-webkit-scrollbar {
+  display: none;
+}
+
+body {
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-body), sans-serif;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: white;
+}
+
+/* ---- Inner Radius (madebynull technique) ---- */
+
+.inner-radius {
+  position: relative;
+}
+
+.inner-radius::before,
+.inner-radius::after,
+.inner-radius > .corner-bl,
+.inner-radius > .corner-br {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: var(--corner-bg, #fff);
+  clip-path: polygon(
+    0 0, 100% 0, 100% 100%, 88.889% 100%, 88.889% 100%,
+    87.725% 85.582%, 84.357% 71.904%, 78.967% 59.15%,
+    71.738% 47.503%, 62.854% 37.146%, 52.497% 28.262%,
+    40.85% 21.033%, 28.096% 15.643%, 14.418% 12.275%,
+    0 11.111%, 0 0
+  );
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Top-left */
+.inner-radius::before {
+  top: -1px;
+  left: -1px;
+  transform: rotate(270deg);
+}
+
+/* Top-right */
+.inner-radius::after {
+  top: -1px;
+  right: -1px;
+  transform: rotate(0deg);
+}
+
+/* Bottom-left (requires a span.corner-bl inside) */
+.inner-radius > .corner-bl {
+  bottom: -1px;
+  left: -1px;
+  transform: rotate(180deg);
+}
+
+/* Bottom-right (requires a span.corner-br inside) */
+.inner-radius > .corner-br {
+  bottom: -1px;
+  right: -1px;
+  transform: rotate(90deg);
+}
+
+/* ---- Smooth link underlines (madebynull style) ---- */
+
+.link-hover {
+  position: relative;
+  display: inline-block;
+}
+
+.link-hover::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.5s cubic-bezier(0.7, 0, 0.88, 0.77);
+}
+
+.link-hover:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* ---- Marquee ---- */
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.marquee-track {
+  animation: marquee var(--marquee-duration, 30s) linear infinite;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* ---- FAQ Accordion ---- */
+
+.accordion-content {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.4s cubic-bezier(0.5, 0, 0, 1);
+}
+
+.accordion-content.open {
+  grid-template-rows: 1fr;
+}
+
+.accordion-content > div {
+  overflow: hidden;
+}
+
+/* ---- Scrollbar custom (for elements that show it) ---- */
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--color-muted);
+  border-radius: 10px;
+}
