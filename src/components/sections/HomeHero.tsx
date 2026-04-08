@@ -117,6 +117,7 @@ export function HomeHero() {
       {/* ===== TOGGLE BUTTON ===== */}
       {/* When card is open: hidden (close via header hover+click) */}
       {/* When card is closed: shows "Aperçu" button to reopen */}
+      {/* home-bottom-btn-preview-on / off */}
       <button
         onClick={() => setPreviewOpen((v) => !v)}
         className="absolute z-20 flex items-center justify-center text-sm font-medium cursor-pointer hover:-translate-y-[5px] transition-transform"
@@ -125,13 +126,35 @@ export function HomeHero() {
           borderRadius: "5px",
           width: "5rem",
           height: "2rem",
-          bottom: "4rem",
-          left: "6.5rem",
+          bottom: "1.5rem",
+          left: "5rem",
           border: "none",
         }}
       >
-        Aperçu
+        {previewOpen ? "Fermé" : "Aperçu"}
       </button>
+
+      {/* ===== TAGLINE ===== */}
+      <div
+        className="absolute z-10 flex items-center gap-2"
+        style={{
+          width: "20rem",
+          top: "13%",
+          left: "70%",
+          padding: "0.5rem 0.5rem 0",
+        }}
+      >
+        <h1 className="text-sm font-bold uppercase text-white leading-tight">
+          Studio de Design Digital &amp; de Developpement Webflow
+        </h1>
+        <div
+          className="absolute flex flex-col items-center text-white text-[10px]"
+          style={{ right: 0, bottom: 0 }}
+        >
+          <span>©2026</span>
+          <span>JULES STUDIO</span>
+        </div>
+      </div>
 
       {/* ===== CONTACT CARD (rotated 90°, fixed right) ===== */}
       <div
