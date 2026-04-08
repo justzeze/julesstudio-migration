@@ -3,8 +3,11 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 
+const HEADER_H = "3.5rem";
+
 export function HomeHero() {
   const [previewOpen, setPreviewOpen] = useState(true);
+  const [headerHovered, setHeaderHovered] = useState(false);
 
   return (
     <div className="fixed inset-0 overflow-hidden" style={{ top: "3.5rem" }}>
@@ -45,9 +48,12 @@ export function HomeHero() {
           pointerEvents: previewOpen ? "auto" : "none",
         }}
       >
-        {/* btn-teasing-wrapper — header bar */}
+        {/* btn-teasing-wrapper — header bar, hover shows "Fermé", click closes */}
         <div
-          className="flex items-center"
+          className="flex items-center cursor-pointer"
+          onClick={() => setPreviewOpen(false)}
+          onMouseEnter={() => setHeaderHovered(true)}
+          onMouseLeave={() => setHeaderHovered(false)}
           style={{
             width: "100%",
             height: "6vh",
@@ -56,7 +62,9 @@ export function HomeHero() {
           }}
         >
           <div className="flex items-center justify-between w-full h-full relative">
-            <span className="text-base font-semibold">Aperçu</span>
+            <span className="text-base font-semibold transition-opacity duration-200">
+              {headerHovered ? "Fermé" : "Aperçu"}
+            </span>
             <div className="flex items-center gap-2">
               <span className="rounded-full" style={{ width: 12, height: 12, backgroundColor: "#c4c4c4" }} />
               <span className="rounded-full" style={{ width: 12, height: 12, backgroundColor: "#c4c4c4" }} />
@@ -90,26 +98,9 @@ export function HomeHero() {
         </div>
       </motion.div>
 
-      {/* ===== TOGGLE BUTTONS — show/hide preview ===== */}
-      {/* home-bottom-btn-preview-off (visible when card is open → click to close) */}
-      <button
-        onClick={() => setPreviewOpen(false)}
-        className="absolute z-20 flex items-center justify-center text-sm font-medium cursor-pointer"
-        style={{
-          backgroundImage: "linear-gradient(#c4c4c4, #f3f2f0)",
-          borderRadius: "5px",
-          width: "5rem",
-          height: "2rem",
-          bottom: "4rem",
-          left: "6.5rem",
-          display: previewOpen ? "flex" : "none",
-          border: "none",
-        }}
-      >
-        Fermé
-      </button>
-
-      {/* home-bottom-btn-preview-on (visible when card is closed → click to open) */}
+      {/* ===== TOGGLE BUTTON ===== */}
+      {/* When card is open: hidden (close via header hover+click) */}
+      {/* When card is closed: shows "Aperçu" button to reopen */}
       <button
         onClick={() => setPreviewOpen(true)}
         className="absolute z-20 flex items-center justify-center text-sm font-medium cursor-pointer hover:-translate-y-[5px] transition-transform"
