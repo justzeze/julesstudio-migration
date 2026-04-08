@@ -4,7 +4,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 
 const HEADER_H = "3.5rem";
-const IR_SIZE = 10; // inner radius size in px
+const IR_SIZE = 12; // inner radius size in px
 
 /**
  * Single concave corner using radial-gradient.
@@ -99,26 +99,6 @@ export function HomeHero() {
           pointerEvents: previewOpen ? "auto" : "none",
         }}
       >
-        {/* Inner radius — top corners only (where card meets top edge) */}
-        <ConcaveCorner
-          position="br"
-          color="rgba(230,230,230,0.77)"
-          style={{
-            top: 0, left: -IR_SIZE,
-            backdropFilter: "blur(10px)",
-            WebkitBackdropFilter: "blur(10px)",
-          }}
-        />
-        <ConcaveCorner
-          position="bl"
-          color="rgba(230,230,230,0.77)"
-          style={{
-            top: 0, right: -IR_SIZE,
-            backdropFilter: "blur(10px)",
-            WebkitBackdropFilter: "blur(10px)",
-          }}
-        />
-
         {/* btn-teasing-wrapper — header bar, hover shows "Fermé", click closes */}
         <div
           className="flex items-center"
@@ -172,6 +152,19 @@ export function HomeHero() {
         </div>
       </motion.div>
 
+      {/* ===== INNER RADIUS — preview card top corners ===== */}
+      {/* White concave corners where card meets the top edge of wrapper */}
+      <ConcaveCorner
+        position="br"
+        color="#fff"
+        style={{ top: 0, left: `calc(6.5rem - ${IR_SIZE}px)`, zIndex: 11 }}
+      />
+      <ConcaveCorner
+        position="bl"
+        color="#fff"
+        style={{ top: 0, left: `calc(6.5rem + 28rem)`, zIndex: 11 }}
+      />
+
       {/* ===== TOGGLE BUTTON ===== */}
       {/* When card is open: hidden (close via header hover+click) */}
       {/* When card is closed: shows "Aperçu" button to reopen */}
@@ -202,13 +195,14 @@ export function HomeHero() {
           transform: "rotate(90deg)",
           backgroundColor: "#fff",
           borderRadius: "0 0 5px 5px",
+          overflow: "visible",
         }}
       >
-        <div className="flex flex-col w-full h-full relative">
-          {/* Inner radius — top corners only (where card meets edge) */}
-          <ConcaveCorner position="br" color="#fff" style={{ top: 0, left: -IR_SIZE }} />
-          <ConcaveCorner position="bl" color="#fff" style={{ top: 0, right: -IR_SIZE }} />
+        {/* Inner radius — top corners of contact card */}
+        <ConcaveCorner position="br" color="#fff" style={{ top: 0, left: -IR_SIZE, zIndex: 1 }} />
+        <ConcaveCorner position="bl" color="#fff" style={{ top: 0, right: -IR_SIZE, zIndex: 1 }} />
 
+        <div className="flex flex-col w-full h-full">
           {/* Label row — "Contact" with bottom border */}
           <div
             className="flex items-center px-3 text-xs font-semibold tracking-wide"
