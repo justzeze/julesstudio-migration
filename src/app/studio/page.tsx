@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import { BackgroundVideoPanel } from "@/components/layout/BackgroundVideoPanel";
 
 export const metadata: Metadata = {
   title: "Notre Studio Créatif — Direction Artistique & Développement Webflow",
@@ -17,45 +18,37 @@ const services = [
 
 export default function StudioPage() {
   return (
-    <div className="pt-28 pb-20">
+    <div className="relative pt-28 pb-20">
+      <BackgroundVideoPanel />
+
       {/* Hero */}
-      <section className="px-6 md:px-10 mb-16">
-        <div className="flex flex-col md:flex-row gap-12 items-start">
-          {/* Left — Portrait + Title */}
-          <div className="md:w-1/3">
+      <section className="relative z-10 px-6 md:px-10 md:w-1/2 mb-16">
+        <div className="flex flex-col gap-8">
+          {/* Title */}
+          <div>
             <h1 className="font-[family-name:var(--font-merriweather)] text-3xl md:text-4xl font-bold text-[color:var(--color-accent)] mb-1">
               JULES STUDIO
             </h1>
-            <p className="text-xs tracking-widest text-[color:var(--color-muted)] mb-8">
+            <p className="text-xs tracking-widest text-[color:var(--color-muted)]">
               PARIS 2025
             </p>
-
-            {/* Portrait photo placeholder */}
-            <div className="relative w-32 h-32 rounded-full overflow-hidden bg-[color:var(--color-beige)]">
-              <Image
-                src="https://cdn.prod.website-files.com/697be174b8224c11c814a60e/placeholder-portrait.jpg"
-                alt="Jules Studio"
-                fill
-                className="object-cover"
-                unoptimized
-              />
-            </div>
           </div>
 
-          {/* Right — Hero image */}
-          <div className="md:w-2/3 relative aspect-[16/9] rounded-lg overflow-hidden bg-[color:var(--color-beige)]">
+          {/* Portrait photo placeholder */}
+          <div className="relative w-32 h-32 rounded-full overflow-hidden bg-[color:var(--color-beige)]">
             <Image
-              src="https://cdn.prod.website-files.com/6983a7c2decf98d1d77ad954/69ab6985047d28d4eecfa2d6_Capture%20d%E2%80%99e%CC%81cran%202025-09-27%20a%CC%80%203.06.01%E2%80%AFPM.png"
-              alt="Jules Studio workspace"
+              src="https://cdn.prod.website-files.com/697be174b8224c11c814a60e/placeholder-portrait.jpg"
+              alt="Jules Studio"
               fill
               className="object-cover"
+              unoptimized
             />
           </div>
         </div>
       </section>
 
       {/* Content sections */}
-      <div className="px-6 md:px-10 max-w-3xl space-y-16">
+      <div className="relative z-10 px-6 md:px-10 md:w-1/2 max-w-3xl space-y-16">
         {/* Le Studio */}
         <section>
           <h2 className="font-[family-name:var(--font-merriweather)] text-xl font-bold mb-4">

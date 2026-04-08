@@ -6,14 +6,17 @@ import { InnerRadius } from "@/components/ui/InnerRadius";
 export function HomeHero() {
   return (
     <section className="relative h-screen w-full overflow-hidden">
-      {/* Background image */}
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage:
-            "url('https://cdn.prod.website-files.com/6983a7c2decf98d1d77ad954/69ab6985047d28d4eecfa2d6_Capture%20d%E2%80%99e%CC%81cran%202025-09-27%20a%CC%80%203.06.01%E2%80%AFPM.png')",
-        }}
-      />
+      {/* Background video (Webflow class: home-Background-Video) */}
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover"
+        poster="https://cdn.prod.website-files.com/6983a7c2decf98d1d77ad954/69ab6985047d28d4eecfa2d6_Capture%20d%E2%80%99e%CC%81cran%202025-09-27%20a%CC%80%203.06.01%E2%80%AFPM.png"
+      >
+        <source src="https://s3.amazonaws.com/webflow-prod-assets/697be174b8224c11c814a60e/697c72ff2f64b42254f72b34_best%20bg%20video%20V2.mp4" type="video/mp4" />
+      </video>
 
       {/* Inner radius frame overlay — creates the concave corners effect */}
       <InnerRadius
@@ -40,7 +43,18 @@ export function HomeHero() {
               <span className="w-1.5 h-1.5 rounded-full bg-[color:var(--color-border)]" />
             </div>
           </div>
-          <div className="aspect-video bg-white/50 rounded" />
+          <div className="aspect-video rounded overflow-hidden">
+            <video
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="auto"
+              className="w-full h-full object-cover"
+            >
+              <source src="https://res.cloudinary.com/daehyxast/video/upload/v1773019481/screen_projects_at6p0o.mov" type="video/mp4" />
+            </video>
+          </div>
         </div>
       </motion.div>
 
