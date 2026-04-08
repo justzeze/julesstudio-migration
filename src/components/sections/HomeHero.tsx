@@ -99,12 +99,25 @@ export function HomeHero() {
           pointerEvents: previewOpen ? "auto" : "none",
         }}
       >
-        {/* Inner radius — top corners (where card meets top edge) */}
-        <ConcaveCorner position="br" color="rgba(230,230,230,0.77)" style={{ top: 0, left: -IR_SIZE }} />
-        <ConcaveCorner position="bl" color="rgba(230,230,230,0.77)" style={{ top: 0, right: -IR_SIZE }} />
-        {/* Inner radius — bottom corners (outside card bottom) */}
-        <ConcaveCorner position="tr" color="rgba(230,230,230,0.77)" style={{ bottom: -IR_SIZE, left: 0 }} />
-        <ConcaveCorner position="tl" color="rgba(230,230,230,0.77)" style={{ bottom: -IR_SIZE, right: 0 }} />
+        {/* Inner radius — top corners only (where card meets top edge) */}
+        <ConcaveCorner
+          position="br"
+          color="rgba(230,230,230,0.77)"
+          style={{
+            top: 0, left: -IR_SIZE,
+            backdropFilter: "blur(10px)",
+            WebkitBackdropFilter: "blur(10px)",
+          }}
+        />
+        <ConcaveCorner
+          position="bl"
+          color="rgba(230,230,230,0.77)"
+          style={{
+            top: 0, right: -IR_SIZE,
+            backdropFilter: "blur(10px)",
+            WebkitBackdropFilter: "blur(10px)",
+          }}
+        />
 
         {/* btn-teasing-wrapper — header bar, hover shows "Fermé", click closes */}
         <div
@@ -192,12 +205,9 @@ export function HomeHero() {
         }}
       >
         <div className="flex flex-col w-full h-full relative">
-          {/* Inner radius — top corners of contact card */}
+          {/* Inner radius — top corners only (where card meets edge) */}
           <ConcaveCorner position="br" color="#fff" style={{ top: 0, left: -IR_SIZE }} />
           <ConcaveCorner position="bl" color="#fff" style={{ top: 0, right: -IR_SIZE }} />
-          {/* Inner radius — bottom corners of contact card */}
-          <ConcaveCorner position="tr" color="#fff" style={{ bottom: -IR_SIZE, left: 0 }} />
-          <ConcaveCorner position="tl" color="#fff" style={{ bottom: -IR_SIZE, right: 0 }} />
 
           {/* Label row — "Contact" with bottom border */}
           <div
