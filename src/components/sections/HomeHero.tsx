@@ -120,24 +120,61 @@ export function HomeHero() {
         Aperçu
       </button>
 
-      {/* ===== SIDEBAR SOCIAL LINKS ===== */}
-      <div className="hidden md:flex absolute right-0 bottom-0 z-10 flex-col">
-        {[
-          { label: "Contact", href: "mailto:hello@julesstudio.fr" },
-          { label: "Mail", href: "mailto:hello@julesstudio.fr" },
-          { label: "Insta", href: "https://instagram.com/julesstudio.fr" },
-          { label: "Yout", href: "https://youtube.com/@julesstudioyt" },
-        ].map((link) => (
-          <a
-            key={link.label}
-            href={link.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="[writing-mode:vertical-rl] text-xs font-semibold tracking-wider text-white px-2 py-3 hover:bg-white/20 transition-colors"
+      {/* ===== CONTACT CARD (rotated 90°, fixed right) ===== */}
+      <div
+        className="hidden md:block fixed z-10"
+        style={{
+          width: "11.5rem",
+          height: "9.5vh",
+          right: "-2.8rem",
+          bottom: "14.5rem",
+          transform: "rotate(90deg)",
+          backgroundColor: "#fff",
+          borderRadius: "0 0 5px 5px",
+        }}
+      >
+        <div className="flex flex-col w-full h-full">
+          {/* Label row — "Contact" with bottom border */}
+          <div
+            className="flex items-center px-3 text-xs font-semibold tracking-wide"
+            style={{
+              borderBottom: "1px solid #c4c4c4",
+              height: "50%",
+              cursor: "default",
+            }}
           >
-            {link.label}
-          </a>
-        ))}
+            Contact
+          </div>
+
+          {/* Links row */}
+          <div className="flex items-center justify-between gap-1 px-2" style={{ height: "50%" }}>
+            <a
+              href="mailto:hello@julesstudio.fr"
+              className="text-[10px] font-medium px-2 py-1 rounded-[5px] transition-opacity hover:opacity-70"
+              style={{ backgroundImage: "linear-gradient(#c4c4c4, #f3f2f0)" }}
+            >
+              Mail
+            </a>
+            <a
+              href="https://instagram.com/julesstudio.fr"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[10px] font-medium px-2 py-1 rounded-[5px] transition-opacity hover:opacity-70"
+              style={{ backgroundImage: "linear-gradient(#c4c4c4, #f3f2f0)" }}
+            >
+              Insta
+            </a>
+            <a
+              href="https://youtube.com/@julesstudioyt"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[10px] font-medium px-2 py-1 rounded-[5px] transition-opacity hover:opacity-70"
+              style={{ backgroundImage: "linear-gradient(#c4c4c4, #f3f2f0)" }}
+            >
+              Yout
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   );
