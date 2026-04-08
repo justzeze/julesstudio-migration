@@ -11,17 +11,20 @@ export function HomeHero() {
 
   return (
     <div
-      className="fixed flex flex-col justify-center items-center overflow-hidden"
-      style={{
-        top: "0.5rem",
-        left: "0",
-        right: "0",
-        bottom: "0",
-        paddingLeft: "0.5rem",
-        paddingRight: "0.5rem",
-        borderRadius: "5px",
-      }}
+      className="fixed inset-0 bg-white"
+      style={{ top: "3.5rem" }}
     >
+      {/* v2-home-bg-wrapper — white border + rounded corners */}
+      <div
+        className="absolute overflow-hidden"
+        style={{
+          top: "0.5rem",
+          left: "0.5rem",
+          right: "0.5rem",
+          bottom: "0.5rem",
+          borderRadius: "5px",
+        }}
+      >
       {/* ===== BACKGROUND VIDEO — FULLSCREEN ===== */}
       <video
         autoPlay
@@ -29,7 +32,7 @@ export function HomeHero() {
         loop
         playsInline
         className="absolute inset-0 w-full h-full object-cover"
-        style={{ zIndex: -1, borderRadius: "5px" }}
+        style={{ zIndex: -1 }}
       >
         <source
           src="https://s3.amazonaws.com/webflow-prod-assets/697be174b8224c11c814a60e/697c72ff2f64b42254f72b34_best%20bg%20video%20V2.mp4"
@@ -186,6 +189,7 @@ export function HomeHero() {
             </a>
           </div>
         </div>
+      </div>
       </div>
     </div>
   );
