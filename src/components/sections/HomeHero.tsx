@@ -4,6 +4,44 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 
 const HEADER_H = "3.5rem";
+const IR_SIZE = 10; // inner radius size in px
+
+/**
+ * Single concave corner using radial-gradient.
+ * `position` determines which corner: tl, tr, bl, br
+ * `color` is the card's background color that "wraps" around.
+ */
+function ConcaveCorner({
+  position,
+  color,
+  style,
+}: {
+  position: "tl" | "tr" | "bl" | "br";
+  color: string;
+  style?: React.CSSProperties;
+}) {
+  const gradientOrigin = {
+    tl: "0% 0%",
+    tr: "100% 0%",
+    bl: "0% 100%",
+    br: "100% 100%",
+  }[position];
+
+  return (
+    <span
+      aria-hidden
+      style={{
+        position: "absolute",
+        width: IR_SIZE,
+        height: IR_SIZE,
+        pointerEvents: "none",
+        zIndex: 2,
+        background: `radial-gradient(circle at ${gradientOrigin}, transparent ${IR_SIZE}px, ${color} ${IR_SIZE}px)`,
+        ...style,
+      }}
+    />
+  );
+}
 
 export function HomeHero() {
   const [previewOpen, setPreviewOpen] = useState(true);
@@ -58,10 +96,16 @@ export function HomeHero() {
           WebkitBackdropFilter: "blur(10px)",
           borderBottomLeftRadius: "5px",
           borderBottomRightRadius: "5px",
-          overflow: "clip",
           pointerEvents: previewOpen ? "auto" : "none",
         }}
       >
+        {/* Inner radius — top corners (where card meets top edge) */}
+        <ConcaveCorner position="br" color="rgba(230,230,230,0.77)" style={{ top: 0, left: -IR_SIZE }} />
+        <ConcaveCorner position="bl" color="rgba(230,230,230,0.77)" style={{ top: 0, right: -IR_SIZE }} />
+        {/* Inner radius — bottom corners (outside card bottom) */}
+        <ConcaveCorner position="tr" color="rgba(230,230,230,0.77)" style={{ bottom: -IR_SIZE, left: 0 }} />
+        <ConcaveCorner position="tl" color="rgba(230,230,230,0.77)" style={{ bottom: -IR_SIZE, right: 0 }} />
+
         {/* btn-teasing-wrapper — header bar, hover shows "Fermé", click closes */}
         <div
           className="flex items-center"
@@ -147,7 +191,14 @@ export function HomeHero() {
           borderRadius: "0 0 5px 5px",
         }}
       >
-        <div className="flex flex-col w-full h-full">
+        <div className="flex flex-col w-full h-full relative">
+          {/* Inner radius — top corners of contact card */}
+          <ConcaveCorner position="br" color="#fff" style={{ top: 0, left: -IR_SIZE }} />
+          <ConcaveCorner position="bl" color="#fff" style={{ top: 0, right: -IR_SIZE }} />
+          {/* Inner radius — bottom corners of contact card */}
+          <ConcaveCorner position="tr" color="#fff" style={{ bottom: -IR_SIZE, left: 0 }} />
+          <ConcaveCorner position="tl" color="#fff" style={{ bottom: -IR_SIZE, right: 0 }} />
+
           {/* Label row — "Contact" with bottom border */}
           <div
             className="flex items-center px-3 text-xs font-semibold tracking-wide"
