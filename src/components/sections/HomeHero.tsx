@@ -29,7 +29,8 @@ export function HomeHero() {
         <div
           className="flex items-center"
           style={{
-            width: "34.5rem",
+            width: "28rem",
+            marginLeft: "6.5rem",
             height: "6vh",
             paddingLeft: "0.5rem",
             paddingRight: "0.5rem",
