@@ -10,7 +10,18 @@ export function HomeHero() {
   const [headerHovered, setHeaderHovered] = useState(false);
 
   return (
-    <div className="fixed inset-0 overflow-hidden" style={{ top: "3.5rem" }}>
+    <div
+      className="fixed flex flex-col justify-center items-center overflow-hidden"
+      style={{
+        top: "0.5rem",
+        left: "0",
+        right: "0",
+        bottom: "0",
+        paddingLeft: "0.5rem",
+        paddingRight: "0.5rem",
+        borderRadius: "5px",
+      }}
+    >
       {/* ===== BACKGROUND VIDEO — FULLSCREEN ===== */}
       <video
         autoPlay
