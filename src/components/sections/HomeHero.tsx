@@ -101,7 +101,7 @@ export function HomeHero() {
           width: "5rem",
           height: "2rem",
           bottom: "4rem",
-          left: "1rem",
+          left: "6.5rem",
           display: previewOpen ? "flex" : "none",
           border: "none",
         }}
@@ -119,7 +119,7 @@ export function HomeHero() {
           width: "5rem",
           height: "2rem",
           bottom: "4rem",
-          left: "1rem",
+          left: "6.5rem",
           display: previewOpen ? "none" : "flex",
           border: "none",
         }}
