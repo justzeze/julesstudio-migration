@@ -4,44 +4,6 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 
 const HEADER_H = "3.5rem";
-const IR_SIZE = 12; // inner radius size in px
-
-/**
- * Single concave corner using radial-gradient.
- * `position` determines which corner: tl, tr, bl, br
- * `color` is the card's background color that "wraps" around.
- */
-function ConcaveCorner({
-  position,
-  color,
-  style,
-}: {
-  position: "tl" | "tr" | "bl" | "br";
-  color: string;
-  style?: React.CSSProperties;
-}) {
-  const gradientOrigin = {
-    tl: "0% 0%",
-    tr: "100% 0%",
-    bl: "0% 100%",
-    br: "100% 100%",
-  }[position];
-
-  return (
-    <span
-      aria-hidden
-      style={{
-        position: "absolute",
-        width: IR_SIZE,
-        height: IR_SIZE,
-        pointerEvents: "none",
-        zIndex: 2,
-        background: `radial-gradient(circle at ${gradientOrigin}, transparent ${IR_SIZE}px, ${color} ${IR_SIZE}px)`,
-        ...style,
-      }}
-    />
-  );
-}
 
 export function HomeHero() {
   const [previewOpen, setPreviewOpen] = useState(true);
@@ -152,19 +114,6 @@ export function HomeHero() {
         </div>
       </motion.div>
 
-      {/* ===== INNER RADIUS — preview card top corners ===== */}
-      {/* White concave corners where card meets the top edge of wrapper */}
-      <ConcaveCorner
-        position="br"
-        color="#fff"
-        style={{ top: 0, left: `calc(6.5rem - ${IR_SIZE}px)`, zIndex: 11 }}
-      />
-      <ConcaveCorner
-        position="bl"
-        color="#fff"
-        style={{ top: 0, left: `calc(6.5rem + 28rem)`, zIndex: 11 }}
-      />
-
       {/* ===== TOGGLE BUTTON ===== */}
       {/* When card is open: hidden (close via header hover+click) */}
       {/* When card is closed: shows "Aperçu" button to reopen */}
@@ -195,13 +144,8 @@ export function HomeHero() {
           transform: "rotate(90deg)",
           backgroundColor: "#fff",
           borderRadius: "0 0 5px 5px",
-          overflow: "visible",
         }}
       >
-        {/* Inner radius — top corners of contact card */}
-        <ConcaveCorner position="br" color="#fff" style={{ top: 0, left: -IR_SIZE, zIndex: 1 }} />
-        <ConcaveCorner position="bl" color="#fff" style={{ top: 0, right: -IR_SIZE, zIndex: 1 }} />
-
         <div className="flex flex-col w-full h-full">
           {/* Label row — "Contact" with bottom border */}
           <div
