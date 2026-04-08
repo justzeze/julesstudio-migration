@@ -50,10 +50,7 @@ export function HomeHero() {
       >
         {/* btn-teasing-wrapper — header bar, hover shows "Fermé", click closes */}
         <div
-          className="flex items-center cursor-pointer"
-          onClick={() => setPreviewOpen(false)}
-          onMouseEnter={() => setHeaderHovered(true)}
-          onMouseLeave={() => setHeaderHovered(false)}
+          className="flex items-center"
           style={{
             width: "100%",
             height: "6vh",
@@ -62,7 +59,13 @@ export function HomeHero() {
           }}
         >
           <div className="flex items-center justify-between w-full h-full relative">
-            <span className="text-base font-semibold transition-opacity duration-200">
+            <span
+              className="text-base font-semibold transition-opacity duration-200 cursor-pointer"
+              style={{ padding: "0.4rem 0.6rem", borderRadius: "4px" }}
+              onClick={() => setPreviewOpen(false)}
+              onMouseEnter={() => setHeaderHovered(true)}
+              onMouseLeave={() => setHeaderHovered(false)}
+            >
               {headerHovered ? "Fermé" : "Aperçu"}
             </span>
             <div className="flex items-center gap-2">
