@@ -50,17 +50,18 @@ export function HomeHero() {
         );
       }
     } else {
-      // Tagline OUT — staggered downward, smooth
+      // Tagline OUT — years first, then words from last to first
+      if (years) {
+        gsap.to(years, { y: 20, opacity: 0, duration: 0.6, ease: "power2.inOut" });
+      }
       gsap.to(words, {
         y: 40,
         opacity: 0,
         duration: 0.8,
-        stagger: 0.08,
+        stagger: { each: 0.08, from: "end" },
+        delay: 0.15,
         ease: "power2.inOut",
       });
-      if (years) {
-        gsap.to(years, { y: 20, opacity: 0, duration: 0.6, ease: "power2.inOut" });
-      }
     }
   }, []);
 
