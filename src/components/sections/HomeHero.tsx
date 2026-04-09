@@ -30,36 +30,36 @@ export function HomeHero() {
     const years = yearsRef.current;
 
     if (show) {
-      // Tagline IN — staggered from bottom with offset
+      // Tagline IN — staggered from bottom, slow & fluid
       gsap.fromTo(
         words,
-        { y: 40, opacity: 0 },
+        { y: 50, opacity: 0 },
         {
           y: 0,
           opacity: 1,
-          duration: 0.6,
-          stagger: 0.08,
+          duration: 1.2,
+          stagger: 0.12,
           ease: "power3.out",
         }
       );
       if (years) {
         gsap.fromTo(
           years,
-          { y: 20, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.5, delay: 0.5, ease: "power3.out" }
+          { y: 30, opacity: 0 },
+          { y: 0, opacity: 1, duration: 1, delay: 0.8, ease: "power3.out" }
         );
       }
     } else {
-      // Tagline OUT — staggered upward
+      // Tagline OUT — staggered downward, smooth
       gsap.to(words, {
-        y: -30,
+        y: 40,
         opacity: 0,
-        duration: 0.4,
-        stagger: 0.05,
-        ease: "power2.in",
+        duration: 0.8,
+        stagger: 0.08,
+        ease: "power2.inOut",
       });
       if (years) {
-        gsap.to(years, { y: -15, opacity: 0, duration: 0.3, ease: "power2.in" });
+        gsap.to(years, { y: 20, opacity: 0, duration: 0.6, ease: "power2.inOut" });
       }
     }
   }, []);
@@ -125,7 +125,7 @@ export function HomeHero() {
           opacity: previewOpen ? 1 : 0,
           y: previewOpen ? 0 : -20,
         }}
-        transition={{ duration: 0.4, ease: [0.5, 0, 0, 1] }}
+        transition={{ duration: 0.9, ease: [0.4, 0, 0.2, 1] }}
         className="absolute top-0 left-0 z-10"
         style={{
           width: "28rem",
