@@ -20,6 +20,7 @@ const TAGLINE_WORDS = [
 export function HomeHero() {
   const [previewOpen, setPreviewOpen] = useState(true);
   const [headerHovered, setHeaderHovered] = useState(false);
+  const [galleryOpen, setGalleryOpen] = useState(false);
   const taglineRef = useRef<HTMLDivElement>(null);
   const yearsRef = useRef<HTMLDivElement>(null);
   const hasAnimated = useRef(false);
@@ -92,30 +93,101 @@ export function HomeHero() {
     <div
       className="fixed inset-0 bg-white top-0 md:top-[3.5rem]"
     >
-      {/* ===== MOBILE GALLERY TOP BAR ===== */}
-      <div
-        className="md:hidden fixed inset-x-0 top-0 z-[999] flex items-start justify-between"
-        style={{
-          backgroundColor: "#f3f2f0",
-          borderRadius: "5px",
-          padding: "0.5rem",
-        }}
-      >
-        <div className="flex items-center gap-2">
-          {/* Gallery icon */}
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M22 16V4c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2m-10.6-3.47l1.63 2.18l2.58-3.22a.5.5 0 0 1 .78 0l2.96 3.7c.26.33.03.81-.39.81H9a.5.5 0 0 1-.4-.8l2-2.67c.2-.26.6-.26.8 0M2 7v13c0 1.1.9 2 2 2h13c.55 0 1-.45 1-1s-.45-1-1-1H5c-.55 0-1-.45-1-1V7c0-.55-.45-1-1-1s-1 .45-1 1" />
-          </svg>
-          <span className="text-sm font-normal">Gallerie</span>
+      {/* ===== MOBILE GALLERY (project-gallery-wapper) ===== */}
+      <div className="md:hidden fixed inset-x-0 top-0 z-[999]">
+        {/* project-gallery-top-wrapper */}
+        <div
+          className="flex items-start justify-between cursor-pointer"
+          onClick={() => setGalleryOpen((v) => !v)}
+          style={{
+            backgroundColor: "#f3f2f0",
+            borderRadius: "5px",
+            padding: "0.5rem",
+          }}
+        >
+          <div className="flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M22 16V4c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2m-10.6-3.47l1.63 2.18l2.58-3.22a.5.5 0 0 1 .78 0l2.96 3.7c.26.33.03.81-.39.81H9a.5.5 0 0 1-.4-.8l2-2.67c.2-.26.6-.26.8 0M2 7v13c0 1.1.9 2 2 2h13c.55 0 1-.45 1-1s-.45-1-1-1H5c-.55 0-1-.45-1-1V7c0-.55-.45-1-1-1s-1 .45-1 1" />
+            </svg>
+            <span className="text-sm font-normal">Gallerie</span>
+          </div>
+          {/* Toggle icon: dots when closed, chevron when open */}
+          <div
+            className="flex items-center justify-center rounded-[5px]"
+            style={{
+              padding: "0.25rem",
+              ...(galleryOpen
+                ? {}
+                : { backgroundColor: "#fff", border: "1px solid #c4c4c4" }),
+            }}
+          >
+            {galleryOpen ? (
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6l-6 6z" />
+              </svg>
+            ) : (
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 32 32" fill="currentColor">
+                <circle cx="8" cy="16" r="2" />
+                <circle cx="16" cy="16" r="2" />
+                <circle cx="24" cy="16" r="2" />
+              </svg>
+            )}
+          </div>
         </div>
-        {/* 3 dots icon */}
-        <div className="flex items-center justify-center" style={{ padding: "0.25rem" }}>
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 32 32" fill="currentColor">
-            <circle cx="8" cy="16" r="2" />
-            <circle cx="16" cy="16" r="2" />
-            <circle cx="24" cy="16" r="2" />
-          </svg>
-        </div>
+
+        {/* project-gallery-bottom-wrapper (toggleable) */}
+        {galleryOpen && (
+          <div
+            className="flex flex-col items-center"
+            style={{
+              backgroundColor: "#fff",
+              borderRadius: "5px",
+              minHeight: "30vh",
+              padding: "1rem 0.5rem",
+            }}
+          >
+            {/* project-gallery-content-wrapper */}
+            <div className="flex flex-col items-center gap-4 p-2">
+              {/* project-gallery-img-wrapper */}
+              <div
+                className="overflow-clip flex items-center justify-center"
+                style={{ width: "18rem", height: "15rem" }}
+              >
+                <img
+                  src="https://cdn.prod.website-files.com/6983a7c2decf98d1d77ad954/69ab6985047d28d4eecfa2d6_Capture%20d%E2%80%99e%CC%81cran%202025-09-27%20a%CC%80%203.06.01%E2%80%AFPM.png"
+                  alt="Justzeze"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+
+              {/* project-gallery-bottom-element */}
+              <div className="flex items-center justify-between w-[80vw] flex-wrap gap-2">
+                {/* Left: project link */}
+                <a
+                  href="/gallerie-projets/justzeze"
+                  className="text-sm font-medium hover:border-b hover:border-black transition-all"
+                >
+                  Justzeze
+                </a>
+                {/* Right: number + line + tous les projets */}
+                <div className="flex items-center gap-4">
+                  <span className="text-sm font-medium">1</span>
+                  <div className="w-px h-4 bg-[#c4c4c4]" />
+                  <a
+                    href="/tous-les-projets"
+                    className="text-sm font-medium px-2 py-2 rounded-[5px] flex items-center justify-center"
+                    style={{
+                      backgroundImage: "linear-gradient(#f3f2f0, #d2d1d1 75%, #c4c4c4)",
+                      border: "1px solid #c4c4c4",
+                    }}
+                  >
+                    Tous les projets
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* v2-home-bg-wrapper — white border + rounded corners */}
