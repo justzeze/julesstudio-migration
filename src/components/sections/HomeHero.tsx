@@ -314,8 +314,8 @@ export function HomeHero() {
 
       {/* ===== TAGLINE MOBILE (static, fixed lines) ===== */}
       <div
-        className="md:hidden absolute z-10"
-        style={{ top: "40%", left: "5%", width: "85%" }}
+        className="md:hidden absolute z-10 left-1/2 -translate-x-1/2"
+        style={{ top: "40%" }}
       >
         <h1 className="text-white uppercase font-bold leading-[1.3]" style={{ fontSize: "1.25rem" }}>
           <div>STUDIO DE DESIGN</div>
