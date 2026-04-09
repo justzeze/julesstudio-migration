@@ -144,15 +144,28 @@ export function HomeHero() {
           padding: "0.5rem 0.5rem 0",
         }}
       >
-        <h1 className="text-sm font-bold uppercase text-white leading-tight">
-          Studio de Design Digital &amp; de Developpement Webflow
-        </h1>
-        <div
-          className="absolute flex flex-col items-center text-white text-[10px]"
-          style={{ right: 0, bottom: 0 }}
+        <h1
+          className="text-white uppercase font-bold leading-[1.2]"
+          style={{ fontSize: "2rem" }}
         >
-          <span>©2026</span>
-          <span>JULES STUDIO</span>
+          <span style={{ marginLeft: "-5.5rem" }}>Studio de Design</span>{" "}
+          Digital{" "}
+          <span>&amp;</span>{" "}
+          <span>de</span>{" "}
+          <span style={{ marginLeft: "-4.5rem" }}>Developpement</span>{" "}
+          <span>Webflow</span>
+        </h1>
+        {/* years-wrapper */}
+        <div
+          className="absolute flex flex-col items-center text-white text-xs"
+          style={{
+            right: 0,
+            bottom: 0,
+            padding: "0.5rem",
+          }}
+        >
+          <div>©2026</div>
+          <div>JULES STUDIO</div>
         </div>
       </div>
 
