@@ -139,17 +139,18 @@ export function HomeHero() {
           </div>
         </div>
 
-        {/* project-gallery-bottom-wrapper (toggleable) */}
-        {galleryOpen && (
-          <div
-            className="flex flex-col items-center"
-            style={{
-              backgroundColor: "#fff",
-              borderRadius: "5px",
-              minHeight: "30vh",
-              padding: "1rem 0.5rem",
-            }}
-          >
+        {/* project-gallery-bottom-wrapper (slide animation) */}
+        <div
+          className="flex flex-col items-center overflow-hidden"
+          style={{
+            backgroundColor: "#fff",
+            borderRadius: "5px",
+            maxHeight: galleryOpen ? "80vh" : "0",
+            padding: galleryOpen ? "1rem 0.5rem" : "0 0.5rem",
+            opacity: galleryOpen ? 1 : 0,
+            transition: "max-height 0.8s cubic-bezier(0.4, 0, 0.2, 1), padding 0.8s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.6s ease",
+          }}
+        >
             {/* project-gallery-content-wrapper */}
             <div className="flex flex-col items-center gap-4 p-2">
               {/* project-gallery-img-wrapper */}
@@ -191,7 +192,7 @@ export function HomeHero() {
               </div>
             </div>
           </div>
-        )}
+        </div>
       </div>
 
       {/* v2-home-bg-wrapper — white border + rounded corners */}
