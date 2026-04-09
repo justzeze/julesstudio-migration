@@ -323,7 +323,7 @@ export function HomeHero() {
           <div style={{ paddingLeft: "2.5rem" }}>DEVELOPPEMENT</div>
           <div className="flex items-center" style={{ paddingLeft: "4rem" }}>
             <span>WEBFLOW</span>
-            <span className="text-[0.55rem] font-medium ml-2 leading-tight opacity-80">©2026<br/>JULES STUDIO</span>
+            <span className="text-[0.55rem] font-medium ml-2 leading-tight opacity-80 whitespace-nowrap">©2026<br/>JULES STUDIO</span>
           </div>
         </h1>
       </div>
