@@ -139,8 +139,8 @@ export function HomeHero() {
         className="absolute z-10 flex items-center gap-2"
         style={{
           width: "20rem",
-          top: "13%",
-          left: "70%",
+          bottom: "1.5rem",
+          left: "calc(5rem + 5rem + 1.5rem)",
           padding: "0.5rem 0.5rem 0",
         }}
       >
