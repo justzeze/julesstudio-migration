@@ -311,7 +311,7 @@ export function HomeHero() {
       {/* ===== TAGLINE (GSAP animated, opposite of preview card) ===== */}
       <div
         ref={taglineRef}
-        className="absolute z-10 left-[5%] top-[40%] md:left-[70%] md:top-auto md:bottom-[1.5rem]"
+        className="absolute z-10 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 md:translate-x-0 md:translate-y-0 md:left-[70%] md:top-auto md:bottom-[1.5rem]"
         style={{
           width: "20rem",
           padding: "0.5rem 0.5rem 0",
