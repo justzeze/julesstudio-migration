@@ -193,7 +193,8 @@ export function HomeHero() {
             </div>
           </div>
         </div>
-      </div>
+
+      {/* SPACER — keep mobile gallery above video */}
 
       {/* v2-home-bg-wrapper — white border + rounded corners */}
       <div
