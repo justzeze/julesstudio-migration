@@ -312,14 +312,13 @@ export function HomeHero() {
       {/* ===== TAGLINE (GSAP animated, opposite of preview card) ===== */}
       <div
         ref={taglineRef}
-        className="absolute z-10 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 md:translate-x-0 md:translate-y-0 md:left-[70%] md:top-auto md:bottom-[1.5rem]"
+        className="absolute z-10 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 md:translate-x-0 md:translate-y-0 md:left-[70%] md:top-auto md:bottom-[1.5rem] w-[11rem] md:w-[20rem]"
         style={{
-          width: "20rem",
           padding: "0.5rem 0.5rem 0",
         }}
       >
         <h1
-          className="text-white uppercase font-bold leading-[1.2] flex flex-wrap text-xl md:text-[2rem]"
+          className="text-white uppercase font-bold leading-[1.2] flex flex-wrap text-[1rem] md:text-[2rem]"
         >
           {TAGLINE_WORDS.map((word, i) => (
             <span
