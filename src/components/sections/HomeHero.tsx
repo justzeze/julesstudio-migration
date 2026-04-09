@@ -90,12 +90,11 @@ export function HomeHero() {
 
   return (
     <div
-      className="fixed inset-0 bg-white"
-      style={{ top: "3.5rem" }}
+      className="fixed inset-0 bg-white top-0 md:top-[3.5rem]"
     >
       {/* v2-home-bg-wrapper — white border + rounded corners */}
       <div
-        className="absolute overflow-hidden bottom-[3rem] md:bottom-[0.5rem]"
+        className="absolute overflow-hidden bottom-[8rem] md:bottom-[0.5rem]"
         style={{
           top: "0.5rem",
           left: "0.5rem",
@@ -314,7 +313,7 @@ export function HomeHero() {
       <div
         className="md:hidden absolute left-[0.5rem] right-[0.5rem] grid gap-2"
         style={{
-          bottom: "0",
+          bottom: "5rem",
           gridTemplateColumns: "0.25fr 0.25fr 1fr",
           padding: "0.5rem",
         }}
