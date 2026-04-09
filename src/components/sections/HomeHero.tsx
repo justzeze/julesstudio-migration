@@ -66,14 +66,15 @@ export function HomeHero() {
   }, []);
 
   useEffect(() => {
-    // Initial state: preview open → tagline hidden
+    // Initial state: preview open → tagline hidden (desktop only)
+    const isDesktop = window.matchMedia("(min-width: 768px)").matches;
     if (!hasAnimated.current) {
       hasAnimated.current = true;
-      if (taglineRef.current) {
+      if (isDesktop && taglineRef.current) {
         const words = taglineRef.current.querySelectorAll(".tagline-word");
         gsap.set(words, { y: 40, opacity: 0 });
       }
-      if (yearsRef.current) {
+      if (isDesktop && yearsRef.current) {
         gsap.set(yearsRef.current, { y: 20, opacity: 0 });
       }
       return;
@@ -94,12 +95,11 @@ export function HomeHero() {
     >
       {/* v2-home-bg-wrapper — white border + rounded corners */}
       <div
-        className="absolute overflow-hidden"
+        className="absolute overflow-hidden bottom-[3rem] md:bottom-[0.5rem]"
         style={{
           top: "0.5rem",
           left: "0.5rem",
           right: "0.5rem",
-          bottom: "0.5rem",
           borderRadius: "5px",
         }}
       >
@@ -127,7 +127,7 @@ export function HomeHero() {
           y: previewOpen ? 0 : -20,
         }}
         transition={{ duration: 0.9, ease: [0.4, 0, 0.2, 1] }}
-        className="absolute top-0 left-0 z-10"
+        className="hidden md:block absolute top-0 left-0 z-10"
         style={{
           width: "28rem",
           marginLeft: "6.5rem",
@@ -198,7 +198,7 @@ export function HomeHero() {
       {/* home-bottom-btn-preview-on / off */}
       <button
         onClick={() => setPreviewOpen((v) => !v)}
-        className="absolute z-20 flex items-center justify-center text-sm font-medium cursor-pointer hover:-translate-y-[5px] transition-transform"
+        className="hidden md:flex absolute z-20 items-center justify-center text-sm font-medium cursor-pointer hover:-translate-y-[5px] transition-transform"
         style={{
           backgroundImage: "linear-gradient(#c4c4c4, #f3f2f0)",
           borderRadius: "5px",
@@ -215,17 +215,14 @@ export function HomeHero() {
       {/* ===== TAGLINE (GSAP animated, opposite of preview card) ===== */}
       <div
         ref={taglineRef}
-        className="absolute z-10"
+        className="absolute z-10 left-[5%] top-[40%] md:left-[70%] md:top-auto md:bottom-[1.5rem]"
         style={{
           width: "20rem",
-          bottom: "1.5rem",
-          left: "70%",
           padding: "0.5rem 0.5rem 0",
         }}
       >
         <h1
-          className="text-white uppercase font-bold leading-[1.2] flex flex-wrap"
-          style={{ fontSize: "2rem" }}
+          className="text-white uppercase font-bold leading-[1.2] flex flex-wrap text-xl md:text-[2rem]"
         >
           {TAGLINE_WORDS.map((word, i) => (
             <span
@@ -311,6 +308,51 @@ export function HomeHero() {
           </div>
         </div>
       </div>
+      </div>
+
+      {/* ===== MOBILE CONTACT ROW (below video) ===== */}
+      <div
+        className="md:hidden absolute left-[0.5rem] right-[0.5rem] grid gap-2"
+        style={{
+          bottom: "0",
+          gridTemplateColumns: "0.25fr 0.25fr 1fr",
+          padding: "0.5rem",
+        }}
+      >
+        <a
+          href="https://youtube.com/@julesstudioyt"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center justify-center text-xs font-medium py-2 rounded-[5px]"
+          style={{
+            backgroundImage: "linear-gradient(#f3f2f0, #919191 75%, #c4c4c4)",
+            border: "1px solid #c4c4c4",
+          }}
+        >
+          Yout
+        </a>
+        <a
+          href="https://instagram.com/julesstudio.fr"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center justify-center text-xs font-medium py-2 rounded-[5px]"
+          style={{
+            backgroundImage: "linear-gradient(#f3f2f0, #919191 75%, #c4c4c4)",
+            border: "1px solid #c4c4c4",
+          }}
+        >
+          Insta
+        </a>
+        <a
+          href="mailto:hello@julesstudio.fr"
+          className="flex items-center justify-center text-xs font-medium py-2 rounded-[5px]"
+          style={{
+            backgroundImage: "linear-gradient(#f3f2f0, #919191 75%, #c4c4c4)",
+            border: "1px solid #c4c4c4",
+          }}
+        >
+          Mail
+        </a>
       </div>
     </div>
   );
