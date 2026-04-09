@@ -140,7 +140,7 @@ export function HomeHero() {
         style={{
           width: "20rem",
           bottom: "1.5rem",
-          left: "calc(5rem + 5rem + 1.5rem)",
+          left: "70%",
           padding: "0.5rem 0.5rem 0",
         }}
       >
