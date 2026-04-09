@@ -7,14 +7,14 @@ import gsap from "gsap";
 const HEADER_H = "3.5rem";
 
 const TAGLINE_WORDS = [
-  { text: "Studio", ml: "-5.5rem", mlMobile: "-3rem" },
-  { text: "de", ml: undefined, mlMobile: undefined },
-  { text: "Design", ml: undefined, mlMobile: undefined },
-  { text: "Digital", ml: undefined, mlMobile: undefined },
-  { text: "&", ml: undefined, mlMobile: undefined },
-  { text: "de", ml: undefined, mlMobile: undefined },
-  { text: "Developpement", ml: "-4.5rem", mlMobile: "-2.5rem" },
-  { text: "Webflow", ml: undefined, mlMobile: undefined },
+  { text: "Studio", ml: "-5.5rem" },
+  { text: "de" },
+  { text: "Design" },
+  { text: "Digital" },
+  { text: "&" },
+  { text: "de" },
+  { text: "Developpement", ml: "-4.5rem" },
+  { text: "Webflow" },
 ];
 
 export function HomeHero() {
@@ -328,7 +328,7 @@ export function HomeHero() {
               key={i}
               className="tagline-word inline-block"
               style={{
-                marginLeft: (isMd ? word.ml : word.mlMobile) ?? undefined,
+                marginLeft: isMd ? (word.ml ?? undefined) : undefined,
                 marginRight: "0.35rem",
               }}
             >
