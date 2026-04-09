@@ -312,23 +312,42 @@ export function HomeHero() {
         {previewOpen ? "Fermé" : "Aperçu"}
       </button>
 
-      {/* ===== TAGLINE (GSAP on desktop, static on mobile) ===== */}
+      {/* ===== TAGLINE MOBILE (static, fixed lines) ===== */}
+      <div
+        className="md:hidden absolute z-10"
+        style={{ top: "40%", left: "5%", width: "85%" }}
+      >
+        <h1 className="text-white uppercase font-bold leading-[1.3]" style={{ fontSize: "1.25rem" }}>
+          <div>STUDIO DE DESIGN</div>
+          <div style={{ paddingLeft: "5rem" }}>DIGITAL &amp; DE</div>
+          <div style={{ paddingLeft: "2.5rem" }}>DEVELOPPEMENT</div>
+          <div className="flex items-center" style={{ paddingLeft: "4rem" }}>
+            <span>WEBFLOW</span>
+            <span className="text-[0.55rem] font-medium ml-2 leading-tight opacity-80">©2026<br/>JULES STUDIO</span>
+          </div>
+        </h1>
+      </div>
+
+      {/* ===== TAGLINE DESKTOP (GSAP animated) ===== */}
       <div
         ref={taglineRef}
-        className="absolute z-10 w-[11rem] md:w-[20rem] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 md:left-[70%] md:top-auto md:bottom-[1.5rem] md:translate-x-0 md:translate-y-0"
+        className="hidden md:block absolute z-10"
         style={{
+          width: "20rem",
+          bottom: "1.5rem",
+          left: "70%",
           padding: "0.5rem 0.5rem 0",
         }}
       >
         <h1
-          className="text-white uppercase font-bold leading-[1.2] flex flex-wrap text-[1rem] md:text-[2rem]"
+          className="text-white uppercase font-bold leading-[1.2] flex flex-wrap text-[2rem]"
         >
           {TAGLINE_WORDS.map((word, i) => (
             <span
               key={i}
               className="tagline-word inline-block"
               style={{
-                marginLeft: isMd ? (word.ml ?? undefined) : undefined,
+                marginLeft: word.ml ?? undefined,
                 marginRight: "0.35rem",
               }}
             >
