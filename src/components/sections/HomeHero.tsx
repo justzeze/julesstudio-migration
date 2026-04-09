@@ -84,8 +84,9 @@ export function HomeHero() {
 
   useEffect(() => {
     if (!hasAnimated.current) return;
-    // previewOpen = true → tagline disappears
-    // previewOpen = false → tagline appears
+    // Desktop only: previewOpen = true → tagline disappears, false → appears
+    const isDesktop = window.matchMedia("(min-width: 768px)").matches;
+    if (!isDesktop) return;
     animateTagline(!previewOpen);
   }, [previewOpen, animateTagline]);
 
