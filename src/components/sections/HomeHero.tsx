@@ -7,23 +7,32 @@ import gsap from "gsap";
 const HEADER_H = "3.5rem";
 
 const TAGLINE_WORDS = [
-  { text: "Studio", ml: "-5.5rem" },
-  { text: "de", ml: undefined },
-  { text: "Design", ml: undefined },
-  { text: "Digital", ml: undefined },
-  { text: "&", ml: undefined },
-  { text: "de", ml: undefined },
-  { text: "Developpement", ml: "-4.5rem" },
-  { text: "Webflow", ml: undefined },
+  { text: "Studio", ml: "-5.5rem", mlMobile: "-3rem" },
+  { text: "de", ml: undefined, mlMobile: undefined },
+  { text: "Design", ml: undefined, mlMobile: undefined },
+  { text: "Digital", ml: undefined, mlMobile: undefined },
+  { text: "&", ml: undefined, mlMobile: undefined },
+  { text: "de", ml: undefined, mlMobile: undefined },
+  { text: "Developpement", ml: "-4.5rem", mlMobile: "-2.5rem" },
+  { text: "Webflow", ml: undefined, mlMobile: undefined },
 ];
 
 export function HomeHero() {
   const [previewOpen, setPreviewOpen] = useState(true);
   const [headerHovered, setHeaderHovered] = useState(false);
   const [galleryOpen, setGalleryOpen] = useState(false);
+  const [isMd, setIsMd] = useState(false);
   const taglineRef = useRef<HTMLDivElement>(null);
   const yearsRef = useRef<HTMLDivElement>(null);
   const hasAnimated = useRef(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 768px)");
+    setIsMd(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setIsMd(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
 
   const animateTagline = useCallback((show: boolean) => {
     if (!taglineRef.current) return;
@@ -67,28 +76,22 @@ export function HomeHero() {
   }, []);
 
   useEffect(() => {
-    // Initial state: preview open → tagline hidden (desktop only)
-    const isDesktop = window.matchMedia("(min-width: 768px)").matches;
     if (!hasAnimated.current) {
       hasAnimated.current = true;
-      if (isDesktop && taglineRef.current) {
+      if (isMd && taglineRef.current) {
         const words = taglineRef.current.querySelectorAll(".tagline-word");
         gsap.set(words, { y: 40, opacity: 0 });
       }
-      if (isDesktop && yearsRef.current) {
+      if (isMd && yearsRef.current) {
         gsap.set(yearsRef.current, { y: 20, opacity: 0 });
       }
-      return;
     }
-  }, []);
+  }, [isMd]);
 
   useEffect(() => {
-    if (!hasAnimated.current) return;
-    // Desktop only: previewOpen = true → tagline disappears, false → appears
-    const isDesktop = window.matchMedia("(min-width: 768px)").matches;
-    if (!isDesktop) return;
+    if (!hasAnimated.current || !isMd) return;
     animateTagline(!previewOpen);
-  }, [previewOpen, animateTagline]);
+  }, [previewOpen, animateTagline, isMd]);
 
   return (
     <div
@@ -309,45 +312,23 @@ export function HomeHero() {
         {previewOpen ? "Fermé" : "Aperçu"}
       </button>
 
-      {/* ===== TAGLINE — MOBILE (static, centered) ===== */}
-      <div
-        className="md:hidden absolute z-10 flex flex-col items-center justify-center"
-        style={{
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          width: "11rem",
-        }}
-      >
-        <h1 className="text-white uppercase font-bold leading-[1.2] text-center text-[1rem]">
-          Studio de Design Digital &amp; de Developpement Webflow
-        </h1>
-        <div className="flex items-center gap-2 text-white text-[10px] mt-1">
-          <span>©2026</span>
-          <span>JULES STUDIO</span>
-        </div>
-      </div>
-
-      {/* ===== TAGLINE — DESKTOP (GSAP animated, opposite of preview card) ===== */}
+      {/* ===== TAGLINE (GSAP on desktop, static on mobile) ===== */}
       <div
         ref={taglineRef}
-        className="hidden md:block absolute z-10"
+        className="absolute z-10 w-[11rem] md:w-[20rem] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 md:left-[70%] md:top-auto md:bottom-[1.5rem] md:translate-x-0 md:translate-y-0"
         style={{
-          width: "20rem",
-          bottom: "1.5rem",
-          left: "70%",
           padding: "0.5rem 0.5rem 0",
         }}
       >
         <h1
-          className="text-white uppercase font-bold leading-[1.2] flex flex-wrap text-[2rem]"
+          className="text-white uppercase font-bold leading-[1.2] flex flex-wrap text-[1rem] md:text-[2rem]"
         >
           {TAGLINE_WORDS.map((word, i) => (
             <span
               key={i}
               className="tagline-word inline-block"
               style={{
-                marginLeft: word.ml ?? undefined,
+                marginLeft: (isMd ? word.ml : word.mlMobile) ?? undefined,
                 marginRight: "0.35rem",
               }}
             >
