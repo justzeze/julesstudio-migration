@@ -92,11 +92,36 @@ export function HomeHero() {
     <div
       className="fixed inset-0 bg-white top-0 md:top-[3.5rem]"
     >
+      {/* ===== MOBILE GALLERY TOP BAR ===== */}
+      <div
+        className="md:hidden fixed inset-x-0 top-0 z-[999] flex items-start justify-between"
+        style={{
+          backgroundColor: "#f3f2f0",
+          borderRadius: "5px",
+          padding: "0.5rem",
+        }}
+      >
+        <div className="flex items-center gap-2">
+          {/* Gallery icon */}
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M22 16V4c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2m-10.6-3.47l1.63 2.18l2.58-3.22a.5.5 0 0 1 .78 0l2.96 3.7c.26.33.03.81-.39.81H9a.5.5 0 0 1-.4-.8l2-2.67c.2-.26.6-.26.8 0M2 7v13c0 1.1.9 2 2 2h13c.55 0 1-.45 1-1s-.45-1-1-1H5c-.55 0-1-.45-1-1V7c0-.55-.45-1-1-1s-1 .45-1 1" />
+          </svg>
+          <span className="text-sm font-normal">Gallerie</span>
+        </div>
+        {/* 3 dots icon */}
+        <div className="flex items-center justify-center" style={{ padding: "0.25rem" }}>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 32 32" fill="currentColor">
+            <circle cx="8" cy="16" r="2" />
+            <circle cx="16" cy="16" r="2" />
+            <circle cx="24" cy="16" r="2" />
+          </svg>
+        </div>
+      </div>
+
       {/* v2-home-bg-wrapper — white border + rounded corners */}
       <div
-        className="absolute overflow-hidden bottom-[8rem] md:bottom-[0.5rem]"
+        className="absolute overflow-hidden bottom-[8rem] md:bottom-[0.5rem] top-[3rem] md:top-[0.5rem]"
         style={{
-          top: "0.5rem",
           left: "0.5rem",
           right: "0.5rem",
           borderRadius: "5px",
