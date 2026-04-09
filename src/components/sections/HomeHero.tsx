@@ -309,16 +309,38 @@ export function HomeHero() {
         {previewOpen ? "Fermé" : "Aperçu"}
       </button>
 
-      {/* ===== TAGLINE (GSAP animated, opposite of preview card) ===== */}
+      {/* ===== TAGLINE — MOBILE (static, centered) ===== */}
+      <div
+        className="md:hidden absolute z-10 flex flex-col items-center justify-center"
+        style={{
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          width: "11rem",
+        }}
+      >
+        <h1 className="text-white uppercase font-bold leading-[1.2] text-center text-[1rem]">
+          Studio de Design Digital &amp; de Developpement Webflow
+        </h1>
+        <div className="flex items-center gap-2 text-white text-[10px] mt-1">
+          <span>©2026</span>
+          <span>JULES STUDIO</span>
+        </div>
+      </div>
+
+      {/* ===== TAGLINE — DESKTOP (GSAP animated, opposite of preview card) ===== */}
       <div
         ref={taglineRef}
-        className="absolute z-10 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 md:translate-x-0 md:translate-y-0 md:left-[70%] md:top-auto md:bottom-[1.5rem] w-[11rem] md:w-[20rem]"
+        className="hidden md:block absolute z-10"
         style={{
+          width: "20rem",
+          bottom: "1.5rem",
+          left: "70%",
           padding: "0.5rem 0.5rem 0",
         }}
       >
         <h1
-          className="text-white uppercase font-bold leading-[1.2] flex flex-wrap text-[1rem] md:text-[2rem]"
+          className="text-white uppercase font-bold leading-[1.2] flex flex-wrap text-[2rem]"
         >
           {TAGLINE_WORDS.map((word, i) => (
             <span
@@ -333,7 +355,6 @@ export function HomeHero() {
             </span>
           ))}
         </h1>
-        {/* years-wrapper */}
         <div
           ref={yearsRef}
           className="absolute flex flex-col items-center text-white text-xs"
