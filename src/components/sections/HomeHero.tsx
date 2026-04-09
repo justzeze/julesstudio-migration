@@ -1,13 +1,90 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { motion } from "framer-motion";
+import gsap from "gsap";
 
 const HEADER_H = "3.5rem";
+
+const TAGLINE_WORDS = [
+  { text: "Studio", ml: "-5.5rem" },
+  { text: "de", ml: undefined },
+  { text: "Design", ml: undefined },
+  { text: "Digital", ml: undefined },
+  { text: "&", ml: undefined },
+  { text: "de", ml: undefined },
+  { text: "Developpement", ml: "-4.5rem" },
+  { text: "Webflow", ml: undefined },
+];
 
 export function HomeHero() {
   const [previewOpen, setPreviewOpen] = useState(true);
   const [headerHovered, setHeaderHovered] = useState(false);
+  const taglineRef = useRef<HTMLDivElement>(null);
+  const yearsRef = useRef<HTMLDivElement>(null);
+  const hasAnimated = useRef(false);
+
+  const animateTagline = useCallback((show: boolean) => {
+    if (!taglineRef.current) return;
+    const words = taglineRef.current.querySelectorAll(".tagline-word");
+    const years = yearsRef.current;
+
+    if (show) {
+      // Tagline IN — staggered from bottom with offset
+      gsap.fromTo(
+        words,
+        { y: 40, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.6,
+          stagger: 0.08,
+          ease: "power3.out",
+        }
+      );
+      if (years) {
+        gsap.fromTo(
+          years,
+          { y: 20, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.5, delay: 0.5, ease: "power3.out" }
+        );
+      }
+    } else {
+      // Tagline OUT — staggered upward
+      gsap.to(words, {
+        y: -30,
+        opacity: 0,
+        duration: 0.4,
+        stagger: 0.05,
+        ease: "power2.in",
+      });
+      if (years) {
+        gsap.to(years, { y: -15, opacity: 0, duration: 0.3, ease: "power2.in" });
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    // Initial state: preview open → tagline hidden
+    if (!hasAnimated.current) {
+      hasAnimated.current = true;
+      if (taglineRef.current) {
+        const words = taglineRef.current.querySelectorAll(".tagline-word");
+        gsap.set(words, { y: 40, opacity: 0 });
+      }
+      if (yearsRef.current) {
+        gsap.set(yearsRef.current, { y: 20, opacity: 0 });
+      }
+      return;
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!hasAnimated.current) return;
+    // previewOpen = true → tagline disappears
+    // previewOpen = false → tagline appears
+    animateTagline(!previewOpen);
+  }, [previewOpen, animateTagline]);
 
   return (
     <div
@@ -134,9 +211,10 @@ export function HomeHero() {
         {previewOpen ? "Fermé" : "Aperçu"}
       </button>
 
-      {/* ===== TAGLINE ===== */}
+      {/* ===== TAGLINE (GSAP animated, opposite of preview card) ===== */}
       <div
-        className="absolute z-10 flex items-center gap-2"
+        ref={taglineRef}
+        className="absolute z-10"
         style={{
           width: "20rem",
           bottom: "1.5rem",
@@ -145,18 +223,25 @@ export function HomeHero() {
         }}
       >
         <h1
-          className="text-white uppercase font-bold leading-[1.2]"
+          className="text-white uppercase font-bold leading-[1.2] flex flex-wrap"
           style={{ fontSize: "2rem" }}
         >
-          <span style={{ marginLeft: "-5.5rem" }}>Studio de Design</span>{" "}
-          Digital{" "}
-          <span>&amp;</span>{" "}
-          <span>de</span>{" "}
-          <span style={{ marginLeft: "-4.5rem" }}>Developpement</span>{" "}
-          <span>Webflow</span>
+          {TAGLINE_WORDS.map((word, i) => (
+            <span
+              key={i}
+              className="tagline-word inline-block"
+              style={{
+                marginLeft: word.ml ?? undefined,
+                marginRight: "0.35rem",
+              }}
+            >
+              {word.text}
+            </span>
+          ))}
         </h1>
         {/* years-wrapper */}
         <div
+          ref={yearsRef}
           className="absolute flex flex-col items-center text-white text-xs"
           style={{
             right: 0,
