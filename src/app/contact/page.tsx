@@ -22,7 +22,7 @@ export default function ContactPage() {
         <img
           src="/images/peace-of-mind.svg"
           alt="Illustration"
-          style={{ width: "100%", height: "auto", maxHeight: "100%", objectFit: "contain" }}
+          style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top" }}
         />
       </section>
 
