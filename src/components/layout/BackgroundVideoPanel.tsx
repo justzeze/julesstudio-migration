@@ -88,13 +88,27 @@ export function BackgroundVideoPanel({
               onMouseEnter={() => setHeaderHovered(true)}
               onMouseLeave={() => setHeaderHovered(false)}
             >
-              <span className="text-sm font-semibold">
+              <span
+                className="text-sm font-semibold"
+                style={{
+                  padding: "0.3rem 0.5rem",
+                  borderRadius: "4px",
+                  backgroundColor: headerHovered ? "rgba(0,0,0,0.08)" : "transparent",
+                  transition: "background-color 0.3s ease",
+                }}
+              >
                 {headerHovered ? "Fermé" : "Aperçu"}
               </span>
               <div className="flex items-center gap-2">
                 <span
                   className="rounded-full"
-                  style={{ width: 10, height: 10, backgroundColor: "#c4c4c4" }}
+                  style={{
+                    width: 10,
+                    height: 10,
+                    backgroundColor: "#c4c4c4",
+                    transition: "transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+                    transform: headerHovered ? "translateX(-6rem)" : "translateX(0)",
+                  }}
                 />
                 <span
                   className="rounded-full"
@@ -229,8 +243,13 @@ export function BackgroundVideoPanel({
             >
               <div className="flex items-center justify-between w-full h-full relative">
                 <span
-                  className="text-base font-semibold transition-opacity duration-200 cursor-pointer"
-                  style={{ padding: "0.4rem 0.6rem", borderRadius: "4px" }}
+                  className="text-base font-semibold cursor-pointer"
+                  style={{
+                    padding: "0.4rem 0.6rem",
+                    borderRadius: "4px",
+                    backgroundColor: headerHovered ? "rgba(0,0,0,0.08)" : "transparent",
+                    transition: "background-color 0.3s ease",
+                  }}
                   onClick={() => setPreviewOpen(false)}
                   onMouseEnter={() => setHeaderHovered(true)}
                   onMouseLeave={() => setHeaderHovered(false)}
@@ -240,7 +259,13 @@ export function BackgroundVideoPanel({
                 <div className="flex items-center gap-2">
                   <span
                     className="rounded-full"
-                    style={{ width: 12, height: 12, backgroundColor: "#c4c4c4" }}
+                    style={{
+                      width: 12,
+                      height: 12,
+                      backgroundColor: "#c4c4c4",
+                      transition: "transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+                      transform: headerHovered ? "translateX(-10rem)" : "translateX(0)",
+                    }}
                   />
                   <span
                     className="rounded-full"
