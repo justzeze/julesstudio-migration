@@ -15,11 +15,10 @@ export default function GallerieTemplate({
     if (html.classList.contains("swipe-navigating")) {
       html.classList.remove("swipe-navigating");
 
-      // Play the slide-in animation
       const el = wrapperRef.current;
       if (el) {
         el.style.animation =
-          "swipe-in-from-left 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards";
+          "swipe-in-from-left 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards";
 
         const cleanup = () => {
           el.style.animation = "";
@@ -29,5 +28,16 @@ export default function GallerieTemplate({
     }
   }, []);
 
-  return <div ref={wrapperRef}>{children}</div>;
+  return (
+    <div
+      ref={wrapperRef}
+      style={{
+        position: "relative",
+        zIndex: 10,
+        backgroundColor: "var(--color-background)",
+      }}
+    >
+      {children}
+    </div>
+  );
 }
