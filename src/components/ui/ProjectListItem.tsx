@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { SwipeLink } from "./SwipeLink";
 
 interface ProjectListItemProps {
   name: string;
@@ -62,7 +63,7 @@ export function ProjectListItem({
 
       {/* Bottom action bar */}
       <div className="flex items-center gap-3 px-4 pb-4">
-        <Link
+        <SwipeLink
           href={`/gallerie-projets/${slug}`}
           className="whitespace-nowrap text-xs font-medium no-underline text-[color:var(--color-foreground)]"
           style={{
@@ -73,7 +74,7 @@ export function ProjectListItem({
           }}
         >
           Voir le projet
-        </Link>
+        </SwipeLink>
 
         <span className="text-xs text-[color:var(--color-muted)]">{index}</span>
 

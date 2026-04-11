@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
-import { useState, useRef } from "react";
+import { useState, useRef, useCallback } from "react";
+import { useRouter } from "next/navigation";
 
 interface ProjectCardProps {
   name: string;
@@ -23,6 +23,18 @@ export function ProjectCard({
 }: ProjectCardProps) {
   const [hovered, setHovered] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const router = useRouter();
+
+  const handleSwipeClick = useCallback(
+    (e: React.MouseEvent) => {
+      e.preventDefault();
+      document.documentElement.classList.add("swipe-out");
+      setTimeout(() => {
+        router.push(`/gallerie-projets/${slug}`);
+      }, 600);
+    },
+    [router, slug]
+  );
 
   function handleMouseEnter() {
     setHovered(true);
@@ -35,8 +47,9 @@ export function ProjectCard({
   }
 
   return (
-    <Link
+    <a
       href={`/gallerie-projets/${slug}`}
+      onClick={handleSwipeClick}
       className="group block"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
@@ -79,6 +92,6 @@ export function ProjectCard({
           <p className="mt-1 text-xs text-[color:var(--color-muted)]">{task}</p>
         </div>
       </div>
-    </Link>
+    </a>
   );
 }
