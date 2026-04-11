@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Montserrat, Merriweather } from "next/font/google";
 import { Header } from "@/components/layout/Header";
 import { ConditionalFooter } from "@/components/layout/ConditionalFooter";
+import { PersistentHome } from "@/components/layout/PersistentHome";
 
 import "./globals.css";
 
@@ -39,6 +40,7 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col font-[family-name:var(--font-montserrat)]">
         <Header />
+        <PersistentHome />
         <main className="flex-1">{children}</main>
         <ConditionalFooter />
       </body>

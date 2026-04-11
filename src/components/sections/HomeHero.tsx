@@ -17,15 +17,15 @@ const TAGLINE_WORDS = [
   { text: "Webflow" },
 ];
 
-export function HomeHero() {
+export function HomeHero({ isVisible = true }: { isVisible?: boolean }) {
   const [previewOpen, setPreviewOpen] = useState(true);
   const [headerHovered, setHeaderHovered] = useState(false);
   const [galleryOpen, setGalleryOpen] = useState(false);
   const [isMd, setIsMd] = useState(false);
-  const [videoReady, setVideoReady] = useState(false);
   const taglineRef = useRef<HTMLDivElement>(null);
   const yearsRef = useRef<HTMLDivElement>(null);
   const bgVideoRef = useRef<HTMLVideoElement>(null);
+  const teasingVideoRef = useRef<HTMLVideoElement>(null);
   const hasAnimated = useRef(false);
 
   useEffect(() => {
@@ -94,6 +94,19 @@ export function HomeHero() {
     if (!hasAnimated.current || !isMd) return;
     animateTagline(!previewOpen);
   }, [previewOpen, animateTagline, isMd]);
+
+  // Pause/resume videos when visibility changes (persistent mount in layout)
+  useEffect(() => {
+    const bg = bgVideoRef.current;
+    const teasing = teasingVideoRef.current;
+    if (isVisible) {
+      bg?.play();
+      teasing?.play();
+    } else {
+      bg?.pause();
+      teasing?.pause();
+    }
+  }, [isVisible]);
 
   return (
     <div
@@ -216,13 +229,8 @@ export function HomeHero() {
         loop
         playsInline
         preload="auto"
-        onCanPlay={() => setVideoReady(true)}
         className="absolute inset-0 w-full h-full object-cover"
-        style={{
-          zIndex: -1,
-          opacity: videoReady ? 1 : 0,
-          transition: "opacity 0.3s ease-in",
-        }}
+        style={{ zIndex: -1 }}
       >
         <source
           src="https://s3.amazonaws.com/webflow-prod-assets/697be174b8224c11c814a60e/697c72ff2f64b42254f72b34_best%20bg%20video%20V2.mp4"
@@ -288,6 +296,7 @@ export function HomeHero() {
         >
           <div className="w-full h-full" style={{ borderRadius: "5px", overflow: "clip" }}>
             <video
+              ref={teasingVideoRef}
               autoPlay
               muted
               loop

@@ -1,5 +1,5 @@
-import { HomeHero } from "@/components/sections/HomeHero";
-
+// HomeHero is rendered persistently in the layout (PersistentHome)
+// so it never unmounts and the video stays loaded across navigations.
 export default function Home() {
-  return <HomeHero />;
+  return null;
 }
