@@ -24,10 +24,10 @@ export default function ContactPage() {
           borderRadius: "5px",
           backgroundColor: "var(--color-beige)",
           backgroundImage:
-            "url(https://cdn.prod.website-files.com/697be174b8224c11c814a60e/699236619f378c81f531f89d_peace%20of%20mind.svg)",
+            `url("https://cdn.prod.website-files.com/697be174b8224c11c814a60e/699236619f378c81f531f89d_peace%20of%20mind.svg")`,
           backgroundRepeat: "no-repeat",
-          backgroundSize: "31rem 100%",
-          backgroundPosition: "left 50%",
+          backgroundSize: "31rem auto",
+          backgroundPosition: "left center",
         }}
       />
 
