@@ -255,7 +255,7 @@ export default function ProjetDetailPage() {
         </div>
 
         {/* Credits + dots */}
-        <div className="flex flex-col items-center gap-4 mt-16">
+        <div className="flex flex-col md:flex-row items-center justify-center gap-4 mt-16">
           <span className="text-xs uppercase tracking-widest text-[color:var(--color-muted)]">
             {project.credits}
           </span>
@@ -289,6 +289,7 @@ export default function ProjetDetailPage() {
 
         {/* CTA Contact Card */}
         <div
+          className="md:mx-auto md:max-w-xl"
           style={{
             backgroundColor: "#f3f2f0",
             borderRadius: "5px",
