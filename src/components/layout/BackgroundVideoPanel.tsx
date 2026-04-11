@@ -94,7 +94,7 @@ export function BackgroundVideoPanel({
                   padding: "0.3rem 0.5rem",
                   borderRadius: "4px",
                   backgroundColor: headerHovered ? "rgba(0,0,0,0.08)" : "transparent",
-                  transition: "background-color 0.3s ease",
+                  transition: "background-color 0.8s ease",
                 }}
               >
                 {headerHovered ? "Fermé" : "Aperçu"}
@@ -106,8 +106,8 @@ export function BackgroundVideoPanel({
                     width: 10,
                     height: 10,
                     backgroundColor: "#c4c4c4",
-                    transition: "transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
-                    transform: headerHovered ? "translateX(-6rem)" : "translateX(0)",
+                    transition: "transform 1.2s cubic-bezier(0.4, 0, 0.2, 1)",
+                    transform: headerHovered ? "translateX(-2.5rem)" : "translateX(0)",
                   }}
                 />
                 <span
@@ -248,7 +248,7 @@ export function BackgroundVideoPanel({
                     padding: "0.4rem 0.6rem",
                     borderRadius: "4px",
                     backgroundColor: headerHovered ? "rgba(0,0,0,0.08)" : "transparent",
-                    transition: "background-color 0.3s ease",
+                    transition: "background-color 0.8s ease",
                   }}
                   onClick={() => setPreviewOpen(false)}
                   onMouseEnter={() => setHeaderHovered(true)}
@@ -263,8 +263,8 @@ export function BackgroundVideoPanel({
                       width: 12,
                       height: 12,
                       backgroundColor: "#c4c4c4",
-                      transition: "transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
-                      transform: headerHovered ? "translateX(-10rem)" : "translateX(0)",
+                      transition: "transform 1.2s cubic-bezier(0.4, 0, 0.2, 1)",
+                      transform: headerHovered ? "translateX(-4rem)" : "translateX(0)",
                     }}
                   />
                   <span

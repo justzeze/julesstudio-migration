@@ -275,7 +275,7 @@ export function HomeHero({ isVisible = true }: { isVisible?: boolean }) {
                 padding: "0.4rem 0.6rem",
                 borderRadius: "4px",
                 backgroundColor: headerHovered ? "rgba(0,0,0,0.08)" : "transparent",
-                transition: "background-color 0.3s ease",
+                transition: "background-color 0.8s ease",
               }}
               onClick={() => setPreviewOpen(false)}
               onMouseEnter={() => setHeaderHovered(true)}
@@ -290,8 +290,8 @@ export function HomeHero({ isVisible = true }: { isVisible?: boolean }) {
                   width: 12,
                   height: 12,
                   backgroundColor: "#c4c4c4",
-                  transition: "transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
-                  transform: headerHovered ? "translateX(-10rem)" : "translateX(0)",
+                  transition: "transform 1.2s cubic-bezier(0.4, 0, 0.2, 1)",
+                  transform: headerHovered ? "translateX(-4rem)" : "translateX(0)",
                 }}
               />
               <span className="rounded-full" style={{ width: 12, height: 12, backgroundColor: "#c4c4c4" }} />
