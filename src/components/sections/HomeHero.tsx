@@ -95,7 +95,7 @@ export function HomeHero() {
 
   return (
     <div
-      className="fixed inset-0 bg-white top-0 md:top-[3.5rem]"
+      className="fixed inset-0 bg-[#1a1a1a] top-0 md:top-[3.5rem]"
     >
       {/* ===== MOBILE GALLERY (project-gallery-wapper) ===== */}
       <div className="md:hidden fixed inset-x-0 top-0 z-[999]">
