@@ -16,20 +16,18 @@ export default function ContactPage() {
       {/* LEFT CONTENT PANEL */}
       <ContentPanel>
 
-      {/* contact-header-left-content-wrapper — illustration as background */}
+      {/* contact-header-left-content-wrapper */}
       <div
-        className="w-full"
-        style={{
-          height: "40vh",
-          borderRadius: "5px",
-          backgroundColor: "var(--color-beige)",
-          backgroundImage:
-            `url("https://cdn.prod.website-files.com/697be174b8224c11c814a60e/699236619f378c81f531f89d_peace%20of%20mind.svg")`,
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "31rem auto",
-          backgroundPosition: "left center",
-        }}
-      />
+        className="w-full overflow-hidden"
+        style={{ height: "40vh", borderRadius: "5px", backgroundColor: "#fff" }}
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="https://cdn.prod.website-files.com/697be174b8224c11c814a60e/699236619f378c81f531f89d_peace%20of%20mind.svg"
+          alt="Illustration"
+          className="h-full w-auto object-contain"
+        />
+      </div>
 
       {/* contact-header-intro-wrapper */}
       <section className="p-4" style={{ borderRadius: "5px", backgroundColor: "var(--color-beige)" }}>
