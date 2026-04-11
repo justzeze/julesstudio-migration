@@ -11,6 +11,7 @@ export function ConditionalFooter() {
     pathname === "/" ||
     pathname === "/studio" ||
     pathname === "/projets" ||
+    pathname === "/contact" ||
     pathname.startsWith("/gallerie-projets")
   )
     return null;

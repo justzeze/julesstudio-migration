@@ -51,10 +51,14 @@ function CalModal({ onClose }: { onClose: () => void }) {
       className="fixed inset-0 z-[9999] flex items-center justify-center"
       style={{ padding: "2rem" }}
     >
-      {/* Overlay */}
+      {/* Overlay with backdrop blur */}
       <div
         className="absolute inset-0"
-        style={{ backgroundColor: "rgba(0, 0, 0, 0.6)" }}
+        style={{
+          backgroundColor: "rgba(0, 0, 0, 0.5)",
+          backdropFilter: "blur(8px)",
+          WebkitBackdropFilter: "blur(8px)",
+        }}
         onClick={onClose}
       />
 
