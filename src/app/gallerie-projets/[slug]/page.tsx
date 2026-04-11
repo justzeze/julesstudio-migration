@@ -91,7 +91,7 @@ export default function ProjetDetailPage() {
           style={{ borderRadius: "5px" }}
         >
           <Image
-            src={project.thumbnail}
+            src="https://cdn.prod.website-files.com/697be174b8224c11c814a60e/699607a32fc661f9142d7305_Capture%20d%E2%80%99e%CC%81cran%202025-09-27%20a%CC%80%202.52.08%E2%80%AFPM.png"
             alt={project.name}
             width={1920}
             height={1080}
@@ -123,7 +123,7 @@ export default function ProjetDetailPage() {
           style={{ borderRadius: "5px" }}
         >
           <Image
-            src={project.contextImage}
+            src="https://cdn.prod.website-files.com/697be174b8224c11c814a60e/699607a32fc661f9142d7313_Capture%20d%E2%80%99e%CC%81cran%202025-10-12%20a%CC%80%207.32.12%E2%80%AFPM.png"
             alt={project.contextTitle}
             width={1920}
             height={1080}
@@ -147,17 +147,18 @@ export default function ProjetDetailPage() {
         </div>
       </section>
 
-      {/* Approche full-width image */}
+      {/* Approche full-width video */}
       <section className="px-2">
         <div
           className="w-full overflow-clip"
           style={{ borderRadius: "5px" }}
         >
-          <Image
-            src={project.approcheImage}
-            alt={project.approcheTitle}
-            width={1920}
-            height={1080}
+          <video
+            src="https://res.cloudinary.com/daehyxast/video/upload/f_auto,q_auto/v1759347982/video_preview_2_muirbu.mp4"
+            autoPlay
+            loop
+            muted
+            playsInline
             className="w-full h-auto object-cover"
           />
         </div>
