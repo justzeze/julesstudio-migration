@@ -16,14 +16,9 @@ export function SwipeLink({ href, children, className, style }: SwipeLinkProps) 
   const handleClick = useCallback(
     (e: React.MouseEvent) => {
       e.preventDefault();
-
-      // Mark the body for the swipe-out animation
-      document.documentElement.classList.add("swipe-out");
-
-      // Wait for the exit animation, then navigate
-      setTimeout(() => {
-        router.push(href);
-      }, 600);
+      // Navigate immediately — the destination page handles the enter animation
+      document.documentElement.classList.add("swipe-navigating");
+      router.push(href);
     },
     [href, router]
   );

@@ -1,27 +1,33 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 export default function GallerieTemplate({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const wrapperRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     const html = document.documentElement;
 
-    // If we arrived via swipe navigation, play the enter animation
-    if (html.classList.contains("swipe-out")) {
-      html.classList.remove("swipe-out");
-      html.classList.add("swipe-in");
+    if (html.classList.contains("swipe-navigating")) {
+      html.classList.remove("swipe-navigating");
 
-      const cleanup = setTimeout(() => {
-        html.classList.remove("swipe-in");
-      }, 800);
+      // Play the slide-in animation
+      const el = wrapperRef.current;
+      if (el) {
+        el.style.animation =
+          "swipe-in-from-left 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards";
 
-      return () => clearTimeout(cleanup);
+        const cleanup = () => {
+          el.style.animation = "";
+        };
+        el.addEventListener("animationend", cleanup, { once: true });
+      }
     }
   }, []);
 
-  return <>{children}</>;
+  return <div ref={wrapperRef}>{children}</div>;
 }

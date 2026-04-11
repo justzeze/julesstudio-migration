@@ -28,10 +28,8 @@ export function ProjectCard({
   const handleSwipeClick = useCallback(
     (e: React.MouseEvent) => {
       e.preventDefault();
-      document.documentElement.classList.add("swipe-out");
-      setTimeout(() => {
-        router.push(`/gallerie-projets/${slug}`);
-      }, 600);
+      document.documentElement.classList.add("swipe-navigating");
+      router.push(`/gallerie-projets/${slug}`);
     },
     [router, slug]
   );

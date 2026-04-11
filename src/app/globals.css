@@ -172,35 +172,10 @@ body {
 @keyframes swipe-in-from-left {
   from {
     transform: translateX(-100%);
-    opacity: 0;
   }
   to {
     transform: translateX(0);
-    opacity: 1;
   }
-}
-
-@keyframes swipe-out-to-right {
-  from {
-    transform: translateX(0);
-    opacity: 1;
-  }
-  to {
-    transform: translateX(100%);
-    opacity: 0;
-  }
-}
-
-/* Exit: current page slides out to the right */
-html.swipe-out body {
-  animation: swipe-out-to-right 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-  overflow: hidden;
-}
-
-/* Enter: new page slides in from the left */
-html.swipe-in body {
-  animation: swipe-in-from-left 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-  overflow: hidden;
 }
 
 /* ---- Scrollbar custom (for elements that show it) ---- */
