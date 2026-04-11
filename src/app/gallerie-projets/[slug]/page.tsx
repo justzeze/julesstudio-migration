@@ -41,7 +41,7 @@ export default function ProjetDetailPage() {
   return (
     <div className="w-full bg-white">
       {/* ===== SECTION 1: HERO ===== */}
-      <section style={{ padding: "6rem 3rem" }}>
+      <section className="px-5 md:px-12 pt-24 pb-12 md:pt-24 md:pb-16">
         {/* Small thumbnail */}
         <div
           className="shrink-0 overflow-clip mb-6"
@@ -85,7 +85,7 @@ export default function ProjetDetailPage() {
       </section>
 
       {/* ===== SECTION 2: Full-width background + overlay screenshot ===== */}
-      <section style={{ padding: "0 1rem" }}>
+      <section className="px-3 md:px-4">
         <div
           className="relative w-full overflow-hidden max-md:!h-[80svh]"
           style={{ height: "150svh", borderRadius: "0.5rem" }}
@@ -125,7 +125,7 @@ export default function ProjetDetailPage() {
       </section>
 
       {/* ===== SECTION 3: Context ===== */}
-      <section style={{ padding: "9rem 3rem" }}>
+      <section className="px-5 md:px-12 py-20 md:py-36">
         <div style={{ maxWidth: "30svw" }} className="max-md:!max-w-full">
           <h2
             className="font-[family-name:var(--font-merriweather)] font-bold"
@@ -140,7 +140,7 @@ export default function ProjetDetailPage() {
       </section>
 
       {/* Context full-width background + overlay screenshot */}
-      <section style={{ padding: "0 1rem" }}>
+      <section className="px-3 md:px-4">
         <div
           className="relative w-full overflow-hidden max-md:!h-[80svh]"
           style={{ height: "150svh", borderRadius: "0.5rem" }}
@@ -179,7 +179,7 @@ export default function ProjetDetailPage() {
       </section>
 
       {/* ===== SECTION 4: Approche de conception ===== */}
-      <section style={{ padding: "9rem 3rem" }}>
+      <section className="px-5 md:px-12 py-20 md:py-36">
         <div style={{ maxWidth: "30svw" }} className="max-md:!max-w-full">
           <h2
             className="font-[family-name:var(--font-merriweather)] font-bold"
@@ -194,7 +194,7 @@ export default function ProjetDetailPage() {
       </section>
 
       {/* Approche full-width background + overlay video */}
-      <section style={{ padding: "0 1rem" }}>
+      <section className="px-3 md:px-4">
         <div
           className="relative w-full overflow-hidden max-md:!h-[80svh]"
           style={{ height: "150svh", borderRadius: "0.5rem" }}
@@ -234,7 +234,7 @@ export default function ProjetDetailPage() {
       </section>
 
       {/* ===== SECTION 5: Ce que nous avons fait ===== */}
-      <section style={{ padding: "9rem 3rem" }}>
+      <section className="px-5 md:px-12 py-20 md:py-36">
         <div style={{ maxWidth: "30svw" }} className="max-md:!max-w-full">
           <h2
             className="font-[family-name:var(--font-merriweather)] font-bold mb-6"
@@ -277,7 +277,7 @@ export default function ProjetDetailPage() {
       </section>
 
       {/* ===== SECTION 6: Footer ===== */}
-      <section style={{ padding: "3rem" }}>
+      <section className="px-5 md:px-12 py-12">
         {/* Plus de projets */}
         <div className="mb-16 text-center">
           <Link
@@ -296,13 +296,13 @@ export default function ProjetDetailPage() {
 
         {/* CTA Contact Card */}
         <div
-          className="max-md:!mx-4"
+          className="max-md:!mx-0"
           style={{
             backgroundColor: "#f3f2f0",
             borderRadius: "5px",
             marginLeft: "10rem",
             marginRight: "10rem",
-            padding: "1rem",
+            padding: "1.5rem",
           }}
         >
           <h3
