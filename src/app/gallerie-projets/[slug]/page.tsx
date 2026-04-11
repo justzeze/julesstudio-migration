@@ -85,10 +85,10 @@ export default function ProjetDetailPage() {
       </section>
 
       {/* ===== SECTION 2: Full-width background + overlay screenshot ===== */}
-      <section className="px-2">
+      <section style={{ padding: "0 1rem" }}>
         <div
           className="relative w-full overflow-hidden"
-          style={{ height: "150svh", borderRadius: "0.5rem" }}
+          style={{ height: "150svh", borderRadius: "12px" }}
         >
         {/* Background image */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -140,10 +140,10 @@ export default function ProjetDetailPage() {
       </section>
 
       {/* Context full-width background + overlay screenshot */}
-      <section className="px-2">
+      <section style={{ padding: "0 1rem" }}>
         <div
           className="relative w-full overflow-hidden"
-          style={{ height: "150svh", borderRadius: "0.5rem" }}
+          style={{ height: "150svh", borderRadius: "12px" }}
         >
         {/* Background image */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -194,10 +194,10 @@ export default function ProjetDetailPage() {
       </section>
 
       {/* Approche full-width background + overlay video */}
-      <section className="px-2">
+      <section style={{ padding: "0 1rem" }}>
         <div
           className="relative w-full overflow-hidden"
-          style={{ height: "150svh", borderRadius: "0.5rem" }}
+          style={{ height: "150svh", borderRadius: "12px" }}
         >
         {/* Background image */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
