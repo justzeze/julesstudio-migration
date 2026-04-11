@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { AccordionItem } from "@/components/ui/Accordion";
 import { BackgroundVideoPanel } from "@/components/layout/BackgroundVideoPanel";
 import { ContentPanel } from "@/components/layout/ContentPanel";
+import { CalEmbed } from "@/components/ui/CalEmbed";
 
 export const metadata: Metadata = {
   title: "Contact — Réservez Votre Appel Découverte Gratuit",
@@ -17,13 +18,10 @@ export default function ContactPage() {
 
       {/* Hero */}
       <section className="p-4" style={{ borderRadius: "5px", backgroundColor: "var(--color-beige)" }}>
-        {/* Illustration placeholder */}
-        <div className="w-48 h-48 mb-8 bg-[color:var(--color-beige)] rounded-lg" />
-
         <h1 className="font-[family-name:var(--font-merriweather)] text-2xl md:text-3xl font-bold mb-4">
           Parlons de votre projet
         </h1>
-        <p className="text-sm leading-relaxed text-[color:var(--color-muted)]">
+        <p className="text-sm leading-relaxed text-[color:var(--color-muted)] mb-6">
           Vous avez un projet de site web en tête ? Écrivez-nous à{" "}
           <a
             href="mailto:hello@julesstudio.fr"
@@ -31,15 +29,21 @@ export default function ContactPage() {
           >
             hello@julesstudio.fr
           </a>{" "}
-          ou mieux encore, passez directement à l&apos;action —{" "}
-          <a
-            href="#booking"
-            className="link-hover text-[color:var(--color-foreground)] font-medium"
-          >
-            réservez votre appel découverte gratuit
-          </a>{" "}
-          de 30 min avec Charles.
+          ou mieux encore, passez directement à l&apos;action — réservez votre
+          appel découverte gratuit de 30 min avec Charles.
         </p>
+        <a
+          href="#booking"
+          className="inline-block text-sm font-medium no-underline text-[color:var(--color-foreground)]"
+          style={{
+            backgroundImage: "linear-gradient(#f3f2f0, #919191 75%, #c4c4c4)",
+            border: "1px solid #c4c4c4",
+            borderRadius: "5px",
+            padding: "0.5rem 1rem",
+          }}
+        >
+          Réserver votre appel découverte gratuit
+        </a>
       </section>
 
       {/* FAQ */}
@@ -95,25 +99,16 @@ export default function ContactPage() {
         </AccordionItem>
       </section>
 
-      {/* CTA */}
+      {/* CTA + Cal.com embed */}
       <section id="booking" className="p-4" style={{ borderRadius: "5px", backgroundColor: "var(--color-beige)" }}>
-        <div className="border-t border-[color:var(--color-border)] pt-10">
-          <h2 className="font-[family-name:var(--font-merriweather)] text-lg font-bold mb-3">
-            PRÊT À LANCER ?
-          </h2>
-          <p className="text-sm text-[color:var(--color-muted)] mb-6">
-            Réservez un appel découverte gratuit de 30 min avec Charles. On
-            parle de votre projet, sans engagement.
-          </p>
-          <a
-            href="https://calendly.com/julesstudio"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block px-6 py-3 rounded-full bg-[color:var(--color-foreground)] text-white text-xs font-medium tracking-widest hover:bg-[color:var(--color-foreground)]/90 transition-colors"
-          >
-            Réserver mon appel gratuit
-          </a>
-        </div>
+        <h2 className="font-[family-name:var(--font-merriweather)] text-lg font-bold mb-3">
+          PRÊT À LANCER ?
+        </h2>
+        <p className="text-sm text-[color:var(--color-muted)] mb-6">
+          Réservez un appel découverte gratuit de 30 min avec Charles. On
+          parle de votre projet, sans engagement.
+        </p>
+        <CalEmbed />
       </section>
 
       </ContentPanel>
