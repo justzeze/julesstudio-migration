@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { AccordionItem } from "@/components/ui/Accordion";
 import { BackgroundVideoPanel } from "@/components/layout/BackgroundVideoPanel";
 import { ContentPanel } from "@/components/layout/ContentPanel";
-import { CalEmbed } from "@/components/ui/CalEmbed";
+import { CalButton } from "@/components/ui/CalButton";
 
 export const metadata: Metadata = {
   title: "Contact — Réservez Votre Appel Découverte Gratuit",
@@ -18,10 +19,21 @@ export default function ContactPage() {
 
       {/* Hero */}
       <section className="p-4" style={{ borderRadius: "5px", backgroundColor: "var(--color-beige)" }}>
+        {/* Illustration */}
+        <div className="mb-8">
+          <Image
+            src="https://cdn.prod.website-files.com/697be174b8224c11c814a60e/69851e9889f70c94be3aa3a4_illustration%20projet.svg"
+            alt="Illustration projet"
+            width={200}
+            height={200}
+            className="w-48 h-48"
+          />
+        </div>
+
         <h1 className="font-[family-name:var(--font-merriweather)] text-2xl md:text-3xl font-bold mb-4">
           Parlons de votre projet
         </h1>
-        <p className="text-sm leading-relaxed text-[color:var(--color-muted)] mb-6">
+        <p className="text-sm leading-relaxed text-[color:var(--color-muted)]">
           Vous avez un projet de site web en tête ? Écrivez-nous à{" "}
           <a
             href="mailto:hello@julesstudio.fr"
@@ -29,21 +41,12 @@ export default function ContactPage() {
           >
             hello@julesstudio.fr
           </a>{" "}
-          ou mieux encore, passez directement à l&apos;action — réservez votre
-          appel découverte gratuit de 30 min avec Charles.
+          ou mieux encore, passez directement à l&apos;action —{" "}
+          <CalButton variant="link">
+            réservez votre appel découverte gratuit
+          </CalButton>{" "}
+          de 30 min avec Charles.
         </p>
-        <a
-          href="#booking"
-          className="inline-block text-sm font-medium no-underline text-[color:var(--color-foreground)]"
-          style={{
-            backgroundImage: "linear-gradient(#f3f2f0, #919191 75%, #c4c4c4)",
-            border: "1px solid #c4c4c4",
-            borderRadius: "5px",
-            padding: "0.5rem 1rem",
-          }}
-        >
-          Réserver votre appel découverte gratuit
-        </a>
       </section>
 
       {/* FAQ */}
@@ -99,8 +102,8 @@ export default function ContactPage() {
         </AccordionItem>
       </section>
 
-      {/* CTA + Cal.com embed */}
-      <section id="booking" className="p-4" style={{ borderRadius: "5px", backgroundColor: "var(--color-beige)" }}>
+      {/* CTA */}
+      <section className="p-4" style={{ borderRadius: "5px", backgroundColor: "var(--color-beige)" }}>
         <h2 className="font-[family-name:var(--font-merriweather)] text-lg font-bold mb-3">
           PRÊT À LANCER ?
         </h2>
@@ -108,7 +111,9 @@ export default function ContactPage() {
           Réservez un appel découverte gratuit de 30 min avec Charles. On
           parle de votre projet, sans engagement.
         </p>
-        <CalEmbed />
+        <CalButton variant="button">
+          Réserver mon appel gratuit
+        </CalButton>
       </section>
 
       </ContentPanel>
