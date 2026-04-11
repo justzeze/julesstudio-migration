@@ -17,12 +17,12 @@ export default function ContactPage() {
       <ContentPanel>
 
       {/* contact-header-intro-wrapper */}
-      <section className="p-4" style={{ borderRadius: "5px", backgroundColor: "var(--color-beige)" }}>
+      <section className="overflow-hidden" style={{ borderRadius: "5px", backgroundColor: "#fff", height: "40vh" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/images/peace-of-mind.svg"
           alt="Illustration"
-          style={{ width: "100%", height: "auto", maxHeight: "40vh", objectFit: "contain" }}
+          style={{ width: "100%", height: "100%", objectFit: "cover" }}
         />
       </section>
 
