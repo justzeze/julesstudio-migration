@@ -84,20 +84,41 @@ export default function ProjetDetailPage() {
         </p>
       </section>
 
-      {/* ===== SECTION 2: Hero full-width image ===== */}
-      <section className="px-2">
+      {/* ===== SECTION 2: Full-width background + overlay screenshot ===== */}
+      <section
+        className="relative w-full overflow-hidden"
+        style={{ height: "150svh" }}
+      >
+        {/* Background image */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="https://cdn.prod.website-files.com/697be174b8224c11c814a60e/699607a32fc661f9142d72f7_photo%20site%20bg%20hero%20main.jpeg"
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+
+        {/* Overlay screenshot */}
         <div
-          className="w-full overflow-clip"
-          style={{ borderRadius: "5px" }}
+          className="absolute z-10 flex flex-col items-center"
+          style={{
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+          }}
         >
-          <Image
-            src="https://cdn.prod.website-files.com/697be174b8224c11c814a60e/699607a32fc661f9142d7305_Capture%20d%E2%80%99e%CC%81cran%202025-09-27%20a%CC%80%202.52.08%E2%80%AFPM.png"
-            alt={project.name}
-            width={1920}
-            height={1080}
-            className="w-full h-auto object-cover"
-            priority
-          />
+          <div
+            className="overflow-clip"
+            style={{ borderRadius: "5px", width: "1030px", maxWidth: "90vw" }}
+          >
+            <Image
+              src="https://cdn.prod.website-files.com/697be174b8224c11c814a60e/699607a32fc661f9142d7305_Capture%20d%E2%80%99e%CC%81cran%202025-09-27%20a%CC%80%202.52.08%E2%80%AFPM.png"
+              alt={project.name}
+              width={1030}
+              height={580}
+              className="w-full h-auto object-cover"
+              priority
+            />
+          </div>
         </div>
       </section>
 
@@ -116,19 +137,40 @@ export default function ProjetDetailPage() {
         </div>
       </section>
 
-      {/* Context full-width image */}
-      <section className="px-2">
+      {/* Context full-width background + overlay screenshot */}
+      <section
+        className="relative w-full overflow-hidden"
+        style={{ height: "150svh" }}
+      >
+        {/* Background image */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="https://cdn.prod.website-files.com/697be174b8224c11c814a60e/699607a42fc661f9142d731c_IMG_3889.webp"
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+
+        {/* Overlay screenshot */}
         <div
-          className="w-full overflow-clip"
-          style={{ borderRadius: "5px" }}
+          className="absolute z-10 flex flex-col items-center"
+          style={{
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+          }}
         >
-          <Image
-            src="https://cdn.prod.website-files.com/697be174b8224c11c814a60e/699607a32fc661f9142d7313_Capture%20d%E2%80%99e%CC%81cran%202025-10-12%20a%CC%80%207.32.12%E2%80%AFPM.png"
-            alt={project.contextTitle}
-            width={1920}
-            height={1080}
-            className="w-full h-auto object-cover"
-          />
+          <div
+            className="overflow-clip"
+            style={{ borderRadius: "5px", width: "1030px", maxWidth: "90vw" }}
+          >
+            <Image
+              src="https://cdn.prod.website-files.com/697be174b8224c11c814a60e/699607a32fc661f9142d7313_Capture%20d%E2%80%99e%CC%81cran%202025-10-12%20a%CC%80%207.32.12%E2%80%AFPM.png"
+              alt={project.contextTitle}
+              width={1030}
+              height={580}
+              className="w-full h-auto object-cover"
+            />
+          </div>
         </div>
       </section>
 
@@ -147,20 +189,41 @@ export default function ProjetDetailPage() {
         </div>
       </section>
 
-      {/* Approche full-width video */}
-      <section className="px-2">
+      {/* Approche full-width background + overlay video */}
+      <section
+        className="relative w-full overflow-hidden"
+        style={{ height: "150svh" }}
+      >
+        {/* Background image */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="https://cdn.prod.website-files.com/697be174b8224c11c814a60e/699607a42fc661f9142d731f_IMG_3385.webp"
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+
+        {/* Overlay video */}
         <div
-          className="w-full overflow-clip"
-          style={{ borderRadius: "5px" }}
+          className="absolute z-10 flex flex-col items-center"
+          style={{
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+          }}
         >
-          <video
-            src="https://res.cloudinary.com/daehyxast/video/upload/f_auto,q_auto/v1759347982/video_preview_2_muirbu.mp4"
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="w-full h-auto object-cover"
-          />
+          <div
+            className="overflow-clip"
+            style={{ borderRadius: "5px", width: "1030px", maxWidth: "90vw" }}
+          >
+            <video
+              src="https://res.cloudinary.com/daehyxast/video/upload/f_auto,q_auto/v1759347982/video_preview_2_muirbu.mp4"
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="w-full h-auto object-cover"
+            />
+          </div>
         </div>
       </section>
 
