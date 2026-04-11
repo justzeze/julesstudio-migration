@@ -93,7 +93,7 @@ export function BackgroundVideoPanel({
                 style={{
                   padding: "0.3rem 0.5rem",
                   borderRadius: "4px",
-                  backgroundColor: headerHovered ? "rgba(0,0,0,0.08)" : "transparent",
+                  backgroundColor: headerHovered ? "rgba(0,0,0,0.14)" : "transparent",
                   transition: "background-color 0.8s ease",
                 }}
               >
@@ -152,10 +152,11 @@ export function BackgroundVideoPanel({
               }}
             >
               <div
-                className="flex justify-center items-center overflow-hidden transition-opacity duration-500"
+                className="flex justify-center items-center overflow-hidden"
                 style={{
                   gridArea: "1 / 1 / 2 / 2",
                   opacity: hoveredVideoUrl ? 1 : 0,
+                  transition: "opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1)",
                 }}
               >
                 {hoveredVideoUrl && (
@@ -247,7 +248,7 @@ export function BackgroundVideoPanel({
                   style={{
                     padding: "0.4rem 0.6rem",
                     borderRadius: "4px",
-                    backgroundColor: headerHovered ? "rgba(0,0,0,0.08)" : "transparent",
+                    backgroundColor: headerHovered ? "rgba(0,0,0,0.14)" : "transparent",
                     transition: "background-color 0.8s ease",
                   }}
                   onClick={() => setPreviewOpen(false)}

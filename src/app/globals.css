@@ -94,6 +94,23 @@ body {
   transform: rotate(90deg);
 }
 
+/* ============================================
+   STYLE GUIDE — Animation & Motion
+   All UI transitions use the same premium curve:
+   duration: 1.2s | easing: cubic-bezier(0.4, 0, 0.2, 1)
+   Exception: page transitions (handled separately)
+   ============================================ */
+
+/* ============================================
+   STYLE GUIDE — Colors
+   --color-foreground: #1b1d22 (all text)
+   --color-muted: #888a86 (secondary text)
+   --color-accent: #e87b1c (orange highlights)
+   --color-beige: #f3f2f0 (section backgrounds)
+   --color-background: #ffffff (page background)
+   Exception: tagline on home stays white
+   ============================================ */
+
 /* ---- Smooth link underlines (madebynull style) ---- */
 
 .link-hover {
@@ -111,7 +128,7 @@ body {
   background: currentColor;
   transform: scaleX(0);
   transform-origin: right;
-  transition: transform 0.5s cubic-bezier(0.7, 0, 0.88, 0.77);
+  transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .link-hover:hover::after {
@@ -139,7 +156,7 @@ body {
 .accordion-content {
   display: grid;
   grid-template-rows: 0fr;
-  transition: grid-template-rows 0.4s cubic-bezier(0.5, 0, 0, 1);
+  transition: grid-template-rows 1.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .accordion-content.open {

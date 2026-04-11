@@ -274,7 +274,7 @@ export function HomeHero({ isVisible = true }: { isVisible?: boolean }) {
               style={{
                 padding: "0.4rem 0.6rem",
                 borderRadius: "4px",
-                backgroundColor: headerHovered ? "rgba(0,0,0,0.08)" : "transparent",
+                backgroundColor: headerHovered ? "rgba(0,0,0,0.14)" : "transparent",
                 transition: "background-color 0.8s ease",
               }}
               onClick={() => setPreviewOpen(false)}

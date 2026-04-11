@@ -31,7 +31,7 @@ export function HomeGallery() {
         transition={{ duration: 0.6 }}
       >
         <Link href="/gallerie-projets/justzeze" className="group block">
-          <div className="relative overflow-hidden rounded-lg bg-[color:var(--color-beige)] transition-colors duration-300 hover:bg-white">
+          <div className="relative overflow-hidden rounded-lg bg-[color:var(--color-beige)] hover:bg-white" style={{ transition: "background-color 1.2s cubic-bezier(0.4, 0, 0.2, 1)" }}>
             <div className="flex flex-col md:flex-row gap-6 p-6">
               {/* Thumbnail */}
               <div className="relative w-full md:w-20 h-20 rounded overflow-hidden flex-shrink-0">

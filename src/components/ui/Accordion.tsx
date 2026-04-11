@@ -20,9 +20,8 @@ export function AccordionItem({ question, children }: AccordionItemProps) {
           {question}
         </span>
         <span
-          className={`text-xl transition-transform duration-300 ${
-            open ? "rotate-45" : ""
-          }`}
+          className={`text-xl ${open ? "rotate-45" : ""}`}
+          style={{ transition: "transform 1.2s cubic-bezier(0.4, 0, 0.2, 1)" }}
         >
           +
         </span>

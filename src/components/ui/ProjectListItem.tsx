@@ -30,8 +30,8 @@ export function ProjectListItem({
 }: ProjectListItemProps) {
   return (
     <div
-      className="flex flex-col gap-4 rounded-[5px] bg-[color:var(--color-beige)] transition-colors duration-100 hover:bg-white"
-      style={{ transitionTimingFunction: "cubic-bezier(.5,0,.88,.77)" }}
+      className="flex flex-col gap-4 rounded-[5px] bg-[color:var(--color-beige)] hover:bg-white"
+      style={{ transition: "background-color 1.2s cubic-bezier(0.4, 0, 0.2, 1)" }}
       onMouseEnter={() => videoUrl && onHover(videoUrl, name)}
       onMouseLeave={onLeave}
     >

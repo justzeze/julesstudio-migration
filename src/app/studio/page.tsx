@@ -183,7 +183,7 @@ export default async function StudioPage() {
             {data.ctaText}{" "}
             <a
               href={`mailto:${data.ctaEmail}`}
-              className="link-hover text-[color:var(--color-foreground)] font-medium whitespace-nowrap transition-colors duration-[600ms]"
+              className="link-hover text-[color:var(--color-foreground)] font-medium whitespace-nowrap transition-colors duration-[1.2s]"
             >
               {data.ctaEmail}
             </a>

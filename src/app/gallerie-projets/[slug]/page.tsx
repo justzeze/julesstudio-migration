@@ -72,7 +72,7 @@ export default function ProjetDetailPage() {
             href={project.liveUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="underline text-[color:var(--color-foreground)] hover:text-[color:var(--color-muted)] transition-colors duration-600"
+            className="underline text-[color:var(--color-foreground)] hover:text-[color:var(--color-muted)] transition-colors duration-[1.2s]"
           >
             voir en live
           </a>
@@ -306,7 +306,7 @@ export default function ProjetDetailPage() {
             Contactez-nous au{" "}
             <a
               href="mailto:hello@julesstudio.fr"
-              className="underline text-[color:var(--color-foreground)] hover:text-[color:var(--color-muted)] transition-colors duration-600"
+              className="underline text-[color:var(--color-foreground)] hover:text-[color:var(--color-muted)] transition-colors duration-[1.2s]"
             >
               hello@julesstudio.fr
             </a>

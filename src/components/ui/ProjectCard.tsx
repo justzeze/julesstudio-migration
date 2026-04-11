@@ -41,14 +41,15 @@ export function ProjectCard({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <div className="relative overflow-hidden rounded-lg bg-[color:var(--color-beige)] transition-colors duration-300 hover:bg-white">
+      <div className="relative overflow-hidden rounded-lg bg-[color:var(--color-beige)] hover:bg-white" style={{ transition: "background-color 1.2s cubic-bezier(0.4, 0, 0.2, 1)" }}>
         {/* Image */}
         <div className="relative aspect-[4/3] overflow-hidden">
           <Image
             src={image}
             alt={name}
             fill
-            className="object-cover transition-transform duration-700 group-hover:scale-105"
+            className="object-cover group-hover:scale-105"
+            style={{ transition: "transform 1.2s cubic-bezier(0.4, 0, 0.2, 1)" }}
           />
 
           {/* Video overlay on hover */}
@@ -59,9 +60,10 @@ export function ProjectCard({
               muted
               loop
               playsInline
-              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-400 ${
+              className={`absolute inset-0 w-full h-full object-cover ${
                 hovered ? "opacity-100" : "opacity-0"
               }`}
+              style={{ transition: "opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1)" }}
             />
           )}
         </div>

@@ -34,11 +34,12 @@ export function Header() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`text-sm font-medium tracking-wide transition-colors duration-200 ${
+                className={`text-sm font-medium tracking-wide ${
                   pathname === link.href
                     ? "text-[color:var(--color-foreground)]"
                     : "text-[color:var(--color-foreground)] hover:opacity-60"
                 }`}
+                style={{ transition: "opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1)" }}
               >
                 {link.label}
               </Link>
@@ -64,18 +65,20 @@ export function Header() {
             <div className="flex items-center gap-3">
               <Link
                 href="/studio"
-                className={`text-sm transition-colors ${
+                className={`text-sm ${
                   pathname === "/studio" ? "font-medium" : "font-normal"
                 }`}
+                style={{ transition: "color 1.2s cubic-bezier(0.4, 0, 0.2, 1)" }}
               >
                 Studio
               </Link>
               <div className="w-px h-8 bg-[#c4c4c4]" />
               <Link
                 href="/projets"
-                className={`text-sm transition-colors ${
+                className={`text-sm ${
                   pathname === "/projets" ? "font-medium" : "font-normal"
                 }`}
+                style={{ transition: "color 1.2s cubic-bezier(0.4, 0, 0.2, 1)" }}
               >
                 Projets
               </Link>
