@@ -255,7 +255,7 @@ export default function ProjetDetailPage() {
         </div>
 
         {/* Credits + dots */}
-        <div className="flex flex-col md:flex-row items-center justify-center gap-4 mt-16">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4 mt-16">
           <span className="text-xs uppercase tracking-widest text-[color:var(--color-muted)]">
             {project.credits}
           </span>
