@@ -110,7 +110,7 @@ export function HomeHero({ isVisible = true }: { isVisible?: boolean }) {
 
   return (
     <div
-      className="fixed inset-0 bg-[#1a1a1a] top-0 md:top-[3.5rem]"
+      className="fixed inset-0 bg-white top-0 md:top-[3.5rem]"
     >
       {/* ===== MOBILE GALLERY (project-gallery-wapper) ===== */}
       <div className="md:hidden fixed inset-x-0 top-0 z-[999]">
@@ -218,7 +218,6 @@ export function HomeHero({ isVisible = true }: { isVisible?: boolean }) {
           left: "0.5rem",
           right: "0.5rem",
           borderRadius: "5px",
-          backgroundColor: "#1a1a1a",
         }}
       >
       {/* ===== BACKGROUND VIDEO — FULLSCREEN ===== */}
