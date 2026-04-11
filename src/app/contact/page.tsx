@@ -16,20 +16,16 @@ export default function ContactPage() {
       {/* LEFT CONTENT PANEL */}
       <ContentPanel>
 
-      {/* contact-header-left-content-wrapper */}
-      <div
-        className="w-full overflow-hidden"
-        style={{ height: "40vh", borderRadius: "5px", backgroundColor: "#fff" }}
-      >
+      {/* contact-header-intro-wrapper */}
+      <section className="p-4" style={{ borderRadius: "5px", backgroundColor: "var(--color-beige)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/images/peace-of-mind.svg"
           alt="Illustration"
-          className="h-full w-auto object-contain"
+          style={{ width: "100%", height: "auto", maxHeight: "40vh", objectFit: "contain" }}
         />
-      </div>
+      </section>
 
-      {/* contact-header-intro-wrapper */}
       <section className="p-4" style={{ borderRadius: "5px", backgroundColor: "var(--color-beige)" }}>
         <h1 className="font-[family-name:var(--font-merriweather)] text-2xl md:text-3xl font-bold mb-4">
           Parlons de votre projet
