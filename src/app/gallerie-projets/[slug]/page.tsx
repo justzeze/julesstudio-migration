@@ -16,28 +16,22 @@ const project = {
   // Section: Context
   contextTitle: "Portfolio pour webdesigner",
   contextDescription:
-    "L'idée derrière Justzeze était de concevoir un portfolio qui reflète fidèlement l'univers créatif de son propriétaire. Chaque choix typographique, chaque animation et chaque interaction a été pensé pour servir un objectif : montrer le travail, pas juste le décorer. Un design épuré où chaque pixel a sa raison d'être.",
+    "Justzeze, projet expérimental signé Jules Studio, est un site web conçu pour un webdesigner. Chaque choix typographique, chaque animation et chaque interaction a été pensé pour servir un objectif : montrer le travail, pas juste le décorer. Un design épuré où chaque pixel a sa raison d'être.",
   contextImage:
-    "https://cdn.prod.website-files.com/6983a7c2decf98d1d77ad954/69ab6985047d28d4eecfa2d6_Capture%20d%E2%80%99e%CC%81cran%202025-09-27%20a%CC%80%203.06.01%E2%80%AFPM.png",
-  // Section: Full-width media
-  heroMediaBg:
-    "https://cdn.prod.website-files.com/697be174b8224c11c814a60e/699607a32fc661f9142d72f7_photo%20site%20bg%20hero%20main.jpeg",
-  heroVideoThumb:
-    "https://cdn.prod.website-files.com/697be174b8224c11c814a60e/699607a42fc661f9142d731c_IMG_3889.webp",
+    "https://cdn.prod.website-files.com/697be174b8224c11c814a60e/699607a32fc661f9142d7305_Capture%20d%E2%80%99e%CC%81cran%202025-09-27%20a%CC%80%202.52.08%E2%80%AFPM.png",
   // Section: Approche
   approcheTitle: "Approche de conception",
   approcheDescription:
-    "L'approche pour ce projet s'est articulée autour de trois axes : clarté visuelle, performance et expérience utilisateur. Chaque section a été conçue comme une unité autonome qui guide l'œil et raconte une histoire. Les animations sont subtiles, les transitions fluides — rien n'est là par hasard.",
+    "Chaque bloc, chaque espace, chaque mouvement a été calculé pour tenir sur une ligne fine entre esthétique et fonctionnalité. L'approche s'est articulée autour de trois axes : clarté visuelle, performance et expérience utilisateur.",
   approcheImage:
-    "https://cdn.prod.website-files.com/697be174b8224c11c814a60e/699607a42fc661f9142d731f_IMG_3385.webp",
+    "https://cdn.prod.website-files.com/697be174b8224c11c814a60e/699607a32fc661f9142d7313_Capture%20d%E2%80%99e%CC%81cran%202025-10-12%20a%CC%80%207.32.12%E2%80%AFPM.png",
   // Section: Ce que nous avons fait
   services: [
+    "Définition du cadre",
+    "Structure et hiérarchie",
     "Direction artistique",
-    "Web Design",
-    "Design Système",
-    "Intégration Webflow",
-    "Animations & Interactions",
-    "Responsive Design",
+    "Interactions et animations",
+    "Développement Webflow",
   ],
   dateMiseAJour: "Mise à jour le 14 octobre 2025",
   credits: "Justzeze par Julesstudio X Justzeze",
@@ -46,7 +40,7 @@ const project = {
 export default function ProjetDetailPage() {
   return (
     <div className="w-full bg-white">
-      {/* ===== SCREEN 1: HERO ===== */}
+      {/* ===== SECTION 1: HERO ===== */}
       <section style={{ padding: "6rem 3rem" }}>
         {/* Small thumbnail */}
         <div
@@ -90,63 +84,24 @@ export default function ProjetDetailPage() {
         </p>
       </section>
 
-      {/* ===== SCREEN 2: Full-width B&W hero media ===== */}
-      <section
-        className="relative w-full overflow-hidden"
-        style={{ height: "150svh" }}
-      >
-        {/* Background image via img for reliability */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={project.heroMediaBg}
-          alt=""
-          className="absolute inset-0 w-full h-full object-cover"
-          style={{ objectPosition: "50% 50%" }}
-        />
-
-        {/* Large overlay text — centered */}
-        <div className="absolute inset-0 flex items-center justify-center z-10">
-          <span
-            className="text-white font-black uppercase"
-            style={{
-              fontSize: "clamp(4rem, 15vw, 14rem)",
-              textShadow: "0 4px 40px rgba(0,0,0,0.3)",
-            }}
-          >
-            HELLO
-          </span>
-        </div>
-
-        {/* Project card overlay at bottom */}
+      {/* ===== SECTION 2: Hero full-width image ===== */}
+      <section className="px-2">
         <div
-          className="absolute z-10 flex flex-col items-center"
-          style={{
-            bottom: "10%",
-            left: "50%",
-            transform: "translateX(-50%)",
-          }}
+          className="w-full overflow-clip"
+          style={{ borderRadius: "5px" }}
         >
-          <div
-            className="overflow-clip"
-            style={{ borderRadius: "5px", width: "1030px", maxWidth: "90vw" }}
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={project.thumbnail}
-              alt={`${project.name} preview`}
-              className="w-full h-auto object-cover"
-            />
-          </div>
-          <span
-            className="mt-4 text-white font-black uppercase tracking-wide"
-            style={{ fontSize: "clamp(1.5rem, 4vw, 3rem)" }}
-          >
-            {project.name}
-          </span>
+          <Image
+            src={project.thumbnail}
+            alt={project.name}
+            width={1920}
+            height={1080}
+            className="w-full h-auto object-cover"
+            priority
+          />
         </div>
       </section>
 
-      {/* ===== SCREEN 3: Context section ===== */}
+      {/* ===== SECTION 3: Context ===== */}
       <section style={{ padding: "9rem 3rem" }}>
         <div style={{ maxWidth: "30svw" }} className="max-md:!max-w-full">
           <h2
@@ -161,62 +116,23 @@ export default function ProjetDetailPage() {
         </div>
       </section>
 
-      {/* Context wide image */}
+      {/* Context full-width image */}
       <section className="px-2">
         <div
           className="w-full overflow-clip"
-          style={{ borderRadius: "5px", height: "60vh" }}
+          style={{ borderRadius: "5px" }}
         >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <Image
             src={project.contextImage}
             alt={project.contextTitle}
-            className="w-full h-full object-cover"
+            width={1920}
+            height={1080}
+            className="w-full h-auto object-cover"
           />
         </div>
       </section>
 
-      {/* ===== SCREEN 4: Full-width dark media with overlay card ===== */}
-      <section
-        className="relative w-full overflow-hidden"
-        style={{ height: "150svh" }}
-      >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={project.heroVideoThumb}
-          alt=""
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-
-        <div
-          className="absolute z-10 flex flex-col items-center justify-center"
-          style={{
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-          }}
-        >
-          <div
-            className="overflow-clip"
-            style={{ borderRadius: "5px", width: "1030px", maxWidth: "90vw" }}
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={project.thumbnail}
-              alt={`${project.name} screens`}
-              className="w-full h-auto object-cover"
-            />
-          </div>
-          <span
-            className="mt-6 text-white font-black uppercase tracking-wide"
-            style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}
-          >
-            {project.name}
-          </span>
-        </div>
-      </section>
-
-      {/* ===== SCREEN 5: Approche de conception ===== */}
+      {/* ===== SECTION 4: Approche de conception ===== */}
       <section style={{ padding: "9rem 3rem" }}>
         <div style={{ maxWidth: "30svw" }} className="max-md:!max-w-full">
           <h2
@@ -232,56 +148,22 @@ export default function ProjetDetailPage() {
       </section>
 
       {/* Approche full-width image */}
-      <section className="relative w-full overflow-hidden" style={{ height: "100vh" }}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={project.approcheImage}
-          alt={project.approcheTitle}
-          className="absolute inset-0 w-full h-full object-cover"
-          style={{ objectPosition: "50% 95%" }}
-        />
-      </section>
-
-      {/* ===== SCREEN 6: Curieux d'en découvrir davantage? ===== */}
-      <section
-        className="relative w-full flex items-center justify-center overflow-hidden"
-        style={{ height: "80vh" }}
-      >
-        {/* Dark photo background */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={project.approcheImage}
-          alt=""
-          className="absolute inset-0 w-full h-full object-cover"
-          style={{ filter: "brightness(0.3)" }}
-        />
-
-        <div className="relative z-10 text-center px-6">
-          <h2
-            className="font-[family-name:var(--font-merriweather)] text-white font-bold"
-            style={{ fontSize: "clamp(1.5rem, 4vw, 3rem)" }}
-          >
-            Curieux d&apos;en découvrir davantage ?
-          </h2>
-          <div className="mt-8">
-            <a
-              href={project.liveUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block text-sm font-medium text-white no-underline transition-transform hover:-translate-y-1"
-              style={{
-                border: "1px solid rgba(255,255,255,0.3)",
-                borderRadius: "5px",
-                padding: "0.75rem 2rem",
-              }}
-            >
-              Voir le site →
-            </a>
-          </div>
+      <section className="px-2">
+        <div
+          className="w-full overflow-clip"
+          style={{ borderRadius: "5px" }}
+        >
+          <Image
+            src={project.approcheImage}
+            alt={project.approcheTitle}
+            width={1920}
+            height={1080}
+            className="w-full h-auto object-cover"
+          />
         </div>
       </section>
 
-      {/* ===== SCREEN 7: Ce que nous avons fait ===== */}
+      {/* ===== SECTION 5: Ce que nous avons fait ===== */}
       <section style={{ padding: "9rem 3rem" }}>
         <div style={{ maxWidth: "30svw" }} className="max-md:!max-w-full">
           <h2
@@ -324,7 +206,7 @@ export default function ProjetDetailPage() {
         </div>
       </section>
 
-      {/* ===== SCREEN 8: Plus de projets + CTA + Footer ===== */}
+      {/* ===== SECTION 6: Footer ===== */}
       <section style={{ padding: "3rem" }}>
         {/* Plus de projets */}
         <div className="mb-16">
@@ -344,6 +226,7 @@ export default function ProjetDetailPage() {
 
         {/* CTA Contact Card */}
         <div
+          className="max-md:!mx-4"
           style={{
             backgroundColor: "#f3f2f0",
             borderRadius: "5px",
