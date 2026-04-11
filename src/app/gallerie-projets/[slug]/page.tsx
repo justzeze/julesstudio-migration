@@ -87,7 +87,7 @@ export default function ProjetDetailPage() {
       {/* ===== SECTION 2: Full-width background + overlay screenshot ===== */}
       <section style={{ padding: "0 1rem" }}>
         <div
-          className="relative w-full overflow-hidden"
+          className="relative w-full overflow-hidden max-md:!h-[80svh]"
           style={{ height: "150svh", borderRadius: "0.5rem" }}
         >
         {/* Background image */}
@@ -142,7 +142,7 @@ export default function ProjetDetailPage() {
       {/* Context full-width background + overlay screenshot */}
       <section style={{ padding: "0 1rem" }}>
         <div
-          className="relative w-full overflow-hidden"
+          className="relative w-full overflow-hidden max-md:!h-[80svh]"
           style={{ height: "150svh", borderRadius: "0.5rem" }}
         >
         {/* Background image */}
@@ -196,7 +196,7 @@ export default function ProjetDetailPage() {
       {/* Approche full-width background + overlay video */}
       <section style={{ padding: "0 1rem" }}>
         <div
-          className="relative w-full overflow-hidden"
+          className="relative w-full overflow-hidden max-md:!h-[80svh]"
           style={{ height: "150svh", borderRadius: "0.5rem" }}
         >
         {/* Background image */}
