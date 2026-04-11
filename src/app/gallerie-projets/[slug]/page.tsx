@@ -85,10 +85,11 @@ export default function ProjetDetailPage() {
       </section>
 
       {/* ===== SECTION 2: Full-width background + overlay screenshot ===== */}
-      <section
-        className="relative w-full overflow-hidden"
-        style={{ height: "150svh" }}
-      >
+      <section className="px-2">
+        <div
+          className="relative w-full overflow-hidden"
+          style={{ height: "150svh", borderRadius: "0.5rem" }}
+        >
         {/* Background image */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
@@ -120,6 +121,7 @@ export default function ProjetDetailPage() {
             />
           </div>
         </div>
+        </div>
       </section>
 
       {/* ===== SECTION 3: Context ===== */}
@@ -138,10 +140,11 @@ export default function ProjetDetailPage() {
       </section>
 
       {/* Context full-width background + overlay screenshot */}
-      <section
-        className="relative w-full overflow-hidden"
-        style={{ height: "150svh" }}
-      >
+      <section className="px-2">
+        <div
+          className="relative w-full overflow-hidden"
+          style={{ height: "150svh", borderRadius: "0.5rem" }}
+        >
         {/* Background image */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
@@ -172,6 +175,7 @@ export default function ProjetDetailPage() {
             />
           </div>
         </div>
+        </div>
       </section>
 
       {/* ===== SECTION 4: Approche de conception ===== */}
@@ -190,10 +194,11 @@ export default function ProjetDetailPage() {
       </section>
 
       {/* Approche full-width background + overlay video */}
-      <section
-        className="relative w-full overflow-hidden"
-        style={{ height: "150svh" }}
-      >
+      <section className="px-2">
+        <div
+          className="relative w-full overflow-hidden"
+          style={{ height: "150svh", borderRadius: "0.5rem" }}
+        >
         {/* Background image */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
@@ -224,6 +229,7 @@ export default function ProjetDetailPage() {
               className="w-full h-auto object-cover"
             />
           </div>
+        </div>
         </div>
       </section>
 
