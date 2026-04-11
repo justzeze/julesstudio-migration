@@ -19,7 +19,7 @@ export default function GallerieTemplate({
       const el = wrapperRef.current;
       if (el) {
         el.style.animation =
-          "swipe-in-from-left 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards";
+          "swipe-in-from-left 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards";
 
         const cleanup = () => {
           el.style.animation = "";
