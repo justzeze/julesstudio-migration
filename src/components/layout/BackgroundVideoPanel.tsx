@@ -246,14 +246,6 @@ export function BackgroundVideoPanel({
                     className="rounded-full"
                     style={{ width: 12, height: 12, backgroundColor: "#c4c4c4" }}
                   />
-                  <span
-                    className="rounded-full ml-4"
-                    style={{
-                      width: "2rem",
-                      height: 4,
-                      backgroundColor: "rgba(0,0,0,0.15)",
-                    }}
-                  />
                 </div>
               </div>
             </div>

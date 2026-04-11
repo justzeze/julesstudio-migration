@@ -281,7 +281,6 @@ export function HomeHero({ isVisible = true }: { isVisible?: boolean }) {
             <div className="flex items-center gap-2">
               <span className="rounded-full" style={{ width: 12, height: 12, backgroundColor: "#c4c4c4" }} />
               <span className="rounded-full" style={{ width: 12, height: 12, backgroundColor: "#c4c4c4" }} />
-              <span className="rounded-full ml-4" style={{ width: "2rem", height: 4, backgroundColor: "rgba(0,0,0,0.15)" }} />
             </div>
           </div>
         </div>
