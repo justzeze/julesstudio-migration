@@ -1,22 +1,35 @@
 "use client";
 
-/**
- * Panneau vidéo background (Webflow class: v2-right-panel / Background Video)
- *
- * Présent sur toutes les pages sauf la Home (qui a son propre hero fullscreen).
- * Affiche la vidéo en boucle dans un panneau fixe à droite sur desktop.
- */
+import { useState } from "react";
+import { motion } from "framer-motion";
 
-export function BackgroundVideoPanel() {
+interface BackgroundVideoPanelProps {
+  hoveredVideoUrl?: string | null;
+  hoveredName?: string | null;
+}
+
+export function BackgroundVideoPanel({
+  hoveredVideoUrl,
+  hoveredName,
+}: BackgroundVideoPanelProps = {}) {
+  const [previewOpen, setPreviewOpen] = useState(true);
+  const [headerHovered, setHeaderHovered] = useState(false);
+
+  const isProjectsMode = hoveredVideoUrl !== undefined;
+
   return (
-    <div className="hidden md:block fixed top-0 right-0 w-1/2 h-screen z-0">
+    <div
+      className="relative mx-2 mb-[5.5rem] h-[70vh] md:mx-0 md:mb-0 md:fixed md:top-[4rem] md:right-[0.5rem] md:bottom-[0.5rem] md:w-[63%] md:h-auto z-0 overflow-hidden"
+      style={{ borderRadius: "5px" }}
+    >
+      {/* Background video */}
       <video
         autoPlay
         muted
         loop
         playsInline
         preload="auto"
-        className="w-full h-full object-cover"
+        className="absolute inset-0 w-full h-full object-cover"
         poster="https://cdn.prod.website-files.com/6983a7c2decf98d1d77ad954/69ab6985047d28d4eecfa2d6_Capture%20d%E2%80%99e%CC%81cran%202025-09-27%20a%CC%80%203.06.01%E2%80%AFPM.png"
       >
         <source
@@ -24,6 +37,336 @@ export function BackgroundVideoPanel() {
           type="video/mp4"
         />
       </video>
+
+      {/* ===== TAGLINE MOBILE ===== */}
+      <div
+        className="md:hidden absolute z-10 left-1/2 -translate-x-1/2"
+        style={{ top: "40%" }}
+      >
+        <h1
+          className="text-white uppercase font-bold leading-[1.3]"
+          style={{ fontSize: "1.25rem" }}
+        >
+          <div>STUDIO DE DESIGN</div>
+          <div style={{ paddingLeft: "5rem" }}>DIGITAL &amp; DE</div>
+          <div style={{ paddingLeft: "2.5rem" }}>DEVELOPPEMENT</div>
+          <div className="flex items-center" style={{ paddingLeft: "4rem" }}>
+            <span>WEBFLOW</span>
+            <span className="text-[0.55rem] font-medium ml-2 leading-tight opacity-80 whitespace-nowrap">
+              ©2026
+              <br />
+              JULES STUDIO
+            </span>
+          </div>
+        </h1>
+      </div>
+
+      {isProjectsMode ? (
+        <>
+          {/* ===== PROJETS MODE: v2-preview-btn-wrapper (Aperçu header) ===== */}
+          <motion.div
+            initial={false}
+            animate={{
+              opacity: previewOpen ? 1 : 0,
+              y: previewOpen ? 0 : -20,
+            }}
+            transition={{ duration: 0.9, ease: [0.4, 0, 0.2, 1] }}
+            className="hidden md:block absolute z-20"
+            style={{
+              backgroundColor: "#fff",
+              borderRadius: "5px",
+              width: "15rem",
+              top: "0.5rem",
+              left: "3rem",
+              overflow: "hidden",
+              pointerEvents: previewOpen ? "auto" : "none",
+            }}
+          >
+            <div
+              className="flex items-center justify-between w-full px-3 py-2 cursor-pointer"
+              onClick={() => setPreviewOpen(false)}
+              onMouseEnter={() => setHeaderHovered(true)}
+              onMouseLeave={() => setHeaderHovered(false)}
+            >
+              <span className="text-sm font-semibold">
+                {headerHovered ? "Fermé" : "Aperçu"}
+              </span>
+              <div className="flex items-center gap-2">
+                <span
+                  className="rounded-full"
+                  style={{ width: 10, height: 10, backgroundColor: "#c4c4c4" }}
+                />
+                <span
+                  className="rounded-full"
+                  style={{ width: 10, height: 10, backgroundColor: "#c4c4c4" }}
+                />
+              </div>
+            </div>
+          </motion.div>
+
+          {/* ===== v2-preview-wrapper ===== */}
+          <motion.div
+            initial={false}
+            animate={{
+              opacity: previewOpen ? 1 : 0,
+              y: previewOpen ? 0 : -30,
+            }}
+            transition={{ duration: 0.9, ease: [0.4, 0, 0.2, 1] }}
+            className="hidden md:flex absolute z-10 left-0 right-0 justify-center items-end overflow-clip"
+            style={{
+              backgroundColor: "#fff",
+              borderRadius: "5px",
+              width: "90%",
+              height: "80%",
+              marginTop: "4rem",
+              marginLeft: "auto",
+              marginRight: "auto",
+              top: 0,
+              pointerEvents: previewOpen ? "auto" : "none",
+            }}
+          >
+            {/* v2-preview-list — video grid overlay */}
+            <div
+              className="absolute grid"
+              style={{
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: "3rem",
+                gridTemplateRows: "1fr",
+                gridTemplateColumns: "1fr",
+              }}
+            >
+              <div
+                className="flex justify-center items-center overflow-hidden transition-opacity duration-500"
+                style={{
+                  gridArea: "1 / 1 / 2 / 2",
+                  opacity: hoveredVideoUrl ? 1 : 0,
+                }}
+              >
+                {hoveredVideoUrl && (
+                  <video
+                    key={hoveredVideoUrl}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    className="object-cover"
+                    style={{
+                      width: "80%",
+                      height: "85%",
+                      borderRadius: "5px",
+                    }}
+                  >
+                    <source src={hoveredVideoUrl} type="video/mp4" />
+                  </video>
+                )}
+              </div>
+            </div>
+
+            {/* v2-preview-text-wrapper — hint/name at bottom */}
+            <div
+              className="relative w-full shrink-0"
+              style={{ padding: "0.5rem 0.5rem 1rem 2rem" }}
+            >
+              <div
+                className="w-full mb-2"
+                style={{ height: "1px", backgroundColor: "#e5e5e5" }}
+              />
+              <span className="text-xs font-medium text-[color:var(--color-muted)]">
+                {hoveredName
+                  ? hoveredName.toLowerCase()
+                  : "Passez la souris au-dessus pour voir le projet"}
+              </span>
+            </div>
+          </motion.div>
+
+          {/* ===== Bottom "Aperçu" button — visible when card is closed ===== */}
+          <button
+            onClick={() => setPreviewOpen(true)}
+            className="hidden md:flex absolute z-20 items-center justify-center text-sm font-medium cursor-pointer hover:-translate-y-[5px] transition-transform"
+            style={{
+              backgroundImage: "linear-gradient(#c4c4c4, #f3f2f0)",
+              borderRadius: "5px",
+              width: "5rem",
+              height: "2rem",
+              bottom: "1.5rem",
+              left: "3rem",
+              border: "none",
+              opacity: previewOpen ? 0 : 1,
+              pointerEvents: previewOpen ? "none" : "auto",
+              transition: "opacity 0.4s ease, transform 0.2s ease",
+            }}
+          >
+            Aperçu
+          </button>
+        </>
+      ) : (
+        <>
+          {/* ===== STUDIO MODE: original teasing card ===== */}
+          <motion.div
+            initial={false}
+            animate={{
+              opacity: previewOpen ? 1 : 0,
+              y: previewOpen ? 0 : -20,
+            }}
+            transition={{ duration: 0.9, ease: [0.4, 0, 0.2, 1] }}
+            className="hidden md:block absolute top-0 left-0 z-10"
+            style={{
+              width: "28rem",
+              marginLeft: "6.5rem",
+              background: "rgba(230, 230, 230, 0.77)",
+              backdropFilter: "blur(10px)",
+              WebkitBackdropFilter: "blur(10px)",
+              borderBottomLeftRadius: "5px",
+              borderBottomRightRadius: "5px",
+              pointerEvents: previewOpen ? "auto" : "none",
+            }}
+          >
+            <div
+              className="flex items-center w-full px-2"
+              style={{ height: "6vh" }}
+            >
+              <div className="flex items-center justify-between w-full h-full relative">
+                <span
+                  className="text-base font-semibold transition-opacity duration-200 cursor-pointer"
+                  style={{ padding: "0.4rem 0.6rem", borderRadius: "4px" }}
+                  onClick={() => setPreviewOpen(false)}
+                  onMouseEnter={() => setHeaderHovered(true)}
+                  onMouseLeave={() => setHeaderHovered(false)}
+                >
+                  {headerHovered ? "Fermé" : "Aperçu"}
+                </span>
+                <div className="flex items-center gap-2">
+                  <span
+                    className="rounded-full"
+                    style={{ width: 12, height: 12, backgroundColor: "#c4c4c4" }}
+                  />
+                  <span
+                    className="rounded-full"
+                    style={{ width: 12, height: 12, backgroundColor: "#c4c4c4" }}
+                  />
+                  <span
+                    className="rounded-full ml-4"
+                    style={{
+                      width: "2rem",
+                      height: 4,
+                      backgroundColor: "rgba(0,0,0,0.15)",
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div style={{ height: "18.7rem", padding: "0 0.5rem 0.5rem" }}>
+              <div
+                className="w-full h-full"
+                style={{ borderRadius: "5px", overflow: "clip" }}
+              >
+                <video
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="auto"
+                  className="w-full h-full object-cover"
+                >
+                  <source
+                    src="https://res.cloudinary.com/daehyxast/video/upload/v1773019481/screen_projects_at6p0o.mov"
+                    type="video/mp4"
+                  />
+                </video>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Toggle button */}
+          <button
+            onClick={() => setPreviewOpen((v) => !v)}
+            className="hidden md:flex absolute z-20 items-center justify-center text-sm font-medium cursor-pointer hover:-translate-y-[5px] transition-transform"
+            style={{
+              backgroundImage: "linear-gradient(#c4c4c4, #f3f2f0)",
+              borderRadius: "5px",
+              width: "5rem",
+              height: "2rem",
+              bottom: "1.5rem",
+              left: "6.5rem",
+              border: "none",
+            }}
+          >
+            {previewOpen ? "Fermé" : "Aperçu"}
+          </button>
+        </>
+      )}
+
+      {/* ===== CONTACT CARD — rotated 90° (desktop only) ===== */}
+      <div
+        className="hidden md:block absolute z-10"
+        style={{
+          width: "11.5rem",
+          height: "9vh",
+          right: "-4rem",
+          bottom: "14.5rem",
+          transform: "rotate(90deg)",
+          backgroundColor: "#fff",
+          borderBottomLeftRadius: "5px",
+          borderBottomRightRadius: "5px",
+          opacity: isProjectsMode && previewOpen ? 0 : 1,
+          pointerEvents: isProjectsMode && previewOpen ? "none" : "auto",
+          transition: "opacity 0.4s ease",
+        }}
+      >
+        <div
+          className="grid h-full"
+          style={{ gridTemplateColumns: "1fr", gridTemplateRows: "auto auto" }}
+        >
+          <div
+            className="flex items-center px-2"
+            style={{ borderBottom: "1px solid #c4c4c4", cursor: "default" }}
+          >
+            <span className="text-sm font-medium">Contact</span>
+          </div>
+          <div className="flex items-center justify-between gap-4 px-2">
+            <a
+              href="mailto:hello@julesstudio.fr"
+              aria-label="Envoyer un email à Jules Studio"
+              className="text-xs font-medium px-2 py-1 no-underline text-[color:var(--color-foreground)]"
+              style={{
+                borderRadius: "5px",
+                backgroundImage: "linear-gradient(180deg, #c4c4c4, #f3f2f0)",
+              }}
+            >
+              Mail
+            </a>
+            <a
+              href="https://www.instagram.com/julesstudio.fr"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Suivre Jules Studio sur Instagram"
+              className="text-xs font-medium px-2 py-1 no-underline text-[color:var(--color-foreground)]"
+              style={{
+                borderRadius: "5px",
+                backgroundImage: "linear-gradient(180deg, #c4c4c4, #f3f2f0)",
+              }}
+            >
+              Insta
+            </a>
+            <a
+              href="https://julesstudio.fr"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Visiter le site de Jules Studio"
+              className="text-xs font-medium px-2 py-1 no-underline text-[color:var(--color-foreground)]"
+              style={{
+                borderRadius: "5px",
+                backgroundImage: "linear-gradient(180deg, #c4c4c4, #f3f2f0)",
+              }}
+            >
+              Link
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

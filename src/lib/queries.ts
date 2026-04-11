@@ -1,5 +1,31 @@
 import { sanityClient } from "./sanity";
 
+export async function getStudioPage() {
+  return sanityClient.fetch(`
+    *[_type == "studioPage"][0] {
+      heroTitle,
+      heroSubtitle,
+      "heroBackgroundImage": heroBackgroundImage.asset->url,
+      introTitle,
+      introText,
+      "teamPhotos": teamPhotos[].asset->url,
+      visionTitle,
+      visionText,
+      servicesTitle,
+      services[] { name, description },
+      teamTitle,
+      teamText,
+      valuesTitle,
+      valuesText,
+      ctaTitle,
+      ctaText,
+      ctaEmail,
+      seoTitle,
+      seoDescription
+    }
+  `);
+}
+
 export async function getAllProjects() {
   return sanityClient.fetch(`
     *[_type == "projet"] | order(numero asc) {

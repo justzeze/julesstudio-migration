@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Montserrat, Merriweather } from "next/font/google";
 import { Header } from "@/components/layout/Header";
 import { ConditionalFooter } from "@/components/layout/ConditionalFooter";
-import { SmoothScroll } from "@/components/layout/SmoothScroll";
+
 import "./globals.css";
 
 const montserrat = Montserrat({
@@ -38,7 +38,6 @@ export default function RootLayout({
       className={`${montserrat.variable} ${merriweather.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col font-[family-name:var(--font-montserrat)]">
-        <SmoothScroll />
         <Header />
         <main className="flex-1">{children}</main>
         <ConditionalFooter />

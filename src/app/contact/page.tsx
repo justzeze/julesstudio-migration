@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { AccordionItem } from "@/components/ui/Accordion";
 import { BackgroundVideoPanel } from "@/components/layout/BackgroundVideoPanel";
+import { ContentPanel } from "@/components/layout/ContentPanel";
 
 export const metadata: Metadata = {
   title: "Contact — Réservez Votre Appel Découverte Gratuit",
@@ -10,11 +11,12 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <div className="relative pt-28 pb-20">
-      <BackgroundVideoPanel />
+    <div className="flex flex-col md:flex-row">
+      {/* LEFT CONTENT PANEL */}
+      <ContentPanel>
 
       {/* Hero */}
-      <section className="relative z-10 px-6 md:px-10 md:w-1/2 mb-16">
+      <section className="p-4" style={{ borderRadius: "5px", backgroundColor: "var(--color-beige)" }}>
         {/* Illustration placeholder */}
         <div className="w-48 h-48 mb-8 bg-[color:var(--color-beige)] rounded-lg" />
 
@@ -41,7 +43,7 @@ export default function ContactPage() {
       </section>
 
       {/* FAQ */}
-      <section className="relative z-10 px-6 md:px-10 md:w-1/2 max-w-3xl">
+      <section className="p-4" style={{ borderRadius: "5px", backgroundColor: "var(--color-beige)" }}>
         <h2 className="font-[family-name:var(--font-merriweather)] text-xl font-bold mb-6">
           Questions fréquentes
         </h2>
@@ -94,7 +96,7 @@ export default function ContactPage() {
       </section>
 
       {/* CTA */}
-      <section id="booking" className="relative z-10 px-6 md:px-10 mt-16 md:w-1/2 max-w-3xl">
+      <section id="booking" className="p-4" style={{ borderRadius: "5px", backgroundColor: "var(--color-beige)" }}>
         <div className="border-t border-[color:var(--color-border)] pt-10">
           <h2 className="font-[family-name:var(--font-merriweather)] text-lg font-bold mb-3">
             PRÊT À LANCER ?
@@ -113,6 +115,11 @@ export default function ContactPage() {
           </a>
         </div>
       </section>
+
+      </ContentPanel>
+
+      {/* RIGHT PANEL */}
+      <BackgroundVideoPanel />
     </div>
   );
 }

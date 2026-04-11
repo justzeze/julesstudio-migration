@@ -1,140 +1,253 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import { getStudioPage } from "@/lib/queries";
 import { BackgroundVideoPanel } from "@/components/layout/BackgroundVideoPanel";
+import { ContentPanel } from "@/components/layout/ContentPanel";
 
-export const metadata: Metadata = {
-  title: "Notre Studio Créatif — Direction Artistique & Développement Webflow",
-  description:
-    "Jules Studio, studio de web design à Paris fondé par des passionnés de web. Direction artistique, développement Webflow, interaction design et stratégie digitale.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const data = await getStudioPage();
+  return {
+    title:
+      data?.seoTitle ??
+      "Notre Studio Créatif — Direction Artistique & Développement Webflow | Jules Studio Paris",
+    description:
+      data?.seoDescription ??
+      "Jules Studio, studio de web design à Paris fondé par des passionnés de web.",
+  };
+}
 
-const services = [
-  "Direction artistique",
-  "Stratégie digitale",
-  "Web Design",
-  "Interaction Design",
-  "CMS & Webflow Development",
-];
+export default async function StudioPage() {
+  const data = await getStudioPage();
 
-export default function StudioPage() {
+  if (!data) {
+    return <div className="p-10">Chargement…</div>;
+  }
+
   return (
-    <div className="relative pt-28 pb-20">
-      <BackgroundVideoPanel />
-
-      {/* Hero */}
-      <section className="relative z-10 px-6 md:px-10 md:w-1/2 mb-16">
-        <div className="flex flex-col gap-8">
-          {/* Title */}
-          <div>
-            <h1 className="font-[family-name:var(--font-merriweather)] text-3xl md:text-4xl font-bold text-[color:var(--color-accent)] mb-1">
-              JULES STUDIO
-            </h1>
-            <p className="text-xs tracking-widest text-[color:var(--color-muted)]">
-              PARIS 2025
-            </p>
-          </div>
-
-          {/* Portrait photo placeholder */}
-          <div className="relative w-32 h-32 rounded-full overflow-hidden bg-[color:var(--color-beige)]">
-            <Image
-              src="https://cdn.prod.website-files.com/697be174b8224c11c814a60e/placeholder-portrait.jpg"
-              alt="Jules Studio"
-              fill
-              className="object-cover"
-              unoptimized
-            />
+    <div className="flex flex-col md:flex-row">
+      {/* ===== LEFT CONTENT PANEL (v2-content-layer) ===== */}
+      <ContentPanel>
+        {/* Hero header with background SVG — studio-header-left-content-wrapper */}
+        <div
+          className="flex flex-none items-center justify-center w-full h-[40vh] md:mt-auto overflow-clip max-md:bg-[length:64rem]"
+          style={{
+            borderRadius: "5px",
+            backgroundImage: `url('/images/dream-studio.svg')`,
+            backgroundPosition: "50%",
+            backgroundSize: "55rem",
+            backgroundRepeat: "no-repeat",
+          }}
+        >
+          {/* studio-since-wrapper */}
+          <div className="flex flex-col items-center justify-center gap-2">
+            <div className="text-[1.5rem] font-bold uppercase leading-[1.4] text-[color:var(--color-accent)]">
+              {data.heroTitle}
+            </div>
+            <div className="font-semibold uppercase text-[color:var(--color-accent)]">
+              {data.heroSubtitle}
+            </div>
           </div>
         </div>
-      </section>
 
-      {/* Content sections */}
-      <div className="relative z-10 px-6 md:px-10 md:w-1/2 max-w-3xl space-y-16">
-        {/* Le Studio */}
-        <section>
-          <h2 className="font-[family-name:var(--font-merriweather)] text-xl font-bold mb-4">
-            Le Studio
-          </h2>
-          <p className="text-sm leading-relaxed text-[color:var(--color-muted)]">
-            Un site beau, c&apos;est bien. Un site qui donne envie de vous
-            choisir, c&apos;est mieux. Jules Studio est un studio de web design
-            basé à Paris, spécialisé dans la création de sites sur mesure avec
-            Webflow. Nous créons des vitrines numériques pour les marques, les
-            studios et les entreprises qui veulent se positionner haut, convertir
-            plus de visiteurs, et affirmer leur image de marque.
+        {/* Le Studio — intro section */}
+        <div
+          className="p-4"
+          style={{
+            borderRadius: "5px",
+            backgroundColor: "var(--color-beige)",
+          }}
+        >
+          <h1 className="text-2xl font-bold leading-[1.4]">
+            {data.introTitle}
+          </h1>
+          <div className="w-full pt-4" />
+          <p className="text-sm font-normal leading-relaxed text-[color:var(--color-foreground)] whitespace-pre-line">
+            {data.introText}
           </p>
-        </section>
+        </div>
+
+        {/* Team photos — horizontal scroll */}
+        <div className="p-2">
+          <div
+            className="flex items-center justify-between gap-2 overflow-auto"
+            style={{ borderRadius: "5px" }}
+          >
+            {data.teamPhotos?.map((url: string, i: number) => (
+              <Image
+                key={i}
+                src={url}
+                alt={`Jules Studio team photo ${i + 1}`}
+                width={400}
+                height={300}
+                className="w-[60%] shrink-0 object-cover"
+                style={{ borderRadius: "5px" }}
+              />
+            ))}
+          </div>
+        </div>
 
         {/* Notre Vision */}
-        <section>
-          <h2 className="font-[family-name:var(--font-merriweather)] text-xl font-bold mb-4">
-            Notre Vision
+        <div
+          className="p-4"
+          style={{
+            borderRadius: "5px",
+            backgroundColor: "var(--color-beige)",
+          }}
+        >
+          <h2 className="text-2xl font-bold leading-[1.4]">
+            {data.visionTitle}
           </h2>
-          <p className="text-sm leading-relaxed text-[color:var(--color-muted)]">
-            Votre site ne doit pas juste exister. Il doit convaincre. Chaque
-            pixel est pensé pour votre positionnement, votre crédibilité, et
-            la conversion de vos visiteurs. Pas de design gratuit. Pas de
-            blabla. Pas de site joli mais inutile.
+          <div className="w-full pt-4" />
+          <p className="text-sm font-normal leading-relaxed text-[color:var(--color-foreground)] whitespace-pre-line">
+            {data.visionText}
           </p>
-        </section>
+        </div>
 
         {/* Nos Services */}
-        <section>
-          <h2 className="font-[family-name:var(--font-merriweather)] text-xl font-bold mb-4">
-            Nos Services
-          </h2>
-          <ul className="space-y-2">
-            {services.map((service) => (
-              <li
-                key={service}
-                className="text-sm text-[color:var(--color-muted)] flex items-center gap-3"
-              >
-                <span className="w-1 h-1 rounded-full bg-[color:var(--color-accent)]" />
-                {service}
-              </li>
-            ))}
-          </ul>
-        </section>
-
-        {/* Nos Équipes */}
-        <section>
-          <h2 className="font-[family-name:var(--font-merriweather)] text-xl font-bold mb-4">
-            Nos Équipes
-          </h2>
-          <p className="text-sm leading-relaxed text-[color:var(--color-muted)]">
-            Jules Studio a été créé par un couple de geeks. Sous la tutelle de
-            John, c&apos;est Charles qui mène le design et le développement.
-            Nous faisons appel à des partenaires créatifs selon les projets.
+        <div
+          className="p-4"
+          style={{
+            borderRadius: "5px",
+            backgroundColor: "var(--color-beige)",
+          }}
+        >
+          <h3 className="text-2xl font-bold leading-[1.4]">
+            {data.servicesTitle}
+          </h3>
+          <div className="w-full pt-4" />
+          <p className="text-sm font-normal leading-relaxed text-[color:var(--color-foreground)]">
+            Nous concevons des expériences digitales complètes :
           </p>
-        </section>
+          <div className="mt-4 space-y-3">
+            {data.services?.map(
+              (s: { name: string; description: string }, i: number) => (
+                <div key={i}>
+                  <p className="text-sm text-[color:var(--color-foreground)]">
+                    <strong>{s.name}</strong>
+                    <br />
+                    {s.description}
+                  </p>
+                </div>
+              )
+            )}
+          </div>
+        </div>
+
+        {/* Nos Equipes */}
+        <div
+          className="p-4"
+          style={{
+            borderRadius: "5px",
+            backgroundColor: "var(--color-beige)",
+          }}
+        >
+          <h3 className="text-2xl font-bold leading-[1.4]">
+            {data.teamTitle}
+          </h3>
+          <div className="w-full pt-4" />
+          <p className="text-sm font-normal leading-relaxed text-[color:var(--color-foreground)]">
+            {data.teamText}
+          </p>
+        </div>
 
         {/* Valeurs */}
-        <section>
-          <h2 className="font-[family-name:var(--font-merriweather)] text-xl font-bold mb-4">
-            Valeurs
-          </h2>
-          <p className="text-sm leading-relaxed text-[color:var(--color-muted)]">
-            Avant d&apos;être un studio, Jules Studio à Paris est un studio à
-            taille humaine. Pas de commercial entre nous. Chaque projet est
-            unique, jamais de template, jamais de compromis.
+        <div
+          className="p-4"
+          style={{
+            borderRadius: "5px",
+            backgroundColor: "var(--color-beige)",
+          }}
+        >
+          <h3 className="text-2xl font-bold leading-[1.4]">
+            <strong>{data.valuesTitle}</strong>
+          </h3>
+          <div className="w-full pt-4" />
+          <p className="text-sm font-normal leading-relaxed text-[color:var(--color-foreground)]">
+            {data.valuesText}
           </p>
-        </section>
+        </div>
 
-        {/* CTA */}
-        <section>
-          <h2 className="font-[family-name:var(--font-merriweather)] text-xl font-bold mb-4">
-            Contactez-nous
-          </h2>
-          <p className="text-sm text-[color:var(--color-muted)]">
-            Parlez-nous de votre projet, écrivez-nous à{" "}
+        {/* Contactez-nous */}
+        <div
+          className="p-4"
+          style={{
+            borderRadius: "5px",
+            backgroundColor: "var(--color-beige)",
+          }}
+        >
+          <h3 className="text-2xl font-bold leading-[1.4]">
+            {data.ctaTitle}
+          </h3>
+          <div className="w-full pt-4" />
+          <p className="text-sm font-normal leading-relaxed text-[color:var(--color-foreground)]">
+            {data.ctaText}{" "}
             <a
-              href="mailto:hello@julesstudio.fr"
-              className="link-hover text-[color:var(--color-foreground)] font-medium"
+              href={`mailto:${data.ctaEmail}`}
+              className="link-hover text-[color:var(--color-foreground)] font-medium whitespace-nowrap transition-colors duration-[600ms]"
             >
-              hello@julesstudio.fr
+              {data.ctaEmail}
             </a>
           </p>
-        </section>
-      </div>
+        </div>
+
+        {/* Spacers */}
+        <div className="pt-4" />
+        <div className="pt-12" />
+        <div className="pt-12" />
+        <div className="pt-12" />
+
+        {/* Tagline */}
+        <div className="flex-1 text-center">
+          <div className="text-sm font-normal text-[color:var(--color-muted)]">
+            #CREATAMAZINGEVERYWHEREANYTIME
+          </div>
+        </div>
+
+        {/* Footer inline */}
+        <div className="pt-12" />
+        <div className="pt-12" />
+
+        <div className="flex flex-col items-center gap-8 p-2">
+          <div className="h-60 flex items-center">
+            <span
+              className="text-4xl font-black text-[color:var(--color-accent)]"
+              style={{
+                fontFamily: "'Palatino Linotype', Palatino, serif",
+                transform: "scale3d(1, 4.5, 1)",
+              }}
+            >
+              JULESSTUDIO
+            </span>
+          </div>
+
+          <div className="flex items-center justify-end gap-2 w-full -mt-18 px-2">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="text-[color:var(--color-muted)]"
+            >
+              <circle cx="12" cy="12" r="10" />
+              <path d="M14.83 14.83a4 4 0 1 1 0-5.66" />
+            </svg>
+            <span className="text-sm font-light text-[color:var(--color-foreground)]">
+              2026 JULESSTUDIO
+            </span>
+          </div>
+        </div>
+
+        <div className="pt-12" />
+        <div className="pt-12" />
+      </ContentPanel>
+
+      {/* ===== RIGHT PANEL (v2-right-panel) ===== */}
+      <BackgroundVideoPanel />
     </div>
   );
 }
