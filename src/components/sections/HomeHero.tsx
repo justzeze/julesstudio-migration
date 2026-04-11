@@ -22,8 +22,10 @@ export function HomeHero() {
   const [headerHovered, setHeaderHovered] = useState(false);
   const [galleryOpen, setGalleryOpen] = useState(false);
   const [isMd, setIsMd] = useState(false);
+  const [videoReady, setVideoReady] = useState(false);
   const taglineRef = useRef<HTMLDivElement>(null);
   const yearsRef = useRef<HTMLDivElement>(null);
+  const bgVideoRef = useRef<HTMLVideoElement>(null);
   const hasAnimated = useRef(false);
 
   useEffect(() => {
@@ -203,16 +205,24 @@ export function HomeHero() {
           left: "0.5rem",
           right: "0.5rem",
           borderRadius: "5px",
+          backgroundColor: "#1a1a1a",
         }}
       >
       {/* ===== BACKGROUND VIDEO — FULLSCREEN ===== */}
       <video
+        ref={bgVideoRef}
         autoPlay
         muted
         loop
         playsInline
+        preload="auto"
+        onCanPlay={() => setVideoReady(true)}
         className="absolute inset-0 w-full h-full object-cover"
-        style={{ zIndex: -1 }}
+        style={{
+          zIndex: -1,
+          opacity: videoReady ? 1 : 0,
+          transition: "opacity 0.3s ease-in",
+        }}
       >
         <source
           src="https://s3.amazonaws.com/webflow-prod-assets/697be174b8224c11c814a60e/697c72ff2f64b42254f72b34_best%20bg%20video%20V2.mp4"
