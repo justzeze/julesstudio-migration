@@ -254,23 +254,16 @@ export default function ProjetDetailPage() {
           </ul>
         </div>
 
-        {/* Gradient bar */}
-        <div
-          className="mt-12"
-          style={{
-            height: "4px",
-            borderRadius: "2px",
-            backgroundImage:
-              "linear-gradient(90deg, var(--color-accent), #f3f2f0)",
-          }}
-        />
-
-        {/* Credits line */}
-        <div className="flex items-center justify-between mt-6">
-          <span className="text-xs text-[color:var(--color-muted)]">
+        {/* Credits + dots */}
+        <div className="flex flex-col items-center gap-4 mt-16">
+          <span className="text-xs uppercase tracking-widest text-[color:var(--color-muted)]">
             {project.credits}
           </span>
-          <span className="text-xs text-[color:var(--color-muted)]">
+          <div className="flex items-center gap-2">
+            <div style={{ width: "15px", height: "15px", borderRadius: "100%", backgroundColor: "#c4c4c4" }} />
+            <div style={{ width: "15px", height: "15px", borderRadius: "100%", backgroundColor: "#e8881c" }} />
+          </div>
+          <span className="text-xs uppercase tracking-widest text-[color:var(--color-muted)]">
             {project.dateMiseAJour}
           </span>
         </div>
@@ -296,27 +289,27 @@ export default function ProjetDetailPage() {
 
         {/* CTA Contact Card */}
         <div
-          className="max-md:!mx-0"
           style={{
             backgroundColor: "#f3f2f0",
             borderRadius: "5px",
-            marginLeft: "10rem",
-            marginRight: "10rem",
             padding: "1.5rem",
           }}
         >
           <h3
-            className="font-[family-name:var(--font-merriweather)] font-bold mb-3"
+            className="font-[family-name:var(--font-merriweather)] font-bold mb-2"
             style={{ fontSize: "clamp(1.25rem, 2vw, 2rem)" }}
           >
             Venez nous saluer !
           </h3>
-          <a
-            href="mailto:hello@julesstudio.fr"
-            className="text-sm underline text-[color:var(--color-foreground)] hover:text-[color:var(--color-muted)] transition-colors duration-600"
-          >
-            hello@julesstudio.fr
-          </a>
+          <p className="text-sm text-[color:var(--color-foreground)]">
+            Contactez-nous au{" "}
+            <a
+              href="mailto:hello@julesstudio.fr"
+              className="underline text-[color:var(--color-foreground)] hover:text-[color:var(--color-muted)] transition-colors duration-600"
+            >
+              hello@julesstudio.fr
+            </a>
+          </p>
         </div>
 
         {/* Tagline */}
