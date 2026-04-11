@@ -23,7 +23,7 @@ export default function ContactPage() {
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="https://cdn.prod.website-files.com/697be174b8224c11c814a60e/699236619f378c81f531f89d_peace%20of%20mind.svg"
+          src="/images/peace-of-mind.svg"
           alt="Illustration"
           className="h-full w-auto object-contain"
         />
