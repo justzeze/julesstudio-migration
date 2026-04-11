@@ -47,10 +47,7 @@ export default function ProjetDetailPage() {
   return (
     <div className="w-full bg-white">
       {/* ===== SCREEN 1: HERO ===== */}
-      <section
-        className="px-6 md:px-12 pt-24 md:pt-32 pb-12"
-        style={{ padding: "6rem 3rem" }}
-      >
+      <section style={{ padding: "6rem 3rem" }}>
         {/* Small thumbnail */}
         <div
           className="shrink-0 overflow-clip mb-6"
@@ -95,17 +92,20 @@ export default function ProjetDetailPage() {
 
       {/* ===== SCREEN 2: Full-width B&W hero media ===== */}
       <section
-        className="relative w-full flex justify-center items-center overflow-hidden"
-        style={{
-          height: "150svh",
-          backgroundImage: `url('${project.heroMediaBg}')`,
-          backgroundPosition: "50%",
-          backgroundSize: "110svw",
-          backgroundRepeat: "no-repeat",
-        }}
+        className="relative w-full overflow-hidden"
+        style={{ height: "150svh" }}
       >
-        {/* Large overlay text */}
-        <div className="relative z-10 text-center">
+        {/* Background image via img for reliability */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={project.heroMediaBg}
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{ objectPosition: "50% 50%" }}
+        />
+
+        {/* Large overlay text — centered */}
+        <div className="absolute inset-0 flex items-center justify-center z-10">
           <span
             className="text-white font-black uppercase"
             style={{
@@ -117,9 +117,9 @@ export default function ProjetDetailPage() {
           </span>
         </div>
 
-        {/* Dark project card overlay */}
+        {/* Project card overlay at bottom */}
         <div
-          className="absolute z-10 flex flex-col items-center justify-center"
+          className="absolute z-10 flex flex-col items-center"
           style={{
             bottom: "10%",
             left: "50%",
@@ -127,14 +127,13 @@ export default function ProjetDetailPage() {
           }}
         >
           <div
-            className="border border-white/20 overflow-clip"
+            className="overflow-clip"
             style={{ borderRadius: "5px", width: "1030px", maxWidth: "90vw" }}
           >
-            <Image
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
               src={project.thumbnail}
               alt={`${project.name} preview`}
-              width={1030}
-              height={600}
               className="w-full h-auto object-cover"
             />
           </div>
@@ -168,11 +167,10 @@ export default function ProjetDetailPage() {
           className="w-full overflow-clip"
           style={{ borderRadius: "5px", height: "60vh" }}
         >
-          <Image
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
             src={project.contextImage}
             alt={project.contextTitle}
-            width={1920}
-            height={1080}
             className="w-full h-full object-cover"
           />
         </div>
@@ -180,15 +178,16 @@ export default function ProjetDetailPage() {
 
       {/* ===== SCREEN 4: Full-width dark media with overlay card ===== */}
       <section
-        className="relative w-full flex justify-center items-center overflow-hidden"
-        style={{
-          height: "150svh",
-          backgroundImage: `url('${project.heroVideoThumb}')`,
-          backgroundPosition: "50%",
-          backgroundSize: "cover",
-          backgroundRepeat: "no-repeat",
-        }}
+        className="relative w-full overflow-hidden"
+        style={{ height: "150svh" }}
       >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={project.heroVideoThumb}
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+
         <div
           className="absolute z-10 flex flex-col items-center justify-center"
           style={{
@@ -198,14 +197,13 @@ export default function ProjetDetailPage() {
           }}
         >
           <div
-            className="border border-white/20 overflow-clip"
+            className="overflow-clip"
             style={{ borderRadius: "5px", width: "1030px", maxWidth: "90vw" }}
           >
-            <Image
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
               src={project.thumbnail}
               alt={`${project.name} screens`}
-              width={1030}
-              height={600}
               className="w-full h-auto object-cover"
             />
           </div>
@@ -233,27 +231,32 @@ export default function ProjetDetailPage() {
         </div>
       </section>
 
-      {/* Approche image */}
-      <section
-        className="relative w-full overflow-hidden"
-        style={{
-          height: "100vh",
-          backgroundImage: `url('${project.approcheImage}')`,
-          backgroundPosition: "50% 95%",
-          backgroundSize: "cover",
-          backgroundRepeat: "no-repeat",
-        }}
-      />
+      {/* Approche full-width image */}
+      <section className="relative w-full overflow-hidden" style={{ height: "100vh" }}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={project.approcheImage}
+          alt={project.approcheTitle}
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{ objectPosition: "50% 95%" }}
+        />
+      </section>
 
       {/* ===== SCREEN 6: Curieux d'en découvrir davantage? ===== */}
       <section
         className="relative w-full flex items-center justify-center overflow-hidden"
-        style={{
-          height: "80vh",
-          backgroundColor: "#1b1d22",
-        }}
+        style={{ height: "80vh" }}
       >
-        <div className="text-center px-6">
+        {/* Dark photo background */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={project.approcheImage}
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{ filter: "brightness(0.3)" }}
+        />
+
+        <div className="relative z-10 text-center px-6">
           <h2
             className="font-[family-name:var(--font-merriweather)] text-white font-bold"
             style={{ fontSize: "clamp(1.5rem, 4vw, 3rem)" }}
@@ -341,7 +344,6 @@ export default function ProjetDetailPage() {
 
         {/* CTA Contact Card */}
         <div
-          className="mx-auto"
           style={{
             backgroundColor: "#f3f2f0",
             borderRadius: "5px",
@@ -350,20 +352,18 @@ export default function ProjetDetailPage() {
             padding: "1rem",
           }}
         >
-          <div className="max-md:!mx-0 max-md:!ml-0 max-md:!mr-0">
-            <h3
-              className="font-[family-name:var(--font-merriweather)] font-bold mb-3"
-              style={{ fontSize: "clamp(1.25rem, 2vw, 2rem)" }}
-            >
-              Venez nous saluer !
-            </h3>
-            <a
-              href="mailto:hello@julesstudio.fr"
-              className="text-sm underline text-[color:var(--color-foreground)] hover:text-[color:var(--color-muted)] transition-colors duration-600"
-            >
-              hello@julesstudio.fr
-            </a>
-          </div>
+          <h3
+            className="font-[family-name:var(--font-merriweather)] font-bold mb-3"
+            style={{ fontSize: "clamp(1.25rem, 2vw, 2rem)" }}
+          >
+            Venez nous saluer !
+          </h3>
+          <a
+            href="mailto:hello@julesstudio.fr"
+            className="text-sm underline text-[color:var(--color-foreground)] hover:text-[color:var(--color-muted)] transition-colors duration-600"
+          >
+            hello@julesstudio.fr
+          </a>
         </div>
 
         {/* Tagline */}
