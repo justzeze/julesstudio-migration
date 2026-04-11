@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { AccordionItem } from "@/components/ui/Accordion";
 import { BackgroundVideoPanel } from "@/components/layout/BackgroundVideoPanel";
 import { ContentPanel } from "@/components/layout/ContentPanel";
@@ -17,19 +16,23 @@ export default function ContactPage() {
       {/* LEFT CONTENT PANEL */}
       <ContentPanel>
 
-      {/* Hero */}
-      <section className="p-4" style={{ borderRadius: "5px", backgroundColor: "var(--color-beige)" }}>
-        {/* Illustration */}
-        <div className="mb-8">
-          <Image
-            src="https://cdn.prod.website-files.com/697be174b8224c11c814a60e/699236619f378c81f531f89d_peace%20of%20mind.svg"
-            alt="Peace of mind"
-            width={200}
-            height={200}
-            className="w-48 h-48"
-          />
-        </div>
+      {/* contact-header-left-content-wrapper — illustration as background */}
+      <div
+        className="w-full"
+        style={{
+          height: "40vh",
+          borderRadius: "5px",
+          backgroundColor: "var(--color-beige)",
+          backgroundImage:
+            "url(https://cdn.prod.website-files.com/697be174b8224c11c814a60e/699236619f378c81f531f89d_peace%20of%20mind.svg)",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "31rem 100%",
+          backgroundPosition: "left 50%",
+        }}
+      />
 
+      {/* contact-header-intro-wrapper */}
+      <section className="p-4" style={{ borderRadius: "5px", backgroundColor: "var(--color-beige)" }}>
         <h1 className="font-[family-name:var(--font-merriweather)] text-2xl md:text-3xl font-bold mb-4">
           Parlons de votre projet
         </h1>
