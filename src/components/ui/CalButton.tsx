@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { createPortal } from "react-dom";
 
 const CAL_EMBED_URL =
   "https://cal.com/julesstudio/appel-decouverte?embed=true&layout=month_view";
@@ -46,7 +47,7 @@ export function CalButton({ children, variant }: CalButtonProps) {
 }
 
 function CalModal({ onClose }: { onClose: () => void }) {
-  return (
+  return createPortal(
     <div
       className="fixed inset-0 z-[9999] flex items-center justify-center"
       style={{ padding: "2rem" }}
@@ -104,6 +105,7 @@ function CalModal({ onClose }: { onClose: () => void }) {
           style={{ colorScheme: "dark" }}
         />
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
