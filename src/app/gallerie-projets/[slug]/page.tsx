@@ -88,7 +88,7 @@ export default function ProjetDetailPage() {
       <section style={{ padding: "0 1rem" }}>
         <div
           className="relative w-full overflow-hidden"
-          style={{ height: "150svh", borderRadius: "12px" }}
+          style={{ height: "150svh", borderRadius: "0.5rem" }}
         >
         {/* Background image */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -143,7 +143,7 @@ export default function ProjetDetailPage() {
       <section style={{ padding: "0 1rem" }}>
         <div
           className="relative w-full overflow-hidden"
-          style={{ height: "150svh", borderRadius: "12px" }}
+          style={{ height: "150svh", borderRadius: "0.5rem" }}
         >
         {/* Background image */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -197,7 +197,7 @@ export default function ProjetDetailPage() {
       <section style={{ padding: "0 1rem" }}>
         <div
           className="relative w-full overflow-hidden"
-          style={{ height: "150svh", borderRadius: "12px" }}
+          style={{ height: "150svh", borderRadius: "0.5rem" }}
         >
         {/* Background image */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -279,7 +279,7 @@ export default function ProjetDetailPage() {
       {/* ===== SECTION 6: Footer ===== */}
       <section style={{ padding: "3rem" }}>
         {/* Plus de projets */}
-        <div className="mb-16">
+        <div className="mb-16 text-center">
           <Link
             href="/projets"
             className="text-sm font-medium no-underline text-[color:var(--color-foreground)]"
