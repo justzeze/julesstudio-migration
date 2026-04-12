@@ -1,52 +1,40 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { useRouter } from "next/navigation";
 
-export default function GallerieTemplate({
+export default function ProjetsTemplate({
   children,
 }: {
   children: React.ReactNode;
 }) {
   const wrapperRef = useRef<HTMLDivElement>(null);
-  const router = useRouter();
 
   useEffect(() => {
     const html = document.documentElement;
 
-    if (html.classList.contains("swipe-navigating")) {
-      html.classList.remove("swipe-navigating");
+    if (html.classList.contains("swipe-back")) {
+      html.classList.remove("swipe-back");
 
       const el = wrapperRef.current;
       if (el) {
         el.style.position = "fixed";
         el.style.inset = "0";
         el.style.zIndex = "100";
-        el.style.overflowY = "auto";
+        el.style.overflow = "hidden";
         el.style.animation =
-          "swipe-in-from-left 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards";
+          "swipe-in-from-right 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards";
 
         const cleanup = () => {
           el.style.position = "";
           el.style.inset = "";
           el.style.zIndex = "";
-          el.style.overflowY = "";
+          el.style.overflow = "";
           el.style.animation = "";
         };
         el.addEventListener("animationend", cleanup, { once: true });
       }
     }
   }, []);
-
-  // Handle browser back button — swipe back to projets
-  useEffect(() => {
-    const handlePopState = () => {
-      document.documentElement.classList.add("swipe-back");
-    };
-
-    window.addEventListener("popstate", handlePopState);
-    return () => window.removeEventListener("popstate", handlePopState);
-  }, [router]);
 
   return (
     <div

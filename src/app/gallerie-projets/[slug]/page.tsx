@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { SwipeLink } from "@/components/ui/SwipeLink";
 
 // TODO: Replace with Sanity fetch + generateStaticParams
 const project = {
@@ -273,8 +274,9 @@ export default function ProjetDetailPage() {
       <section className="px-5 md:px-12 py-12">
         {/* Plus de projets */}
         <div className="mb-16 text-center">
-          <Link
+          <SwipeLink
             href="/projets"
+            direction="back"
             className="text-sm font-medium no-underline text-[color:var(--color-foreground)]"
             style={{
               backgroundImage: "linear-gradient(#f3f2f0, #919191 75%, #c4c4c4)",
@@ -284,7 +286,7 @@ export default function ProjetDetailPage() {
             }}
           >
             Plus de projets
-          </Link>
+          </SwipeLink>
         </div>
 
         {/* CTA Contact Card */}

@@ -8,18 +8,27 @@ interface SwipeLinkProps {
   children: React.ReactNode;
   className?: string;
   style?: React.CSSProperties;
+  direction?: "forward" | "back";
 }
 
-export function SwipeLink({ href, children, className, style }: SwipeLinkProps) {
+export function SwipeLink({
+  href,
+  children,
+  className,
+  style,
+  direction = "forward",
+}: SwipeLinkProps) {
   const router = useRouter();
 
   const handleClick = useCallback(
     (e: React.MouseEvent) => {
       e.preventDefault();
-      document.documentElement.classList.add("swipe-navigating");
+      document.documentElement.classList.add(
+        direction === "back" ? "swipe-back" : "swipe-navigating"
+      );
       router.push(href);
     },
-    [href, router]
+    [href, router, direction]
   );
 
   return (

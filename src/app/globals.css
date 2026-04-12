@@ -178,6 +178,15 @@ body {
   }
 }
 
+@keyframes swipe-in-from-right {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
 /* ---- Scrollbar custom (for elements that show it) ---- */
 
 .custom-scrollbar::-webkit-scrollbar {
