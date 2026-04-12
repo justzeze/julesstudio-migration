@@ -219,6 +219,91 @@ body {
   }
 }
 
+/* ---- Page enter: staggered fade-in for sections ---- */
+
+@keyframes page-section-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-enter > * {
+  opacity: 0;
+  animation: page-section-in 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.page-enter > *:nth-child(1) { animation-delay: 0.05s; }
+.page-enter > *:nth-child(2) { animation-delay: 0.15s; }
+.page-enter > *:nth-child(3) { animation-delay: 0.25s; }
+.page-enter > *:nth-child(4) { animation-delay: 0.35s; }
+.page-enter > *:nth-child(5) { animation-delay: 0.45s; }
+.page-enter > *:nth-child(6) { animation-delay: 0.55s; }
+.page-enter > *:nth-child(7) { animation-delay: 0.65s; }
+.page-enter > *:nth-child(8) { animation-delay: 0.75s; }
+.page-enter > *:nth-child(9) { animation-delay: 0.85s; }
+.page-enter > *:nth-child(10) { animation-delay: 0.95s; }
+.page-enter > *:nth-child(n+11) { animation-delay: 1.05s; }
+
+/* Right panel slide-in from right on desktop */
+@keyframes slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.panel-enter-right {
+  animation: slide-in-right 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Cards inside right panel — slide down from top like nav */
+@keyframes card-slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Card slide from right (for contact card which is rotated) */
+@keyframes card-slide-from-right {
+  from {
+    opacity: 0;
+    transform: rotate(90deg) translateY(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(90deg) translateY(0);
+  }
+}
+
+.card-enter-top {
+  opacity: 0;
+  animation: card-slide-down 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.3s forwards;
+}
+
+.card-enter-top-delay {
+  opacity: 0;
+  animation: card-slide-down 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.5s forwards;
+}
+
+.card-enter-right {
+  opacity: 0;
+  animation: card-slide-from-right 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.6s forwards;
+}
+
 /* ---- Scrollbar custom (for elements that show it) ---- */
 
 .custom-scrollbar::-webkit-scrollbar {
@@ -231,5 +316,5 @@ body {
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
   background: var(--color-muted);
-  border-radius: 10px;
+  border-radius: 5px;
 }

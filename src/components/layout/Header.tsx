@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -12,11 +13,30 @@ const navLinks = [
 
 export function Header() {
   const pathname = usePathname();
+  const [entered, setEntered] = useState(false);
+
+  useEffect(() => {
+    // If preloader already played, show immediately
+    if (sessionStorage.getItem("loaderPlayed")) {
+      setEntered(true);
+      return;
+    }
+    const handler = () => setEntered(true);
+    window.addEventListener("preloaderNearEnd", handler);
+    return () => window.removeEventListener("preloaderNearEnd", handler);
+  }, []);
 
   return (
     <>
       {/* Desktop header — hidden on mobile */}
-      <header className="hidden md:block fixed top-0 left-0 w-full z-50 bg-white">
+      <header
+        className="hidden md:block fixed top-0 left-0 w-full z-50 bg-white"
+        style={{
+          transform: entered ? "translateY(0)" : "translateY(-100%)",
+          opacity: entered ? 1 : 0,
+          transition: "transform 1.2s cubic-bezier(0.4, 0, 0.2, 1), opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1)",
+        }}
+      >
         <div className="flex items-center justify-between px-8 py-3 md:px-12">
           <Link href="/">
             <Image
@@ -49,7 +69,14 @@ export function Header() {
       </header>
 
       {/* Mobile nav — fixed bottom, hidden on desktop */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-[999] bg-white flex flex-col">
+      <nav
+        className="md:hidden fixed bottom-0 left-0 right-0 z-[999] bg-white flex flex-col"
+        style={{
+          transform: entered ? "translateY(0)" : "translateY(100%)",
+          opacity: entered ? 1 : 0,
+          transition: "transform 1.2s cubic-bezier(0.4, 0, 0.2, 1), opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1)",
+        }}
+      >
         <div className="flex items-center justify-between w-full px-2">
           {/* Left: logo + Studio | Projets */}
           <div className="flex items-center gap-4">

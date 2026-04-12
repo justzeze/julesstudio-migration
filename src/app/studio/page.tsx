@@ -3,6 +3,7 @@ import Image from "next/image";
 import { getStudioPage } from "@/lib/queries";
 import { BackgroundVideoPanel } from "@/components/layout/BackgroundVideoPanel";
 import { ContentPanel } from "@/components/layout/ContentPanel";
+import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 
 export async function generateMetadata(): Promise<Metadata> {
   const data = await getStudioPage();
@@ -25,6 +26,8 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
+export const revalidate = 60;
+
 export default async function StudioPage() {
   const data = await getStudioPage();
 
@@ -34,6 +37,12 @@ export default async function StudioPage() {
 
   return (
     <div className="flex flex-col md:flex-row">
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Accueil", url: "https://julesstudio.fr" },
+          { name: "Studio", url: "https://julesstudio.fr/studio" },
+        ]}
+      />
       {/* ===== LEFT CONTENT PANEL (v2-content-layer) ===== */}
       <ContentPanel>
         {/* Hero header with background SVG — studio-header-left-content-wrapper */}

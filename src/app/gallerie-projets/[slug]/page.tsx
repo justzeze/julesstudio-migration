@@ -1,62 +1,98 @@
-"use client";
-
+import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import { SwipeLink } from "@/components/ui/SwipeLink";
+import { BreadcrumbJsonLd, ProjectJsonLd } from "@/components/seo/JsonLd";
+import { getProjectBySlug, getAllProjectSlugs } from "@/lib/queries";
+import { notFound } from "next/navigation";
 
-// TODO: Replace with Sanity fetch + generateStaticParams
-const project = {
-  name: "Justzeze",
-  slug: "justzeze",
-  thumbnail:
-    "https://cdn.prod.website-files.com/6983a7c2decf98d1d77ad954/69ab6985047d28d4eecfa2d6_Capture%20d%E2%80%99e%CC%81cran%202025-09-27%20a%CC%80%203.06.01%E2%80%AFPM.png",
-  liveUrl: "https://www.justzeze.com/",
-  collaboration: "Julesstudio X Justzeze · 2025",
-  shortDescription:
-    "Direction artistique, Web Design et développement webflow.",
-  // Section: Context
-  contextTitle: "Portfolio pour webdesigner",
-  contextDescription:
-    "Justzeze, projet expérimental signé Jules Studio, est un site web conçu pour un webdesigner. Chaque choix typographique, chaque animation et chaque interaction a été pensé pour servir un objectif : montrer le travail, pas juste le décorer. Un design épuré où chaque pixel a sa raison d'être.",
-  contextImage:
-    "https://cdn.prod.website-files.com/697be174b8224c11c814a60e/699607a32fc661f9142d7305_Capture%20d%E2%80%99e%CC%81cran%202025-09-27%20a%CC%80%202.52.08%E2%80%AFPM.png",
-  // Section: Approche
-  approcheTitle: "Approche de conception",
-  approcheDescription:
-    "Chaque bloc, chaque espace, chaque mouvement a été calculé pour tenir sur une ligne fine entre esthétique et fonctionnalité. L'approche s'est articulée autour de trois axes : clarté visuelle, performance et expérience utilisateur.",
-  approcheImage:
-    "https://cdn.prod.website-files.com/697be174b8224c11c814a60e/699607a32fc661f9142d7313_Capture%20d%E2%80%99e%CC%81cran%202025-10-12%20a%CC%80%207.32.12%E2%80%AFPM.png",
-  // Section: Ce que nous avons fait
-  services: [
-    "Définition du cadre",
-    "Structure et hiérarchie",
-    "Direction artistique",
-    "Interactions et animations",
-    "Développement Webflow",
-  ],
-  dateMiseAJour: "Mise à jour le 14 octobre 2025",
-  credits: "Justzeze par Julesstudio X Justzeze",
-};
+export const revalidate = 60;
 
-export default function ProjetDetailPage() {
+export async function generateStaticParams() {
+  const slugs = await getAllProjectSlugs();
+  return slugs.map((s: { slug: string }) => ({ slug: s.slug }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const project = await getProjectBySlug(slug);
+  if (!project) return {};
+
+  const title = `${project.name} — Projet Web Design Paris`;
+  const description =
+    project.shortDescription ||
+    `Découvrez le projet ${project.name} réalisé par Jules Studio : direction artistique, web design et développement Webflow à Paris.`;
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: `https://julesstudio.fr/gallerie-projets/${slug}`,
+    },
+    openGraph: {
+      title,
+      description,
+      url: `https://julesstudio.fr/gallerie-projets/${slug}`,
+      images: project.thumbnail
+        ? [{ url: project.thumbnail, width: 1200, height: 630, alt: project.name }]
+        : undefined,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: project.thumbnail ? [project.thumbnail] : undefined,
+    },
+  };
+}
+
+export default async function ProjetDetailPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const project = await getProjectBySlug(slug);
+
+  if (!project) return notFound();
+
   return (
-    <div className="w-full bg-white">
+    <div className="page-enter w-full bg-white">
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Accueil", url: "https://julesstudio.fr" },
+          { name: "Projets", url: "https://julesstudio.fr/projets" },
+          { name: project.name, url: `https://julesstudio.fr/gallerie-projets/${slug}` },
+        ]}
+      />
+      <ProjectJsonLd
+        name={project.name}
+        slug={slug}
+        description={project.shortDescription}
+        image={project.thumbnail}
+        datePublished={project.dateMiseAJour}
+      />
       {/* ===== SECTION 1: HERO ===== */}
       <section className="px-5 md:px-12 pt-24 pb-12 md:pt-24 md:pb-16">
         {/* Small thumbnail */}
-        <div
-          className="shrink-0 overflow-clip mb-6"
-          style={{ borderRadius: "5px", width: "80px", height: "80px" }}
-        >
-          <Image
-            src={project.thumbnail}
-            alt={project.name}
-            width={80}
-            height={80}
-            className="w-full h-full object-cover"
-            priority
-          />
-        </div>
+        {project.thumbnail && (
+          <div
+            className="shrink-0 overflow-clip mb-6"
+            style={{ borderRadius: "5px", width: "80px", height: "80px" }}
+          >
+            <Image
+              src={project.thumbnail}
+              alt={project.name}
+              width={80}
+              height={80}
+              className="w-full h-full object-cover"
+              priority
+            />
+          </div>
+        )}
 
         {/* Title */}
         <h1
@@ -68,207 +104,249 @@ export default function ProjetDetailPage() {
 
         {/* Subtitle line */}
         <p className="mt-4 text-sm text-[color:var(--color-muted)]">
-          {project.collaboration} ·{" "}
-          <a
-            href={project.liveUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline text-[color:var(--color-foreground)] hover:text-[color:var(--color-muted)] transition-colors duration-[1.2s]"
-          >
-            voir en live
-          </a>
+          {project.collaboration}
+          {project.liveUrl && (
+            <>
+              {" · "}
+              <a
+                href={project.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline text-[color:var(--color-foreground)] hover:text-[color:var(--color-muted)] transition-colors duration-[1.2s]"
+              >
+                voir en live
+              </a>
+            </>
+          )}
         </p>
 
         {/* Short description */}
-        <p className="mt-3 text-base text-[color:var(--color-foreground)]">
-          {project.shortDescription}
-        </p>
+        {project.shortDescription && (
+          <p className="mt-3 text-base text-[color:var(--color-foreground)]">
+            {project.shortDescription}
+          </p>
+        )}
       </section>
 
       {/* ===== SECTION 2: Full-width background + overlay screenshot ===== */}
-      <section className="px-3 md:px-4">
-        <div
-          className="relative w-full overflow-hidden max-md:!h-[80svh]"
-          style={{ height: "150svh", borderRadius: "0.5rem" }}
-        >
-        {/* Background image */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="https://cdn.prod.website-files.com/697be174b8224c11c814a60e/699607a32fc661f9142d72f7_photo%20site%20bg%20hero%20main.jpeg"
-          alt=""
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-
-        {/* Overlay screenshot */}
-        <div
-          className="absolute z-10 flex flex-col items-center"
-          style={{
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-          }}
-        >
+      {project.imageFondHero && (
+        <section className="px-3 md:px-4">
           <div
-            className="overflow-clip"
-            style={{ borderRadius: "5px", width: "1030px", maxWidth: "90vw" }}
+            className="relative w-full overflow-hidden max-md:!h-[80svh]"
+            style={{ height: "150svh", borderRadius: "0.5rem" }}
           >
-            <Image
-              src="https://cdn.prod.website-files.com/697be174b8224c11c814a60e/699607a32fc661f9142d7305_Capture%20d%E2%80%99e%CC%81cran%202025-09-27%20a%CC%80%202.52.08%E2%80%AFPM.png"
-              alt={project.name}
-              width={1030}
-              height={580}
-              className="w-full h-auto object-cover"
-              priority
+            {/* Background image */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={project.imageFondHero}
+              alt=""
+              className="absolute inset-0 w-full h-full object-cover"
             />
+
+            {/* Overlay screenshot */}
+            {project.thumbnail && (
+              <div
+                className="absolute z-10 flex flex-col items-center"
+                style={{
+                  top: "50%",
+                  left: "50%",
+                  transform: "translate(-50%, -50%)",
+                }}
+              >
+                <div
+                  className="overflow-clip"
+                  style={{ borderRadius: "5px", width: "1030px", maxWidth: "90vw" }}
+                >
+                  <Image
+                    src={project.imageShowcase1 || project.thumbnail}
+                    alt={project.name}
+                    width={1030}
+                    height={580}
+                    className="w-full h-auto object-cover"
+                    priority
+                  />
+                </div>
+              </div>
+            )}
           </div>
-        </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* ===== SECTION 3: Context ===== */}
-      <section className="px-5 md:px-12 py-20 md:py-36">
-        <div style={{ maxWidth: "30svw" }} className="max-md:!max-w-full">
-          <h2
-            className="font-[family-name:var(--font-merriweather)] font-bold"
-            style={{ fontSize: "clamp(1.5rem, 3vw, 2.5rem)" }}
-          >
-            {project.contextTitle}
-          </h2>
-          <p className="mt-4 text-sm leading-relaxed text-[color:var(--color-muted)]">
-            {project.contextDescription}
-          </p>
-        </div>
-      </section>
+      {(project.titreContexte || project.contexteProjet) && (
+        <section className="px-5 md:px-12 py-20 md:py-36">
+          <div style={{ maxWidth: "30svw" }} className="max-md:!max-w-full">
+            {project.titreContexte && (
+              <h2
+                className="font-[family-name:var(--font-merriweather)] font-bold"
+                style={{ fontSize: "clamp(1.5rem, 3vw, 2.5rem)" }}
+              >
+                {project.titreContexte}
+              </h2>
+            )}
+            {project.contexteProjet && (
+              <p className="mt-4 text-sm leading-relaxed text-[color:var(--color-muted)]">
+                {project.contexteProjet}
+              </p>
+            )}
+          </div>
+        </section>
+      )}
 
       {/* Context full-width background + overlay screenshot */}
-      <section className="px-3 md:px-4">
-        <div
-          className="relative w-full overflow-hidden max-md:!h-[80svh]"
-          style={{ height: "150svh", borderRadius: "0.5rem" }}
-        >
-        {/* Background image */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="https://cdn.prod.website-files.com/697be174b8224c11c814a60e/699607a42fc661f9142d731c_IMG_3889.webp"
-          alt=""
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-
-        {/* Overlay screenshot */}
-        <div
-          className="absolute z-10 flex flex-col items-center"
-          style={{
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-          }}
-        >
+      {project.imageFondContexte && (
+        <section className="px-3 md:px-4">
           <div
-            className="overflow-clip"
-            style={{ borderRadius: "5px", width: "1030px", maxWidth: "90vw" }}
+            className="relative w-full overflow-hidden max-md:!h-[80svh]"
+            style={{ height: "150svh", borderRadius: "0.5rem" }}
           >
-            <Image
-              src="https://cdn.prod.website-files.com/697be174b8224c11c814a60e/699607a32fc661f9142d7313_Capture%20d%E2%80%99e%CC%81cran%202025-10-12%20a%CC%80%207.32.12%E2%80%AFPM.png"
-              alt={project.contextTitle}
-              width={1030}
-              height={580}
-              className="w-full h-auto object-cover"
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={project.imageFondContexte}
+              alt=""
+              className="absolute inset-0 w-full h-full object-cover"
             />
+
+            {project.imageContexte && (
+              <div
+                className="absolute z-10 flex flex-col items-center"
+                style={{
+                  top: "50%",
+                  left: "50%",
+                  transform: "translate(-50%, -50%)",
+                }}
+              >
+                <div
+                  className="overflow-clip"
+                  style={{ borderRadius: "5px", width: "1030px", maxWidth: "90vw" }}
+                >
+                  <Image
+                    src={project.imageContexte}
+                    alt={project.titreContexte || ""}
+                    width={1030}
+                    height={580}
+                    className="w-full h-auto object-cover"
+                  />
+                </div>
+              </div>
+            )}
           </div>
-        </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* ===== SECTION 4: Approche de conception ===== */}
-      <section className="px-5 md:px-12 py-20 md:py-36">
-        <div style={{ maxWidth: "30svw" }} className="max-md:!max-w-full">
-          <h2
-            className="font-[family-name:var(--font-merriweather)] font-bold"
-            style={{ fontSize: "clamp(1.5rem, 3vw, 2.5rem)" }}
-          >
-            {project.approcheTitle}
-          </h2>
-          <p className="mt-4 text-sm leading-relaxed text-[color:var(--color-muted)]">
-            {project.approcheDescription}
-          </p>
-        </div>
-      </section>
-
-      {/* Approche full-width background + overlay video */}
-      <section className="px-3 md:px-4">
-        <div
-          className="relative w-full overflow-hidden max-md:!h-[80svh]"
-          style={{ height: "150svh", borderRadius: "0.5rem" }}
-        >
-        {/* Background image */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="https://cdn.prod.website-files.com/697be174b8224c11c814a60e/699607a42fc661f9142d731f_IMG_3385.webp"
-          alt=""
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-
-        {/* Overlay video */}
-        <div
-          className="absolute z-10 flex flex-col items-center"
-          style={{
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-          }}
-        >
-          <div
-            className="overflow-clip"
-            style={{ borderRadius: "5px", width: "1030px", maxWidth: "90vw" }}
-          >
-            <video
-              src="https://res.cloudinary.com/daehyxast/video/upload/f_auto,q_auto/v1759347982/video_preview_2_muirbu.mp4"
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="w-full h-auto object-cover"
-            />
+      {(project.titreApproche || project.approcheConception) && (
+        <section className="px-5 md:px-12 py-20 md:py-36">
+          <div style={{ maxWidth: "30svw" }} className="max-md:!max-w-full">
+            {project.titreApproche && (
+              <h2
+                className="font-[family-name:var(--font-merriweather)] font-bold"
+                style={{ fontSize: "clamp(1.5rem, 3vw, 2.5rem)" }}
+              >
+                {project.titreApproche}
+              </h2>
+            )}
+            {project.approcheConception && (
+              <p className="mt-4 text-sm leading-relaxed text-[color:var(--color-muted)]">
+                {project.approcheConception}
+              </p>
+            )}
           </div>
-        </div>
-        </div>
-      </section>
+        </section>
+      )}
+
+      {/* Approche full-width background + overlay video/image */}
+      {project.imageFondApproche && (
+        <section className="px-3 md:px-4">
+          <div
+            className="relative w-full overflow-hidden max-md:!h-[80svh]"
+            style={{ height: "150svh", borderRadius: "0.5rem" }}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={project.imageFondApproche}
+              alt=""
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+
+            {project.imageApproche && (
+              <div
+                className="absolute z-10 flex flex-col items-center"
+                style={{
+                  top: "50%",
+                  left: "50%",
+                  transform: "translate(-50%, -50%)",
+                }}
+              >
+                <div
+                  className="overflow-clip"
+                  style={{ borderRadius: "5px", width: "1030px", maxWidth: "90vw" }}
+                >
+                  {project.imageApproche.includes(".mp4") ||
+                  project.imageApproche.includes(".mov") ? (
+                    <video
+                      src={project.imageApproche}
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      className="w-full h-auto object-cover"
+                    />
+                  ) : (
+                    <Image
+                      src={project.imageApproche}
+                      alt={project.titreApproche || ""}
+                      width={1030}
+                      height={580}
+                      className="w-full h-auto object-cover"
+                    />
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+        </section>
+      )}
 
       {/* ===== SECTION 5: Ce que nous avons fait ===== */}
-      <section className="px-5 md:px-12 py-20 md:py-36">
-        <div style={{ maxWidth: "30svw" }} className="max-md:!max-w-full">
-          <h2
-            className="font-[family-name:var(--font-merriweather)] font-bold mb-6"
-            style={{ fontSize: "clamp(1.5rem, 3vw, 2.5rem)" }}
-          >
-            Ce que nous avons fait
-          </h2>
-          <ul className="space-y-2">
-            {project.services.map((service) => (
-              <li
-                key={service}
-                className="text-sm text-[color:var(--color-muted)]"
-              >
-                {service}
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* Credits + dots */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4 mt-16">
-          <span className="text-xs uppercase tracking-widest text-[color:var(--color-muted)]">
-            {project.credits}
-          </span>
-          <div className="flex items-center gap-2">
-            <div style={{ width: "15px", height: "15px", borderRadius: "100%", backgroundColor: "#c4c4c4" }} />
-            <div style={{ width: "15px", height: "15px", borderRadius: "100%", backgroundColor: "#e8881c" }} />
+      {project.services && project.services.length > 0 && (
+        <section className="px-5 md:px-12 py-20 md:py-36">
+          <div style={{ maxWidth: "30svw" }} className="max-md:!max-w-full">
+            <h2
+              className="font-[family-name:var(--font-merriweather)] font-bold mb-6"
+              style={{ fontSize: "clamp(1.5rem, 3vw, 2.5rem)" }}
+            >
+              Ce que nous avons fait
+            </h2>
+            <ul className="space-y-2">
+              {project.services.map((service: string) => (
+                <li
+                  key={service}
+                  className="text-sm text-[color:var(--color-muted)]"
+                >
+                  {service}
+                </li>
+              ))}
+            </ul>
           </div>
-          <span className="text-xs uppercase tracking-widest text-[color:var(--color-muted)]">
-            {project.dateMiseAJour}
-          </span>
-        </div>
-      </section>
+
+          {/* Credits + dots */}
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4 mt-16">
+            <span className="text-xs uppercase tracking-widest text-[color:var(--color-muted)]">
+              {project.credits || project.footerDescription}
+            </span>
+            <div className="flex items-center gap-2">
+              <div style={{ width: "15px", height: "15px", borderRadius: "100%", backgroundColor: "#c4c4c4" }} />
+              <div style={{ width: "15px", height: "15px", borderRadius: "100%", backgroundColor: "var(--color-accent)" }} />
+            </div>
+            {project.dateMiseAJour && (
+              <span className="text-xs uppercase tracking-widest text-[color:var(--color-muted)]">
+                {project.dateMiseAJour}
+              </span>
+            )}
+          </div>
+        </section>
+      )}
 
       {/* ===== SECTION 6: Footer ===== */}
       <section className="px-5 md:px-12 py-12">

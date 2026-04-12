@@ -3,6 +3,7 @@ import { Montserrat, Merriweather } from "next/font/google";
 import { Header } from "@/components/layout/Header";
 import { ConditionalFooter } from "@/components/layout/ConditionalFooter";
 import { PersistentHome } from "@/components/layout/PersistentHome";
+import { Preloader } from "@/components/layout/Preloader";
 import {
   LocalBusinessJsonLd,
   WebSiteJsonLd,
@@ -13,13 +14,15 @@ import "./globals.css";
 const montserrat = Montserrat({
   variable: "--font-montserrat",
   subsets: ["latin"],
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
+  display: "swap",
 });
 
 const merriweather = Merriweather({
   variable: "--font-merriweather",
   subsets: ["latin"],
   weight: ["300", "400", "700", "900"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -30,6 +33,10 @@ export const metadata: Metadata = {
   },
   description:
     "Jules Studio, studio de web design et développement Webflow à Paris. Création de sites internet sur mesure, landing pages haute conversion, identité visuelle et stratégie digitale. Réservez votre appel découverte gratuit.",
+  icons: {
+    icon: "/favicon.svg",
+    apple: "/favicon.svg",
+  },
   metadataBase: new URL("https://julesstudio.fr"),
   keywords: [
     "web design paris",
@@ -69,10 +76,11 @@ export const metadata: Metadata = {
       "Création de sites internet sur mesure avec Webflow. Design premium, stratégie digitale et identité visuelle pour entrepreneurs et marques ambitieuses à Paris.",
     images: [
       {
-        url: "/images/jslogo.svg",
+        url: "/opengraph-image",
         width: 1200,
         height: 630,
         alt: "Jules Studio — Web Design & Webflow Paris",
+        type: "image/png",
       },
     ],
   },
@@ -81,7 +89,7 @@ export const metadata: Metadata = {
     title: "Jules Studio — Studio Web Design & Webflow à Paris",
     description:
       "Création de sites internet sur mesure avec Webflow. Design premium pour entrepreneurs et marques ambitieuses.",
-    images: ["/images/jslogo.svg"],
+    images: ["/opengraph-image"],
   },
   robots: {
     index: true,
@@ -94,7 +102,9 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  verification: {},
+  verification: {
+    google: "eM8xLgspSyzBRgk_vTd4_vjlu3VLAL9c6DkffqzZf58",
+  },
   category: "Web Design",
 };
 
@@ -108,7 +118,14 @@ export default function RootLayout({
       lang="fr"
       className={`${montserrat.variable} ${merriweather.variable} h-full antialiased`}
     >
+      <head>
+        <link rel="preconnect" href="https://cdn.sanity.io" />
+        <link rel="preconnect" href="https://cdn.prod.website-files.com" />
+        <link rel="dns-prefetch" href="https://res.cloudinary.com" />
+        <link rel="dns-prefetch" href="https://s3.amazonaws.com" />
+      </head>
       <body className="min-h-full flex flex-col font-[family-name:var(--font-montserrat)]">
+        <Preloader />
         <LocalBusinessJsonLd />
         <WebSiteJsonLd />
         <Header />

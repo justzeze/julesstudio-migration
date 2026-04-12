@@ -48,7 +48,7 @@ export default function ContactPage() {
         <h1 className="font-[family-name:var(--font-merriweather)] text-2xl md:text-3xl font-bold mb-4">
           Parlons de votre projet
         </h1>
-        <p className="text-sm leading-relaxed text-[color:var(--color-muted)]">
+        <p className="text-sm leading-relaxed text-[color:var(--color-foreground)]">
           Vous avez un projet de site web en tête ? Écrivez-nous à{" "}
           <a
             href="mailto:hello@julesstudio.fr"
@@ -122,7 +122,7 @@ export default function ContactPage() {
         <h2 className="font-[family-name:var(--font-merriweather)] text-lg font-bold mb-3">
           PRÊT À LANCER ?
         </h2>
-        <p className="text-sm text-[color:var(--color-muted)] mb-6">
+        <p className="text-sm text-[color:var(--color-foreground)] mb-6">
           Réservez un appel découverte gratuit de 30 min avec Charles. On
           parle de votre projet, sans engagement.
         </p>

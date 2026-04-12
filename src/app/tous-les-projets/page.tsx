@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { ProjectsGrid } from "@/components/sections/ProjectsGrid";
 import { BackgroundVideoPanel } from "@/components/layout/BackgroundVideoPanel";
 import { ContentPanel } from "@/components/layout/ContentPanel";
+import { getAllProjects } from "@/lib/queries";
 
 export const metadata: Metadata = {
   title: "Portfolio Complet — Tous Nos Projets Web Design & Webflow Paris",
@@ -18,7 +19,11 @@ export const metadata: Metadata = {
   },
 };
 
-export default function TousLesProjetsPage() {
+export const revalidate = 60;
+
+export default async function TousLesProjetsPage() {
+  const projects = await getAllProjects();
+
   return (
     <div className="flex flex-col md:flex-row">
       {/* LEFT CONTENT PANEL */}
@@ -32,7 +37,7 @@ export default function TousLesProjetsPage() {
           </h1>
         </div>
         <div className="p-2">
-          <ProjectsGrid />
+          <ProjectsGrid projects={projects} />
         </div>
       </ContentPanel>
 

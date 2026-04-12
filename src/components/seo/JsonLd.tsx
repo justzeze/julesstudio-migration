@@ -119,6 +119,11 @@ export function WebSiteJsonLd() {
       name: "Jules Studio",
       url: "https://julesstudio.fr",
     },
+    potentialAction: {
+      "@type": "SearchAction",
+      target: "https://julesstudio.fr/projets?q={search_term_string}",
+      "query-input": "required name=search_term_string",
+    },
   };
 
   return (
@@ -159,6 +164,50 @@ export function FAQJsonLd() {
         },
       },
     ],
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+    />
+  );
+}
+
+export function ProjectJsonLd({
+  name,
+  slug,
+  description,
+  image,
+  datePublished,
+}: {
+  name: string;
+  slug: string;
+  description?: string;
+  image?: string;
+  datePublished?: string;
+}) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    name,
+    url: `https://julesstudio.fr/gallerie-projets/${slug}`,
+    description:
+      description ||
+      `Projet web design ${name} réalisé par Jules Studio à Paris.`,
+    image: image || undefined,
+    datePublished: datePublished || undefined,
+    creator: {
+      "@type": "Organization",
+      name: "Jules Studio",
+      url: "https://julesstudio.fr",
+    },
+    provider: {
+      "@type": "ProfessionalService",
+      name: "Jules Studio",
+      url: "https://julesstudio.fr",
+      areaServed: { "@type": "City", name: "Paris" },
+    },
   };
 
   return (

@@ -6,21 +6,17 @@ import { BackgroundVideoPanel } from "@/components/layout/BackgroundVideoPanel";
 import { FilterButtons } from "@/components/ui/FilterButtons";
 import { ProjectListItem } from "@/components/ui/ProjectListItem";
 
-const projects = [
-  {
-    name: "Justzeze",
-    slug: "justzeze",
-    image:
-      "https://cdn.prod.website-files.com/6983a7c2decf98d1d77ad954/69ab6985047d28d4eecfa2d6_Capture%20d%E2%80%99e%CC%81cran%202025-09-27%20a%CC%80%203.06.01%E2%80%AFPM.png",
-    videoUrl:
-      "https://res.cloudinary.com/daehyxast/video/upload/f_auto,q_auto/v1759347982/video_preview_2_muirbu.mp4",
-    category: "Portfolio",
-    task: "Design, Intégration Webflow, Design Système",
-    liveUrl: "https://justzeze.netlify.app",
-  },
-];
+interface Project {
+  name: string;
+  slug: string;
+  image: string;
+  videoUrl?: string;
+  category: string;
+  task: string;
+  liveUrl?: string;
+}
 
-export function ProjetsPageClient() {
+export function ProjetsPageClient({ projects }: { projects: Project[] }) {
   const [filter, setFilter] = useState("Tous");
   const [hoveredVideo, setHoveredVideo] = useState<string | null>(null);
   const [hoveredName, setHoveredName] = useState<string | null>(null);
@@ -53,7 +49,7 @@ export function ProjetsPageClient() {
               WebkitBackdropFilter: "blur(12px)",
             }}
           >
-            <p className="text-xs font-medium tracking-widest text-[color:var(--color-muted)]">
+            <p className="text-xs font-medium tracking-widest text-[color:var(--color-foreground)]">
               Chaque projet ci-dessous a été conçu avec un seul objectif :
               générer des résultats mesurables. Pas juste un beau design.
             </p>
@@ -80,7 +76,7 @@ export function ProjetsPageClient() {
           ))}
 
           {filtered.length === 0 && (
-            <p className="text-center text-sm text-[color:var(--color-muted)] py-20">
+            <p className="text-center text-sm text-[color:var(--color-foreground)] py-20">
               Aucun projet dans cette catégorie pour le moment.
             </p>
           )}

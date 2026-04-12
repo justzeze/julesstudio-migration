@@ -28,7 +28,7 @@ export function HomeGallery() {
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
+        transition={{ duration: 1.2, ease: [0.4, 0, 0.2, 1] }}
       >
         <Link href="/gallerie-projets/justzeze" className="group block">
           <div className="relative overflow-hidden rounded-lg bg-[color:var(--color-beige)] hover:bg-white" style={{ transition: "background-color 1.2s cubic-bezier(0.4, 0, 0.2, 1)" }}>

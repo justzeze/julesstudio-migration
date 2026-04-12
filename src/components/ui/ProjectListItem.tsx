@@ -85,7 +85,7 @@ export function ProjectListItem({
             rel="noopener noreferrer"
             className="whitespace-nowrap text-xs font-medium no-underline text-[color:var(--color-foreground)]"
             style={{
-              border: "1px solid #000",
+              border: "1px solid var(--color-foreground)",
               borderRadius: "5px",
               padding: "0.5rem",
             }}

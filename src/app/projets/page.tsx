@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { ProjetsPageClient } from "@/components/sections/ProjetsPageClient";
+import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
+import { getAllProjects } from "@/lib/queries";
 
 export const metadata: Metadata = {
   title: "Portfolio Web Design & Webflow Paris — Nos Réalisations",
@@ -16,6 +18,19 @@ export const metadata: Metadata = {
   },
 };
 
-export default function ProjetsPage() {
-  return <ProjetsPageClient />;
+export const revalidate = 60;
+
+export default async function ProjetsPage() {
+  const projects = await getAllProjects();
+  return (
+    <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Accueil", url: "https://julesstudio.fr" },
+          { name: "Projets", url: "https://julesstudio.fr/projets" },
+        ]}
+      />
+      <ProjetsPageClient projects={projects} />
+    </>
+  );
 }

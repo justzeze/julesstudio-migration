@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
-import { motion } from "framer-motion";
+import Image from "next/image";
 import gsap from "gsap";
 
 const HEADER_H = "3.5rem";
@@ -22,11 +22,14 @@ export function HomeHero({ isVisible = true }: { isVisible?: boolean }) {
   const [headerHovered, setHeaderHovered] = useState(false);
   const [galleryOpen, setGalleryOpen] = useState(false);
   const [isMd, setIsMd] = useState(false);
+  const [homeReady, setHomeReady] = useState(false);
+  const homeContainerRef = useRef<HTMLDivElement>(null);
   const taglineRef = useRef<HTMLDivElement>(null);
   const yearsRef = useRef<HTMLDivElement>(null);
   const bgVideoRef = useRef<HTMLVideoElement>(null);
   const teasingVideoRef = useRef<HTMLVideoElement>(null);
   const hasAnimated = useRef(false);
+  const hasStaggered = useRef(false);
 
   useEffect(() => {
     const mq = window.matchMedia("(min-width: 768px)");
@@ -64,12 +67,12 @@ export function HomeHero({ isVisible = true }: { isVisible?: boolean }) {
     } else {
       // Tagline OUT — years first, then words from last to first
       if (years) {
-        gsap.to(years, { y: 20, opacity: 0, duration: 0.6, ease: "power2.inOut" });
+        gsap.to(years, { y: 20, opacity: 0, duration: 1.2, ease: "power2.inOut" });
       }
       gsap.to(words, {
         y: 40,
         opacity: 0,
-        duration: 0.8,
+        duration: 1.2,
         stagger: { each: 0.08, from: "end" },
         delay: 0.15,
         ease: "power2.inOut",
@@ -95,6 +98,36 @@ export function HomeHero({ isVisible = true }: { isVisible?: boolean }) {
     animateTagline(!previewOpen);
   }, [previewOpen, animateTagline, isMd]);
 
+  // Listen for preloader near-end to reveal home content
+  useEffect(() => {
+    if (sessionStorage.getItem("loaderPlayed")) {
+      setHomeReady(true);
+      return;
+    }
+    const handler = () => setHomeReady(true);
+    window.addEventListener("preloaderNearEnd", handler);
+    return () => window.removeEventListener("preloaderNearEnd", handler);
+  }, []);
+
+  // Staggered fade-in for home elements after preloader
+  useEffect(() => {
+    if (!homeReady || hasStaggered.current || !homeContainerRef.current) return;
+    hasStaggered.current = true;
+
+    const children = homeContainerRef.current.children;
+    gsap.fromTo(
+      children,
+      { opacity: 0, y: 18 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        stagger: 0.1,
+        ease: "power3.out",
+      }
+    );
+  }, [homeReady]);
+
   // Pause/resume videos when visibility changes (persistent mount in layout)
   useEffect(() => {
     const bg = bgVideoRef.current;
@@ -110,6 +143,7 @@ export function HomeHero({ isVisible = true }: { isVisible?: boolean }) {
 
   return (
     <div
+      ref={homeContainerRef}
       className="fixed inset-0 bg-white top-0 md:top-[3.5rem]"
     >
       {/* ===== MOBILE GALLERY (project-gallery-wapper) ===== */}
@@ -119,7 +153,7 @@ export function HomeHero({ isVisible = true }: { isVisible?: boolean }) {
           className="flex items-start justify-between cursor-pointer"
           onClick={() => setGalleryOpen((v) => !v)}
           style={{
-            backgroundColor: "#f3f2f0",
+            backgroundColor: "#e8e7e5",
             borderRadius: "5px",
             padding: "0.5rem",
           }}
@@ -163,7 +197,7 @@ export function HomeHero({ isVisible = true }: { isVisible?: boolean }) {
             maxHeight: galleryOpen ? "80vh" : "0",
             padding: galleryOpen ? "1rem 0.5rem" : "0 0.5rem",
             opacity: galleryOpen ? 1 : 0,
-            transition: "max-height 0.8s cubic-bezier(0.4, 0, 0.2, 1), padding 0.8s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.6s ease",
+            transition: "max-height 1.2s cubic-bezier(0.4, 0, 0.2, 1), padding 1.2s cubic-bezier(0.4, 0, 0.2, 1), opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1)",
           }}
         >
             {/* project-gallery-content-wrapper */}
@@ -173,10 +207,13 @@ export function HomeHero({ isVisible = true }: { isVisible?: boolean }) {
                 className="overflow-clip flex items-center justify-center"
                 style={{ width: "18rem", height: "15rem" }}
               >
-                <img
+                <Image
                   src="https://cdn.prod.website-files.com/6983a7c2decf98d1d77ad954/69ab6985047d28d4eecfa2d6_Capture%20d%E2%80%99e%CC%81cran%202025-09-27%20a%CC%80%203.06.01%E2%80%AFPM.png"
-                  alt="Justzeze"
+                  alt="Projet web design Justzeze — portfolio webdesigner"
+                  width={288}
+                  height={240}
                   className="w-full h-full object-cover"
+                  sizes="288px"
                 />
               </div>
 
@@ -185,7 +222,7 @@ export function HomeHero({ isVisible = true }: { isVisible?: boolean }) {
                 {/* Left: project link */}
                 <a
                   href="/gallerie-projets/justzeze"
-                  className="text-sm font-medium hover:border-b hover:border-black transition-all"
+                  className="text-sm font-medium hover:border-b hover:border-[color:var(--color-foreground)] transition-all"
                 >
                   Justzeze
                 </a>
@@ -213,7 +250,7 @@ export function HomeHero({ isVisible = true }: { isVisible?: boolean }) {
 
       {/* v2-home-bg-wrapper — white border + rounded corners */}
       <div
-        className="absolute overflow-hidden bottom-[8rem] md:bottom-[0.5rem] top-[3rem] md:top-[0.5rem]"
+        className="absolute overflow-hidden bottom-[8rem] md:bottom-[0.5rem] top-[3.5rem] md:top-[0.5rem]"
         style={{
           left: "0.5rem",
           right: "0.5rem",
@@ -227,7 +264,8 @@ export function HomeHero({ isVisible = true }: { isVisible?: boolean }) {
         muted
         loop
         playsInline
-        preload="auto"
+        preload="metadata"
+        poster="https://cdn.prod.website-files.com/6983a7c2decf98d1d77ad954/69ab6985047d28d4eecfa2d6_Capture%20d%E2%80%99e%CC%81cran%202025-09-27%20a%CC%80%203.06.01%E2%80%AFPM.png"
         className="absolute inset-0 w-full h-full object-cover"
         style={{ zIndex: -1 }}
       >
@@ -239,13 +277,7 @@ export function HomeHero({ isVisible = true }: { isVisible?: boolean }) {
 
       {/* ===== PREVIEW CARD (btn-teasing-wrapper + teasing) ===== */}
       {/* studio-main-preview-teasing-wrapper — contains BOTH header + teasing video */}
-      <motion.div
-        initial={false}
-        animate={{
-          opacity: previewOpen ? 1 : 0,
-          y: previewOpen ? 0 : -20,
-        }}
-        transition={{ duration: 0.9, ease: [0.4, 0, 0.2, 1] }}
+      <div
         className="hidden md:block absolute top-0 left-0 z-10"
         style={{
           width: "28rem",
@@ -256,6 +288,9 @@ export function HomeHero({ isVisible = true }: { isVisible?: boolean }) {
           borderBottomLeftRadius: "5px",
           borderBottomRightRadius: "5px",
           pointerEvents: previewOpen ? "auto" : "none",
+          opacity: previewOpen ? 1 : 0,
+          transform: previewOpen ? "translateY(0)" : "translateY(-20px)",
+          transition: "opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), transform 1.2s cubic-bezier(0.4, 0, 0.2, 1)",
         }}
       >
         {/* btn-teasing-wrapper — header bar, hover shows "Fermé", click closes */}
@@ -273,9 +308,9 @@ export function HomeHero({ isVisible = true }: { isVisible?: boolean }) {
               className="text-base font-semibold cursor-pointer"
               style={{
                 padding: "0.4rem 0.6rem",
-                borderRadius: "4px",
+                borderRadius: "5px",
                 backgroundColor: headerHovered ? "rgba(0,0,0,0.14)" : "transparent",
-                transition: "background-color 0.8s ease",
+                transition: "background-color 1.2s cubic-bezier(0.4, 0, 0.2, 1)",
               }}
               onClick={() => setPreviewOpen(false)}
               onMouseEnter={() => setHeaderHovered(true)}
@@ -313,7 +348,7 @@ export function HomeHero({ isVisible = true }: { isVisible?: boolean }) {
               muted
               loop
               playsInline
-              preload="auto"
+              preload="metadata"
               className="w-full h-full object-cover"
             >
               <source
@@ -323,7 +358,7 @@ export function HomeHero({ isVisible = true }: { isVisible?: boolean }) {
             </video>
           </div>
         </div>
-      </motion.div>
+      </div>
 
       {/* ===== TOGGLE BUTTON ===== */}
       {/* When card is open: hidden (close via header hover+click) */}
@@ -408,11 +443,13 @@ export function HomeHero({ isVisible = true }: { isVisible?: boolean }) {
         style={{
           width: "11.5rem",
           height: "9.5vh",
-          right: "-2.8rem",
+          right: "-3.8rem",
           bottom: "14.5rem",
-          transform: "rotate(90deg)",
+          transform: homeReady ? "rotate(90deg)" : "rotate(90deg) translateY(-100%)",
+          opacity: homeReady ? 1 : 0,
           backgroundColor: "#fff",
           borderRadius: "0 0 5px 5px",
+          transition: "transform 1.2s cubic-bezier(0.4, 0, 0.2, 1), opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1)",
         }}
       >
         <div className="flex flex-col w-full h-full">

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
+
 
 interface BackgroundVideoPanelProps {
   hoveredVideoUrl?: string | null;
@@ -19,7 +19,7 @@ export function BackgroundVideoPanel({
 
   return (
     <div
-      className="relative mx-2 mb-[5.5rem] h-[70vh] md:mx-0 md:mb-0 md:fixed md:top-[4rem] md:right-[0.5rem] md:bottom-[0.5rem] md:w-[63%] md:h-auto z-0 overflow-hidden"
+      className="panel-enter-right relative mx-2 mb-[5.5rem] h-[70vh] md:mx-0 md:mb-0 md:fixed md:top-[4rem] md:right-[0.5rem] md:bottom-[0.5rem] md:w-[63%] md:h-auto z-0 overflow-clip"
       style={{ borderRadius: "5px" }}
     >
       {/* Background video */}
@@ -28,7 +28,7 @@ export function BackgroundVideoPanel({
         muted
         loop
         playsInline
-        preload="auto"
+        preload="metadata"
         className="absolute inset-0 w-full h-full object-cover"
         poster="https://cdn.prod.website-files.com/6983a7c2decf98d1d77ad954/69ab6985047d28d4eecfa2d6_Capture%20d%E2%80%99e%CC%81cran%202025-09-27%20a%CC%80%203.06.01%E2%80%AFPM.png"
       >
@@ -64,13 +64,7 @@ export function BackgroundVideoPanel({
       {isProjectsMode ? (
         <>
           {/* ===== PROJETS MODE: v2-preview-btn-wrapper (Aperçu header) ===== */}
-          <motion.div
-            initial={false}
-            animate={{
-              opacity: previewOpen ? 1 : 0,
-              y: previewOpen ? 0 : -20,
-            }}
-            transition={{ duration: 0.9, ease: [0.4, 0, 0.2, 1] }}
+          <div
             className="hidden md:block absolute z-20"
             style={{
               backgroundColor: "#fff",
@@ -80,6 +74,9 @@ export function BackgroundVideoPanel({
               left: "3rem",
               overflow: "hidden",
               pointerEvents: previewOpen ? "auto" : "none",
+              opacity: previewOpen ? 1 : 0,
+              transform: previewOpen ? "translateY(0)" : "translateY(-20px)",
+              transition: "opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), transform 1.2s cubic-bezier(0.4, 0, 0.2, 1)",
             }}
           >
             <div
@@ -92,9 +89,9 @@ export function BackgroundVideoPanel({
                 className="text-sm font-semibold"
                 style={{
                   padding: "0.3rem 0.5rem",
-                  borderRadius: "4px",
+                  borderRadius: "5px",
                   backgroundColor: headerHovered ? "rgba(0,0,0,0.14)" : "transparent",
-                  transition: "background-color 0.8s ease",
+                  transition: "background-color 1.2s cubic-bezier(0.4, 0, 0.2, 1)",
                 }}
               >
                 {headerHovered ? "Fermé" : "Aperçu"}
@@ -116,16 +113,10 @@ export function BackgroundVideoPanel({
                 />
               </div>
             </div>
-          </motion.div>
+          </div>
 
           {/* ===== v2-preview-wrapper ===== */}
-          <motion.div
-            initial={false}
-            animate={{
-              opacity: previewOpen ? 1 : 0,
-              y: previewOpen ? 0 : -30,
-            }}
-            transition={{ duration: 0.9, ease: [0.4, 0, 0.2, 1] }}
+          <div
             className="hidden md:flex absolute z-10 left-0 right-0 justify-center items-end overflow-clip"
             style={{
               backgroundColor: "#fff",
@@ -137,6 +128,9 @@ export function BackgroundVideoPanel({
               marginRight: "auto",
               top: 0,
               pointerEvents: previewOpen ? "auto" : "none",
+              opacity: previewOpen ? 1 : 0,
+              transform: previewOpen ? "translateY(0)" : "translateY(-30px)",
+              transition: "opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), transform 1.2s cubic-bezier(0.4, 0, 0.2, 1)",
             }}
           >
             {/* v2-preview-list — video grid overlay */}
@@ -194,7 +188,7 @@ export function BackgroundVideoPanel({
                   : "Passez la souris au-dessus pour voir le projet"}
               </span>
             </div>
-          </motion.div>
+          </div>
 
           {/* ===== Bottom "Aperçu" button — visible when card is closed ===== */}
           <button
@@ -210,7 +204,7 @@ export function BackgroundVideoPanel({
               border: "none",
               opacity: previewOpen ? 0 : 1,
               pointerEvents: previewOpen ? "none" : "auto",
-              transition: "opacity 0.4s ease, transform 0.2s ease",
+              transition: "opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), transform 1.2s cubic-bezier(0.4, 0, 0.2, 1)",
             }}
           >
             Aperçu
@@ -219,13 +213,7 @@ export function BackgroundVideoPanel({
       ) : (
         <>
           {/* ===== STUDIO MODE: original teasing card ===== */}
-          <motion.div
-            initial={false}
-            animate={{
-              opacity: previewOpen ? 1 : 0,
-              y: previewOpen ? 0 : -20,
-            }}
-            transition={{ duration: 0.9, ease: [0.4, 0, 0.2, 1] }}
+          <div
             className="hidden md:block absolute top-0 left-0 z-10"
             style={{
               width: "28rem",
@@ -236,6 +224,9 @@ export function BackgroundVideoPanel({
               borderBottomLeftRadius: "5px",
               borderBottomRightRadius: "5px",
               pointerEvents: previewOpen ? "auto" : "none",
+              opacity: previewOpen ? 1 : 0,
+              transform: previewOpen ? "translateY(0)" : "translateY(-20px)",
+              transition: "opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), transform 1.2s cubic-bezier(0.4, 0, 0.2, 1)",
             }}
           >
             <div
@@ -247,9 +238,9 @@ export function BackgroundVideoPanel({
                   className="text-base font-semibold cursor-pointer"
                   style={{
                     padding: "0.4rem 0.6rem",
-                    borderRadius: "4px",
+                    borderRadius: "5px",
                     backgroundColor: headerHovered ? "rgba(0,0,0,0.14)" : "transparent",
-                    transition: "background-color 0.8s ease",
+                    transition: "background-color 1.2s cubic-bezier(0.4, 0, 0.2, 1)",
                   }}
                   onClick={() => setPreviewOpen(false)}
                   onMouseEnter={() => setHeaderHovered(true)}
@@ -286,7 +277,7 @@ export function BackgroundVideoPanel({
                   muted
                   loop
                   playsInline
-                  preload="auto"
+                  preload="metadata"
                   className="w-full h-full object-cover"
                 >
                   <source
@@ -296,7 +287,7 @@ export function BackgroundVideoPanel({
                 </video>
               </div>
             </div>
-          </motion.div>
+          </div>
 
           {/* Toggle button */}
           <button
@@ -322,37 +313,33 @@ export function BackgroundVideoPanel({
         className="hidden md:block absolute z-10"
         style={{
           width: "11.5rem",
-          height: "9vh",
-          right: "-4rem",
+          height: "9.5vh",
+          right: "-3.8rem",
           bottom: "14.5rem",
           transform: "rotate(90deg)",
           backgroundColor: "#fff",
-          borderBottomLeftRadius: "5px",
-          borderBottomRightRadius: "5px",
+          borderRadius: "0 0 5px 5px",
           opacity: isProjectsMode && previewOpen ? 0 : 1,
           pointerEvents: isProjectsMode && previewOpen ? "none" : "auto",
-          transition: "opacity 0.4s ease",
+          transition: "opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1)",
         }}
       >
-        <div
-          className="grid h-full"
-          style={{ gridTemplateColumns: "1fr", gridTemplateRows: "auto auto" }}
-        >
+        <div className="flex flex-col w-full h-full">
           <div
-            className="flex items-center px-2"
-            style={{ borderBottom: "1px solid #c4c4c4", cursor: "default" }}
+            className="flex items-center px-3 text-xs font-semibold tracking-wide"
+            style={{
+              borderBottom: "1px solid #c4c4c4",
+              height: "50%",
+              cursor: "default",
+            }}
           >
-            <span className="text-sm font-medium">Contact</span>
+            Contact
           </div>
-          <div className="flex items-center justify-between gap-4 px-2">
+          <div className="flex items-center justify-between gap-1 px-2" style={{ height: "50%" }}>
             <a
               href="mailto:hello@julesstudio.fr"
-              aria-label="Envoyer un email à Jules Studio"
-              className="text-xs font-medium px-2 py-1 no-underline text-[color:var(--color-foreground)]"
-              style={{
-                borderRadius: "5px",
-                backgroundImage: "linear-gradient(180deg, #c4c4c4, #f3f2f0)",
-              }}
+              className="text-[10px] font-medium px-2 py-1 rounded-[5px] transition-opacity hover:opacity-70"
+              style={{ backgroundImage: "linear-gradient(#c4c4c4, #f3f2f0)" }}
             >
               Mail
             </a>
@@ -360,27 +347,19 @@ export function BackgroundVideoPanel({
               href="https://www.instagram.com/julesstudio.fr"
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Suivre Jules Studio sur Instagram"
-              className="text-xs font-medium px-2 py-1 no-underline text-[color:var(--color-foreground)]"
-              style={{
-                borderRadius: "5px",
-                backgroundImage: "linear-gradient(180deg, #c4c4c4, #f3f2f0)",
-              }}
+              className="text-[10px] font-medium px-2 py-1 rounded-[5px] transition-opacity hover:opacity-70"
+              style={{ backgroundImage: "linear-gradient(#c4c4c4, #f3f2f0)" }}
             >
               Insta
             </a>
             <a
-              href="https://julesstudio.fr"
+              href="https://youtube.com/@julesstudioyt"
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Visiter le site de Jules Studio"
-              className="text-xs font-medium px-2 py-1 no-underline text-[color:var(--color-foreground)]"
-              style={{
-                borderRadius: "5px",
-                backgroundImage: "linear-gradient(180deg, #c4c4c4, #f3f2f0)",
-              }}
+              className="text-[10px] font-medium px-2 py-1 rounded-[5px] transition-opacity hover:opacity-70"
+              style={{ backgroundImage: "linear-gradient(#c4c4c4, #f3f2f0)" }}
             >
-              Link
+              Yout
             </a>
           </div>
         </div>

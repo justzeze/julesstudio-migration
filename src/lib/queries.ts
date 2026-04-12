@@ -31,11 +31,12 @@ export async function getAllProjects() {
     *[_type == "projet"] | order(numero asc) {
       _id,
       name,
-      slug,
-      "imagePrincipale": imagePrincipale.asset->url,
-      videoCloudinaryUrl,
-      categorie,
-      tacheRealiser,
+      "slug": slug.current,
+      "image": imagePrincipale.asset->url,
+      "videoUrl": videoCloudinaryUrl,
+      "category": categorie,
+      "task": tacheRealiser,
+      "liveUrl": lienProjet,
       collaboration,
       numero
     }
@@ -48,26 +49,37 @@ export async function getProjectBySlug(slug: string) {
     *[_type == "projet" && slug.current == $slug][0] {
       _id,
       name,
-      slug,
-      "imagePrincipale": imagePrincipale.asset->url,
-      videoCloudinaryUrl,
-      lienProjet,
-      categorie,
-      typeDeProjets,
-      tacheRealiser,
+      "slug": slug.current,
+      "thumbnail": imagePrincipale.asset->url,
+      "videoUrl": videoCloudinaryUrl,
+      "liveUrl": lienProjet,
+      "category": categorie,
+      "task": tacheRealiser,
       collaboration,
-      numero,
+      shortDescription,
+      services,
       titreContexte,
       contexteProjet,
+      "imageContexte": imageContexte.asset->url,
+      "imageFondContexte": imageFondContexte.asset->url,
+      titreApproche,
       approcheConception,
-      ceQueNousAvonsFait,
-      dateMiseAJour,
-      "logoClient": logoClient.asset->url,
+      imageApproche,
+      "imageFondApproche": imageFondApproche.asset->url,
+      "imageFondHero": imageFondHero.asset->url,
       "imageShowcase1": imageShowcase1.asset->url,
-      "imageShowcase2": imageShowcase2.asset->url,
-      footerDescription
+      credits,
+      dateMiseAJour,
+      footerDescription,
+      numero
     }
   `,
     { slug }
   );
+}
+
+export async function getAllProjectSlugs() {
+  return sanityClient.fetch(`
+    *[_type == "projet"] { "slug": slug.current }
+  `);
 }

@@ -1,7 +1,18 @@
 import type { MetadataRoute } from "next";
+import { getAllProjectSlugs } from "@/lib/queries";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://julesstudio.fr";
+
+  const projectSlugs = await getAllProjectSlugs();
+  const projectEntries: MetadataRoute.Sitemap = projectSlugs.map(
+    (p: { slug: string }) => ({
+      url: `${baseUrl}/gallerie-projets/${p.slug}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    })
+  );
 
   return [
     {
@@ -34,11 +45,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 0.7,
     },
-    {
-      url: `${baseUrl}/gallerie-projets/justzeze`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
+    ...projectEntries,
   ];
 }

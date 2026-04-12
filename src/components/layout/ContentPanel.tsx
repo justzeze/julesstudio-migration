@@ -37,7 +37,7 @@ export function ContentPanel({ children }: { children: React.ReactNode }) {
   return (
     <div
       ref={scrollRef}
-      className="relative z-[1] flex flex-col gap-2 w-full md:w-[36.36%] min-h-screen md:h-screen md:overflow-y-auto bg-white px-2 pt-8 md:pt-20"
+      className="page-enter relative z-[1] flex flex-col gap-2 w-full md:w-[36.36%] min-h-screen md:h-screen md:overflow-y-auto bg-white px-2 pt-8 md:pt-20"
       style={{ scrollbarWidth: "none" }}
     >
       {children}
