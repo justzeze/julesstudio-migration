@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { createPortal } from "react-dom";
 
 const CAL_EMBED_URL =
@@ -47,6 +47,18 @@ export function CalButton({ children, variant }: CalButtonProps) {
 }
 
 function CalModal({ onClose }: { onClose: () => void }) {
+  const [closing, setClosing] = useState(false);
+
+  const handleClose = useCallback(() => {
+    setClosing(true);
+  }, []);
+
+  const handleAnimationEnd = useCallback(() => {
+    if (closing) {
+      onClose();
+    }
+  }, [closing, onClose]);
+
   return createPortal(
     <div
       className="fixed inset-0 z-[9999] flex items-center justify-center"
@@ -59,8 +71,11 @@ function CalModal({ onClose }: { onClose: () => void }) {
           backgroundColor: "rgba(0, 0, 0, 0.5)",
           backdropFilter: "blur(8px)",
           WebkitBackdropFilter: "blur(8px)",
+          animation: closing
+            ? "fade-out 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards"
+            : "fade-in 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards",
         }}
-        onClick={onClose}
+        onClick={handleClose}
       />
 
       {/* Modal */}
@@ -73,11 +88,15 @@ function CalModal({ onClose }: { onClose: () => void }) {
           backgroundColor: "#1a1a1a",
           borderRadius: "12px",
           overflow: "hidden",
+          animation: closing
+            ? "slide-down-to-bottom 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards"
+            : "slide-up-from-bottom 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards",
         }}
+        onAnimationEnd={handleAnimationEnd}
       >
         {/* Close button */}
         <button
-          onClick={onClose}
+          onClick={handleClose}
           className="absolute top-4 right-4 z-20 flex items-center justify-center cursor-pointer bg-transparent border-none"
           style={{ width: "32px", height: "32px" }}
         >
