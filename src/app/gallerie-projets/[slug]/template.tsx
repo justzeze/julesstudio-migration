@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { useRouter } from "next/navigation";
 
 export default function GallerieTemplate({
   children,
@@ -9,7 +8,6 @@ export default function GallerieTemplate({
   children: React.ReactNode;
 }) {
   const wrapperRef = useRef<HTMLDivElement>(null);
-  const router = useRouter();
 
   useEffect(() => {
     const html = document.documentElement;
@@ -22,7 +20,7 @@ export default function GallerieTemplate({
         el.style.position = "fixed";
         el.style.inset = "0";
         el.style.zIndex = "100";
-        el.style.overflowY = "auto";
+        el.style.overflow = "hidden";
         el.style.animation =
           "swipe-in-from-left 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards";
 
@@ -30,7 +28,7 @@ export default function GallerieTemplate({
           el.style.position = "";
           el.style.inset = "";
           el.style.zIndex = "";
-          el.style.overflowY = "";
+          el.style.overflow = "";
           el.style.animation = "";
         };
         el.addEventListener("animationend", cleanup, { once: true });
@@ -38,7 +36,7 @@ export default function GallerieTemplate({
     }
   }, []);
 
-  // Handle browser back button — swipe back to projets
+  // Handle browser back button
   useEffect(() => {
     const handlePopState = () => {
       document.documentElement.classList.add("swipe-back");
@@ -46,7 +44,7 @@ export default function GallerieTemplate({
 
     window.addEventListener("popstate", handlePopState);
     return () => window.removeEventListener("popstate", handlePopState);
-  }, [router]);
+  }, []);
 
   return (
     <div
