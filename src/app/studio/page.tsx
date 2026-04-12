@@ -9,10 +9,19 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title:
       data?.seoTitle ??
-      "Notre Studio Créatif — Direction Artistique & Développement Webflow | Jules Studio Paris",
+      "Studio Web Design Paris — Direction Artistique & Développement Webflow",
     description:
       data?.seoDescription ??
-      "Jules Studio, studio de web design à Paris fondé par des passionnés de web.",
+      "Jules Studio, studio de web design et design digital à Paris. Direction artistique, identité visuelle, développement Webflow. Découvrez notre équipe, notre vision et nos services.",
+    alternates: {
+      canonical: "https://julesstudio.fr/studio",
+    },
+    openGraph: {
+      title: "Jules Studio — Studio Web Design & Design Digital à Paris",
+      description:
+        "Notre studio créatif à Paris : direction artistique, web design et développement Webflow pour des projets sur mesure.",
+      url: "https://julesstudio.fr/studio",
+    },
   };
 }
 

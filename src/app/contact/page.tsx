@@ -3,15 +3,33 @@ import { AccordionItem } from "@/components/ui/Accordion";
 import { BackgroundVideoPanel } from "@/components/layout/BackgroundVideoPanel";
 import { ContentPanel } from "@/components/layout/ContentPanel";
 import { CalButton } from "@/components/ui/CalButton";
+import { FAQJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 
 export const metadata: Metadata = {
-  title: "Contact — Réservez Votre Appel Découverte Gratuit",
+  title: "Contact — Réservez Votre Appel Découverte Gratuit | Web Design Paris",
   description:
-    "Prêt à lancer votre projet web ? Contactez Jules Studio à Paris pour un appel découverte gratuit. Création de site Webflow sur mesure.",
+    "Prêt à lancer votre projet web ? Contactez Jules Studio, studio de web design à Paris. Appel découverte gratuit de 30 min. Site vitrine dès 890€, landing page dès 1 690€. Webflow, identité visuelle, stratégie digitale.",
+  alternates: {
+    canonical: "https://julesstudio.fr/contact",
+  },
+  openGraph: {
+    title: "Contactez Jules Studio — Appel Découverte Gratuit",
+    description:
+      "Réservez un appel découverte gratuit de 30 min avec Charles. On parle de votre projet web, sans engagement. Studio web design & Webflow à Paris.",
+    url: "https://julesstudio.fr/contact",
+  },
 };
 
 export default function ContactPage() {
   return (
+    <>
+    <FAQJsonLd />
+    <BreadcrumbJsonLd
+      items={[
+        { name: "Accueil", url: "https://julesstudio.fr" },
+        { name: "Contact", url: "https://julesstudio.fr/contact" },
+      ]}
+    />
     <div className="flex flex-col md:flex-row">
       {/* LEFT CONTENT PANEL */}
       <ContentPanel>
@@ -173,5 +191,6 @@ export default function ContactPage() {
       {/* RIGHT PANEL */}
       <BackgroundVideoPanel />
     </div>
+    </>
   );
 }

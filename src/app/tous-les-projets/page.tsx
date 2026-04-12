@@ -4,9 +4,18 @@ import { BackgroundVideoPanel } from "@/components/layout/BackgroundVideoPanel";
 import { ContentPanel } from "@/components/layout/ContentPanel";
 
 export const metadata: Metadata = {
-  title: "Tous Nos Projets Web Design & Webflow — Portfolio Complet",
+  title: "Portfolio Complet — Tous Nos Projets Web Design & Webflow Paris",
   description:
-    "Découvrez l'ensemble de nos réalisations : sites vitrines, landing pages, e-commerce et identités visuelles.",
+    "Découvrez l'ensemble de nos réalisations web design à Paris : sites vitrines, landing pages, e-commerce et identités visuelles. Chaque projet Webflow est conçu sur mesure.",
+  alternates: {
+    canonical: "https://julesstudio.fr/tous-les-projets",
+  },
+  openGraph: {
+    title: "Tous les projets Jules Studio — Web Design & Webflow",
+    description:
+      "Portfolio complet de nos créations web : sites vitrines, landing pages, e-commerce conçus avec Webflow à Paris.",
+    url: "https://julesstudio.fr/tous-les-projets",
+  },
 };
 
 export default function TousLesProjetsPage() {
