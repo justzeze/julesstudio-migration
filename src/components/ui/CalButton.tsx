@@ -19,7 +19,7 @@ export function CalButton({ children, variant }: CalButtonProps) {
       <>
         <button
           onClick={() => setOpen(true)}
-          className="link-hover text-[color:var(--color-foreground)] font-medium underline cursor-pointer bg-transparent border-none p-0 text-sm"
+          className="link-hover text-[color:var(--color-foreground)] font-medium underline cursor-pointer bg-transparent border-none py-2 text-sm"
         >
           {children}
         </button>

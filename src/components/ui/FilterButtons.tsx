@@ -30,7 +30,7 @@ export function FilterButtons({ onFilter }: FilterButtonsProps) {
         <button
           key={cat}
           onClick={() => handleClick(cat)}
-          className={`px-4 py-2 rounded-full text-xs font-medium tracking-wide border ${
+          className={`px-4 py-3 rounded-full text-xs font-medium tracking-wide border cursor-pointer ${
             active === cat
               ? "bg-[#e8e7e5] text-[color:var(--color-foreground)] border-transparent"
               : "bg-transparent text-[color:var(--color-muted)] border-[color:var(--color-border)] hover:border-[color:var(--color-foreground)] hover:text-[color:var(--color-foreground)]"

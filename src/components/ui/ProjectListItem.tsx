@@ -70,7 +70,7 @@ export function ProjectListItem({
             backgroundImage: "linear-gradient(#f3f2f0, #919191 75%, #c4c4c4)",
             border: "1px solid #c4c4c4",
             borderRadius: "5px",
-            padding: "0.5rem",
+            padding: "0.75rem 0.75rem",
           }}
         >
           Voir le projet
@@ -83,11 +83,12 @@ export function ProjectListItem({
             href={liveUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="whitespace-nowrap text-xs font-medium no-underline text-[color:var(--color-foreground)]"
+            className="whitespace-nowrap text-xs font-medium no-underline text-[color:var(--color-foreground)] hover:opacity-70"
             style={{
               border: "1px solid var(--color-foreground)",
               borderRadius: "5px",
-              padding: "0.5rem",
+              padding: "0.75rem 0.75rem",
+              transition: "opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1)",
             }}
           >
             {name.toLowerCase()}

@@ -466,10 +466,10 @@ export function HomeHero({ isVisible = true }: { isVisible?: boolean }) {
           </div>
 
           {/* Links row */}
-          <div className="flex items-center justify-between gap-1 px-2" style={{ height: "50%" }}>
+          <div className="flex items-center justify-between gap-1 px-1" style={{ height: "50%" }}>
             <a
               href="mailto:hello@julesstudio.fr"
-              className="text-[10px] font-medium px-2 py-1 rounded-[5px] transition-opacity hover:opacity-70"
+              className="text-[10px] font-medium px-3 py-2 rounded-[5px] transition-opacity hover:opacity-70"
               style={{ backgroundImage: "linear-gradient(#c4c4c4, #f3f2f0)" }}
             >
               Mail
@@ -478,7 +478,7 @@ export function HomeHero({ isVisible = true }: { isVisible?: boolean }) {
               href="https://instagram.com/julesstudio.fr"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[10px] font-medium px-2 py-1 rounded-[5px] transition-opacity hover:opacity-70"
+              className="text-[10px] font-medium px-3 py-2 rounded-[5px] transition-opacity hover:opacity-70"
               style={{ backgroundImage: "linear-gradient(#c4c4c4, #f3f2f0)" }}
             >
               Insta
@@ -487,7 +487,7 @@ export function HomeHero({ isVisible = true }: { isVisible?: boolean }) {
               href="https://youtube.com/@julesstudioyt"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[10px] font-medium px-2 py-1 rounded-[5px] transition-opacity hover:opacity-70"
+              className="text-[10px] font-medium px-3 py-2 rounded-[5px] transition-opacity hover:opacity-70"
               style={{ backgroundImage: "linear-gradient(#c4c4c4, #f3f2f0)" }}
             >
               Yout
