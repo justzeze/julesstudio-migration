@@ -38,7 +38,7 @@ export function Header() {
         }}
       >
         <div className="flex items-center justify-between px-8 py-3 md:px-12">
-          <Link href="/">
+          <Link href="/" aria-label="Jules Studio — Accueil">
             <Image
               src="/images/jslogo.svg"
               alt="Jules Studio"
@@ -54,7 +54,7 @@ export function Header() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`text-sm font-medium tracking-wide ${
+                className={`text-sm font-medium tracking-wide px-3 py-3 ${
                   pathname === link.href
                     ? "text-[color:var(--color-foreground)]"
                     : "text-[color:var(--color-foreground)] hover:opacity-60"
@@ -80,7 +80,7 @@ export function Header() {
         <div className="flex items-center justify-between w-full px-2">
           {/* Left: logo + Studio | Projets */}
           <div className="flex items-center gap-4">
-            <Link href="/" className="flex items-center justify-center w-[4.5rem] h-[4.5rem] p-2 pb-4">
+            <Link href="/" aria-label="Jules Studio — Accueil" className="flex items-center justify-center w-[4.5rem] h-[4.5rem] p-2 pb-4">
               <Image
                 src="/images/jslogo-shape.svg"
                 alt="Jules Studio"
