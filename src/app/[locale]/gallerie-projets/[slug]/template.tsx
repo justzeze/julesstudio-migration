@@ -22,7 +22,7 @@ export default function GallerieTemplate({
         el.style.zIndex = "100";
         el.style.overflow = "hidden";
         el.style.animation =
-          "swipe-in-from-left 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards";
+          "swipe-in-from-left 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards";
 
         const cleanup = () => {
           el.style.position = "";

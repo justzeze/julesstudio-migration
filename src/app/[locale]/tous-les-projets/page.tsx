@@ -3,26 +3,35 @@ import { ProjectsGrid } from "@/components/sections/ProjectsGrid";
 import { BackgroundVideoPanel } from "@/components/layout/BackgroundVideoPanel";
 import { ContentPanel } from "@/components/layout/ContentPanel";
 import { getAllProjects } from "@/lib/queries";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Portfolio Complet — Tous Nos Projets Web Design & Webflow Paris",
-  description:
-    "Découvrez l'ensemble de nos réalisations web design à Paris : sites vitrines, landing pages, e-commerce et identités visuelles. Chaque projet Webflow est conçu sur mesure.",
-  alternates: {
-    canonical: "https://julesstudio.fr/tous-les-projets",
-  },
-  openGraph: {
-    title: "Tous les projets Jules Studio — Web Design & Webflow",
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  return buildPageMetadata({
+    locale,
+    path: "/tous-les-projets",
+    title: "Portfolio Complet — Tous Nos Projets Web Design & Webflow Paris",
     description:
+      "Découvrez l'ensemble de nos réalisations web design à Paris : sites vitrines, landing pages, e-commerce et identités visuelles. Chaque projet Webflow est conçu sur mesure.",
+    ogTitle: "Tous les projets Jules Studio — Web Design & Webflow",
+    ogDescription:
       "Portfolio complet de nos créations web : sites vitrines, landing pages, e-commerce conçus avec Webflow à Paris.",
-    url: "https://julesstudio.fr/tous-les-projets",
-  },
-};
+  });
+}
 
 export const revalidate = 60;
 
-export default async function TousLesProjetsPage() {
-  const projects = await getAllProjects();
+export default async function TousLesProjetsPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const projects = await getAllProjects(locale);
 
   return (
     <div className="flex flex-col md:flex-row">

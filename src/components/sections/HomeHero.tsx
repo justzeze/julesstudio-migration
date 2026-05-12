@@ -3,10 +3,12 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import Image from "next/image";
 import gsap from "gsap";
+import { useLocale } from "@/i18n/locale-context";
+import { useSiteSettings } from "@/lib/site-settings-context";
 
 const HEADER_H = "3.5rem";
 
-const TAGLINE_WORDS = [
+const TAGLINE_WORDS_FR = [
   { text: "Studio", ml: "-5.5rem" },
   { text: "de" },
   { text: "Design" },
@@ -17,7 +19,37 @@ const TAGLINE_WORDS = [
   { text: "Webflow" },
 ];
 
+const TAGLINE_WORDS_EN = [
+  { text: "Digital", ml: "-5.5rem" },
+  { text: "Design" },
+  { text: "&" },
+  { text: "Webflow" },
+  { text: "Development", ml: "-4.5rem" },
+  { text: "Studio" },
+];
+
+const i18n = {
+  fr: {
+    preview: "Aperçu",
+    close: "Fermé",
+    gallery: "Gallerie",
+    allProjects: "Tous les projets",
+    mobileTagline: { line1: "STUDIO DE DESIGN", line2: "DIGITAL & DE", line3: "DEVELOPPEMENT", line4: "WEBFLOW" },
+  },
+  en: {
+    preview: "Preview",
+    close: "Close",
+    gallery: "Gallery",
+    allProjects: "All projects",
+    mobileTagline: { line1: "DIGITAL DESIGN", line2: "& WEBFLOW", line3: "DEVELOPMENT", line4: "STUDIO" },
+  },
+} as const;
+
 export function HomeHero({ isVisible = true }: { isVisible?: boolean }) {
+  const locale = useLocale();
+  const settings = useSiteSettings();
+  const t = i18n[locale];
+  const TAGLINE_WORDS = locale === "en" ? TAGLINE_WORDS_EN : TAGLINE_WORDS_FR;
   const [previewOpen, setPreviewOpen] = useState(true);
   const [headerHovered, setHeaderHovered] = useState(false);
   const [galleryOpen, setGalleryOpen] = useState(false);
@@ -27,7 +59,6 @@ export function HomeHero({ isVisible = true }: { isVisible?: boolean }) {
   const taglineRef = useRef<HTMLDivElement>(null);
   const yearsRef = useRef<HTMLDivElement>(null);
   const bgVideoRef = useRef<HTMLVideoElement>(null);
-  const teasingVideoRef = useRef<HTMLVideoElement>(null);
   const hasAnimated = useRef(false);
   const hasStaggered = useRef(false);
 
@@ -131,13 +162,10 @@ export function HomeHero({ isVisible = true }: { isVisible?: boolean }) {
   // Pause/resume videos when visibility changes (persistent mount in layout)
   useEffect(() => {
     const bg = bgVideoRef.current;
-    const teasing = teasingVideoRef.current;
     if (isVisible) {
       bg?.play();
-      teasing?.play();
     } else {
       bg?.pause();
-      teasing?.pause();
     }
   }, [isVisible]);
 
@@ -162,7 +190,7 @@ export function HomeHero({ isVisible = true }: { isVisible?: boolean }) {
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
               <path d="M22 16V4c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2m-10.6-3.47l1.63 2.18l2.58-3.22a.5.5 0 0 1 .78 0l2.96 3.7c.26.33.03.81-.39.81H9a.5.5 0 0 1-.4-.8l2-2.67c.2-.26.6-.26.8 0M2 7v13c0 1.1.9 2 2 2h13c.55 0 1-.45 1-1s-.45-1-1-1H5c-.55 0-1-.45-1-1V7c0-.55-.45-1-1-1s-1 .45-1 1" />
             </svg>
-            <span className="text-sm font-normal">Gallerie</span>
+            <span className="text-sm font-normal">{t.gallery}</span>
           </div>
           {/* Toggle icon: dots when closed, chevron when open */}
           <div
@@ -208,7 +236,7 @@ export function HomeHero({ isVisible = true }: { isVisible?: boolean }) {
                 style={{ width: "18rem", height: "15rem" }}
               >
                 <Image
-                  src="https://cdn.prod.website-files.com/6983a7c2decf98d1d77ad954/69ab6985047d28d4eecfa2d6_Capture%20d%E2%80%99e%CC%81cran%202025-09-27%20a%CC%80%203.06.01%E2%80%AFPM.png"
+                  src={settings.heroVideoPoster || ""}
                   alt="Projet web design Justzeze — portfolio webdesigner"
                   width={288}
                   height={240}
@@ -221,7 +249,7 @@ export function HomeHero({ isVisible = true }: { isVisible?: boolean }) {
               <div className="flex items-center justify-between w-[80vw] flex-wrap gap-2">
                 {/* Left: project link */}
                 <a
-                  href="/gallerie-projets/justzeze"
+                  href={`/${locale}/gallerie-projets/justzeze`}
                   className="text-sm font-medium hover:border-b hover:border-[color:var(--color-foreground)] transition-all"
                 >
                   Justzeze
@@ -231,14 +259,14 @@ export function HomeHero({ isVisible = true }: { isVisible?: boolean }) {
                   <span className="text-sm font-medium">1</span>
                   <div className="w-px h-4 bg-[#c4c4c4]" />
                   <a
-                    href="/tous-les-projets"
+                    href={`/${locale}/projets`}
                     className="text-sm font-medium px-2 py-2 rounded-[5px] flex items-center justify-center"
                     style={{
                       backgroundImage: "linear-gradient(#f3f2f0, #d2d1d1 75%, #c4c4c4)",
                       border: "1px solid #c4c4c4",
                     }}
                   >
-                    Tous les projets
+                    {t.allProjects}
                   </a>
                 </div>
               </div>
@@ -264,8 +292,7 @@ export function HomeHero({ isVisible = true }: { isVisible?: boolean }) {
         muted
         loop
         playsInline
-        preload="metadata"
-        poster="https://cdn.prod.website-files.com/6983a7c2decf98d1d77ad954/69ab6985047d28d4eecfa2d6_Capture%20d%E2%80%99e%CC%81cran%202025-09-27%20a%CC%80%203.06.01%E2%80%AFPM.png"
+        preload="auto"
         className="absolute inset-0 w-full h-full object-cover"
         style={{ zIndex: -1 }}
       >
@@ -310,13 +337,13 @@ export function HomeHero({ isVisible = true }: { isVisible?: boolean }) {
                 padding: "0.4rem 0.6rem",
                 borderRadius: "5px",
                 backgroundColor: headerHovered ? "rgba(0,0,0,0.14)" : "transparent",
-                transition: "background-color 1.2s cubic-bezier(0.4, 0, 0.2, 1)",
+                transition: "background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
               }}
               onClick={() => setPreviewOpen(false)}
               onMouseEnter={() => setHeaderHovered(true)}
               onMouseLeave={() => setHeaderHovered(false)}
             >
-              {headerHovered ? "Fermé" : "Aperçu"}
+              {headerHovered ? t.close : t.preview}
             </span>
             <div className="flex items-center gap-2">
               <span
@@ -325,7 +352,7 @@ export function HomeHero({ isVisible = true }: { isVisible?: boolean }) {
                   width: 12,
                   height: 12,
                   backgroundColor: "#c4c4c4",
-                  transition: "transform 1.2s cubic-bezier(0.4, 0, 0.2, 1)",
+                  transition: "transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)",
                   transform: headerHovered ? "translateX(-4rem)" : "translateX(0)",
                 }}
               />
@@ -342,20 +369,12 @@ export function HomeHero({ isVisible = true }: { isVisible?: boolean }) {
           }}
         >
           <div className="w-full h-full" style={{ borderRadius: "5px", overflow: "clip" }}>
-            <video
-              ref={teasingVideoRef}
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="metadata"
-              className="w-full h-full object-cover"
-            >
-              <source
-                src="https://res.cloudinary.com/daehyxast/video/upload/v1773019481/screen_projects_at6p0o.mov"
-                type="video/mp4"
-              />
-            </video>
+            <iframe
+              src={settings.teasingVideoUrl}
+              allow="autoplay; encrypted-media"
+              className="border-0 pointer-events-none"
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+            />
           </div>
         </div>
       </div>
@@ -377,7 +396,7 @@ export function HomeHero({ isVisible = true }: { isVisible?: boolean }) {
           border: "none",
         }}
       >
-        {previewOpen ? "Fermé" : "Aperçu"}
+        {previewOpen ? t.close : t.preview}
       </button>
 
       {/* ===== TAGLINE MOBILE (static, fixed lines) ===== */}
@@ -386,11 +405,11 @@ export function HomeHero({ isVisible = true }: { isVisible?: boolean }) {
         style={{ top: "40%" }}
       >
         <h1 className="text-white uppercase font-bold leading-[1.3]" style={{ fontSize: "1.25rem" }}>
-          <div>STUDIO DE DESIGN</div>
-          <div style={{ paddingLeft: "5rem" }}>DIGITAL &amp; DE</div>
-          <div style={{ paddingLeft: "2.5rem" }}>DEVELOPPEMENT</div>
+          <div>{t.mobileTagline.line1}</div>
+          <div style={{ paddingLeft: "5rem" }}>{t.mobileTagline.line2}</div>
+          <div style={{ paddingLeft: "2.5rem" }}>{t.mobileTagline.line3}</div>
           <div className="flex items-center" style={{ paddingLeft: "4rem" }}>
-            <span>WEBFLOW</span>
+            <span>{t.mobileTagline.line4}</span>
             <span className="text-[0.55rem] font-medium ml-2 leading-tight opacity-80 whitespace-nowrap">©2026<br/>JULES STUDIO</span>
           </div>
         </h1>
@@ -468,14 +487,14 @@ export function HomeHero({ isVisible = true }: { isVisible?: boolean }) {
           {/* Links row */}
           <div className="flex items-center justify-between gap-1 px-1" style={{ height: "50%" }}>
             <a
-              href="mailto:hello@julesstudio.fr"
+              href={`mailto:${settings.email}`}
               className="text-[10px] font-medium px-3 py-2 rounded-[5px] transition-opacity hover:opacity-70"
               style={{ backgroundImage: "linear-gradient(#c4c4c4, #f3f2f0)" }}
             >
               Mail
             </a>
             <a
-              href="https://instagram.com/julesstudio.fr"
+              href={settings.instagramUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="text-[10px] font-medium px-3 py-2 rounded-[5px] transition-opacity hover:opacity-70"
@@ -484,7 +503,7 @@ export function HomeHero({ isVisible = true }: { isVisible?: boolean }) {
               Insta
             </a>
             <a
-              href="https://youtube.com/@julesstudioyt"
+              href={settings.youtubeUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="text-[10px] font-medium px-3 py-2 rounded-[5px] transition-opacity hover:opacity-70"
@@ -507,7 +526,7 @@ export function HomeHero({ isVisible = true }: { isVisible?: boolean }) {
         }}
       >
         <a
-          href="https://youtube.com/@julesstudioyt"
+          href={settings.youtubeUrl}
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center justify-center text-xs font-medium py-2 rounded-[5px]"
@@ -519,7 +538,7 @@ export function HomeHero({ isVisible = true }: { isVisible?: boolean }) {
           Yout
         </a>
         <a
-          href="https://instagram.com/julesstudio.fr"
+          href={settings.instagramUrl}
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center justify-center text-xs font-medium py-2 rounded-[5px]"
@@ -531,7 +550,7 @@ export function HomeHero({ isVisible = true }: { isVisible?: boolean }) {
           Insta
         </a>
         <a
-          href="mailto:hello@julesstudio.fr"
+          href={`mailto:${settings.email}`}
           className="flex items-center justify-center text-xs font-medium py-2 rounded-[5px]"
           style={{
             backgroundImage: "linear-gradient(#f3f2f0, #919191 75%, #c4c4c4)",

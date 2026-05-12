@@ -3,8 +3,10 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { useSiteSettings } from "@/lib/site-settings-context";
 
 export function HomeGallery() {
+  const settings = useSiteSettings();
   return (
     <section className="px-6 md:px-10 py-20">
       {/* Section header */}
@@ -36,9 +38,10 @@ export function HomeGallery() {
               {/* Thumbnail */}
               <div className="relative w-full md:w-20 h-20 rounded overflow-hidden flex-shrink-0">
                 <Image
-                  src="https://cdn.prod.website-files.com/6983a7c2decf98d1d77ad954/69ab6985047d28d4eecfa2d6_Capture%20d%E2%80%99e%CC%81cran%202025-09-27%20a%CC%80%203.06.01%E2%80%AFPM.png"
+                  src={settings.heroVideoPoster || ""}
                   alt="Justzeze"
                   fill
+                  sizes="80px"
                   className="object-cover"
                 />
               </div>

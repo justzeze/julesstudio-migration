@@ -96,9 +96,8 @@ body {
 
 /* ============================================
    STYLE GUIDE — Animation & Motion
-   All UI transitions use the same premium curve:
-   duration: 1.2s | easing: cubic-bezier(0.4, 0, 0.2, 1)
-   Exception: page transitions (handled separately)
+   Macro transitions (panels, cards, page enters): 1.2s cubic-bezier(0.4, 0, 0.2, 1)
+   Micro interactions (hover, focus, active): 0.3s cubic-bezier(0.4, 0, 0.2, 1)
    ============================================ */
 
 /* ============================================
@@ -128,7 +127,7 @@ body {
   background: currentColor;
   transform: scaleX(0);
   transform-origin: right;
-  transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .link-hover:hover::after {

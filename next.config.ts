@@ -6,15 +6,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "cdn.prod.website-files.com",
-      },
-      {
-        protocol: "https",
         hostname: "cdn.sanity.io",
-      },
-      {
-        protocol: "https",
-        hostname: "res.cloudinary.com",
       },
     ],
   },

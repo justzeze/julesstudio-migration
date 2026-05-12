@@ -2,22 +2,42 @@
 
 import { useState } from "react";
 
-const categories = [
-  "Tous",
-  "Site Vitrine",
-  "E-commerce",
-  "Éditorial",
-  "Identité Visuelle",
-  "Portfolio",
-  "Social Media",
-];
-
 interface FilterButtonsProps {
   onFilter: (category: string) => void;
+  filters?: {
+    all: string;
+    showcase: string;
+    ecommerce: string;
+    editorial: string;
+    identity: string;
+    portfolio: string;
+    social: string;
+  };
 }
 
-export function FilterButtons({ onFilter }: FilterButtonsProps) {
-  const [active, setActive] = useState("Tous");
+export function FilterButtons({ onFilter, filters }: FilterButtonsProps) {
+  const defaultFilters = {
+    all: "Tous",
+    showcase: "Site Vitrine",
+    ecommerce: "E-commerce",
+    editorial: "Éditorial",
+    identity: "Identité Visuelle",
+    portfolio: "Portfolio",
+    social: "Social Media",
+  };
+
+  const f = filters || defaultFilters;
+  const categories = [
+    f.all,
+    f.showcase,
+    f.ecommerce,
+    f.editorial,
+    f.identity,
+    f.portfolio,
+    f.social,
+  ];
+
+  const [active, setActive] = useState(f.all);
 
   function handleClick(cat: string) {
     setActive(cat);
@@ -35,7 +55,7 @@ export function FilterButtons({ onFilter }: FilterButtonsProps) {
               ? "bg-[#e8e7e5] text-[color:var(--color-foreground)] border-transparent"
               : "bg-transparent text-[color:var(--color-muted)] border-[color:var(--color-border)] hover:border-[color:var(--color-foreground)] hover:text-[color:var(--color-foreground)]"
           }`}
-          style={{ transition: "all 1.2s cubic-bezier(0.4, 0, 0.2, 1)" }}
+          style={{ transition: "background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1)" }}
         >
           {cat}
         </button>

@@ -1,7 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import { useLocale } from "@/i18n/locale-context";
+import { useSiteSettings } from "@/lib/site-settings-context";
 
+const i18n = {
+  fr: { preview: "Aperçu", close: "Fermé", hoverHint: "Passez la souris au-dessus pour voir le projet", mobileTagline: { line1: "STUDIO DE DESIGN", line2: "DIGITAL & DE", line3: "DEVELOPPEMENT", line4: "WEBFLOW" } },
+  en: { preview: "Preview", close: "Close", hoverHint: "Hover over a project to preview it", mobileTagline: { line1: "DIGITAL DESIGN", line2: "& WEBFLOW", line3: "DEVELOPMENT", line4: "STUDIO" } },
+} as const;
 
 interface BackgroundVideoPanelProps {
   hoveredVideoUrl?: string | null;
@@ -12,6 +18,9 @@ export function BackgroundVideoPanel({
   hoveredVideoUrl,
   hoveredName,
 }: BackgroundVideoPanelProps = {}) {
+  const locale = useLocale();
+  const settings = useSiteSettings();
+  const t = i18n[locale];
   const [previewOpen, setPreviewOpen] = useState(true);
   const [headerHovered, setHeaderHovered] = useState(false);
 
@@ -28,9 +37,8 @@ export function BackgroundVideoPanel({
         muted
         loop
         playsInline
-        preload="metadata"
+        preload="auto"
         className="absolute inset-0 w-full h-full object-cover"
-        poster="https://cdn.prod.website-files.com/6983a7c2decf98d1d77ad954/69ab6985047d28d4eecfa2d6_Capture%20d%E2%80%99e%CC%81cran%202025-09-27%20a%CC%80%203.06.01%E2%80%AFPM.png"
       >
         <source
           src="https://s3.amazonaws.com/webflow-prod-assets/697be174b8224c11c814a60e/697c72ff2f64b42254f72b34_best%20bg%20video%20V2.mp4"
@@ -47,11 +55,11 @@ export function BackgroundVideoPanel({
           className="text-white uppercase font-bold leading-[1.3]"
           style={{ fontSize: "1.25rem" }}
         >
-          <div>STUDIO DE DESIGN</div>
-          <div style={{ paddingLeft: "5rem" }}>DIGITAL &amp; DE</div>
-          <div style={{ paddingLeft: "2.5rem" }}>DEVELOPPEMENT</div>
+          <div>{t.mobileTagline.line1}</div>
+          <div style={{ paddingLeft: "5rem" }}>{t.mobileTagline.line2}</div>
+          <div style={{ paddingLeft: "2.5rem" }}>{t.mobileTagline.line3}</div>
           <div className="flex items-center" style={{ paddingLeft: "4rem" }}>
-            <span>WEBFLOW</span>
+            <span>{t.mobileTagline.line4}</span>
             <span className="text-[0.55rem] font-medium ml-2 leading-tight opacity-80 whitespace-nowrap">
               ©2026
               <br />
@@ -91,10 +99,10 @@ export function BackgroundVideoPanel({
                   padding: "0.3rem 0.5rem",
                   borderRadius: "5px",
                   backgroundColor: headerHovered ? "rgba(0,0,0,0.14)" : "transparent",
-                  transition: "background-color 1.2s cubic-bezier(0.4, 0, 0.2, 1)",
+                  transition: "background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
                 }}
               >
-                {headerHovered ? "Fermé" : "Aperçu"}
+                {headerHovered ? t.close : t.preview}
               </span>
               <div className="flex items-center gap-2">
                 <span
@@ -103,7 +111,7 @@ export function BackgroundVideoPanel({
                     width: 10,
                     height: 10,
                     backgroundColor: "#c4c4c4",
-                    transition: "transform 1.2s cubic-bezier(0.4, 0, 0.2, 1)",
+                    transition: "transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)",
                     transform: headerHovered ? "translateX(-2.5rem)" : "translateX(0)",
                   }}
                 />
@@ -154,21 +162,35 @@ export function BackgroundVideoPanel({
                 }}
               >
                 {hoveredVideoUrl && (
-                  <video
-                    key={hoveredVideoUrl}
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    className="object-cover"
-                    style={{
-                      width: "80%",
-                      height: "85%",
-                      borderRadius: "5px",
-                    }}
-                  >
-                    <source src={hoveredVideoUrl} type="video/mp4" />
-                  </video>
+                  hoveredVideoUrl.includes("mediadelivery.net") ? (
+                    <iframe
+                      key={hoveredVideoUrl}
+                      src={hoveredVideoUrl.replace("/play/", "/embed/") + "?autoplay=true&loop=true&muted=true&preload=true&responsive=false&showControls=false&poster=false"}
+                      allow="autoplay; encrypted-media"
+                      className="border-0 pointer-events-none"
+                      style={{
+                        width: "80%",
+                        height: "85%",
+                        borderRadius: "5px",
+                      }}
+                    />
+                  ) : (
+                    <video
+                      key={hoveredVideoUrl}
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      className="object-cover"
+                      style={{
+                        width: "80%",
+                        height: "85%",
+                        borderRadius: "5px",
+                      }}
+                    >
+                      <source src={hoveredVideoUrl} type="video/mp4" />
+                    </video>
+                  )
                 )}
               </div>
             </div>
@@ -185,7 +207,7 @@ export function BackgroundVideoPanel({
               <span className="text-xs font-medium text-[color:var(--color-muted)]">
                 {hoveredName
                   ? hoveredName.toLowerCase()
-                  : "Passez la souris au-dessus pour voir le projet"}
+                  : t.hoverHint}
               </span>
             </div>
           </div>
@@ -207,7 +229,7 @@ export function BackgroundVideoPanel({
               transition: "opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), transform 1.2s cubic-bezier(0.4, 0, 0.2, 1)",
             }}
           >
-            Aperçu
+            {t.preview}
           </button>
         </>
       ) : (
@@ -240,13 +262,13 @@ export function BackgroundVideoPanel({
                     padding: "0.4rem 0.6rem",
                     borderRadius: "5px",
                     backgroundColor: headerHovered ? "rgba(0,0,0,0.14)" : "transparent",
-                    transition: "background-color 1.2s cubic-bezier(0.4, 0, 0.2, 1)",
+                    transition: "background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
                   }}
                   onClick={() => setPreviewOpen(false)}
                   onMouseEnter={() => setHeaderHovered(true)}
                   onMouseLeave={() => setHeaderHovered(false)}
                 >
-                  {headerHovered ? "Fermé" : "Aperçu"}
+                  {headerHovered ? t.close : t.preview}
                 </span>
                 <div className="flex items-center gap-2">
                   <span
@@ -255,7 +277,7 @@ export function BackgroundVideoPanel({
                       width: 12,
                       height: 12,
                       backgroundColor: "#c4c4c4",
-                      transition: "transform 1.2s cubic-bezier(0.4, 0, 0.2, 1)",
+                      transition: "transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)",
                       transform: headerHovered ? "translateX(-4rem)" : "translateX(0)",
                     }}
                   />
@@ -272,19 +294,12 @@ export function BackgroundVideoPanel({
                 className="w-full h-full"
                 style={{ borderRadius: "5px", overflow: "clip" }}
               >
-                <video
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  preload="metadata"
-                  className="w-full h-full object-cover"
-                >
-                  <source
-                    src="https://res.cloudinary.com/daehyxast/video/upload/v1773019481/screen_projects_at6p0o.mov"
-                    type="video/mp4"
-                  />
-                </video>
+                <iframe
+                  src={settings.teasingVideoUrl}
+                  allow="autoplay; encrypted-media"
+                  className="border-0 pointer-events-none"
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                />
               </div>
             </div>
           </div>
@@ -303,7 +318,7 @@ export function BackgroundVideoPanel({
               border: "none",
             }}
           >
-            {previewOpen ? "Fermé" : "Aperçu"}
+            {previewOpen ? t.close : t.preview}
           </button>
         </>
       )}
@@ -337,14 +352,14 @@ export function BackgroundVideoPanel({
           </div>
           <div className="flex items-center justify-between gap-1 px-1" style={{ height: "50%" }}>
             <a
-              href="mailto:hello@julesstudio.fr"
+              href={`mailto:${settings.email}`}
               className="text-[10px] font-medium px-3 py-2 rounded-[5px] transition-opacity hover:opacity-70"
               style={{ backgroundImage: "linear-gradient(#c4c4c4, #f3f2f0)" }}
             >
               Mail
             </a>
             <a
-              href="https://www.instagram.com/julesstudio.fr"
+              href={settings.instagramUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="text-[10px] font-medium px-3 py-2 rounded-[5px] transition-opacity hover:opacity-70"
@@ -353,7 +368,7 @@ export function BackgroundVideoPanel({
               Insta
             </a>
             <a
-              href="https://youtube.com/@julesstudioyt"
+              href={settings.youtubeUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="text-[10px] font-medium px-3 py-2 rounded-[5px] transition-opacity hover:opacity-70"

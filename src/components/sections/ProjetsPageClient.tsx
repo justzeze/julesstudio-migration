@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo, useCallback } from "react";
 import { ContentPanel } from "@/components/layout/ContentPanel";
 import { BackgroundVideoPanel } from "@/components/layout/BackgroundVideoPanel";
 import { FilterButtons } from "@/components/ui/FilterButtons";
 import { ProjectListItem } from "@/components/ui/ProjectListItem";
+import { InlineFooter } from "@/components/layout/InlineFooter";
 
 interface Project {
   name: string;
@@ -16,15 +17,56 @@ interface Project {
   liveUrl?: string;
 }
 
-export function ProjetsPageClient({ projects }: { projects: Project[] }) {
-  const [filter, setFilter] = useState("Tous");
+interface ProjetsDict {
+  intro: string;
+  viewProject: string;
+  hoverHint: string;
+  noProjects: string;
+  filters: {
+    all: string;
+    showcase: string;
+    ecommerce: string;
+    editorial: string;
+    identity: string;
+    portfolio: string;
+    social: string;
+  };
+}
+
+interface ProjetsPageClientProps {
+  projects: Project[];
+  dict?: ProjetsDict;
+}
+
+export function ProjetsPageClient({ projects, dict }: ProjetsPageClientProps) {
+  const filters = dict?.filters || {
+    all: "Tous",
+    showcase: "Site Vitrine",
+    ecommerce: "E-commerce",
+    editorial: "Éditorial",
+    identity: "Identité Visuelle",
+    portfolio: "Portfolio",
+    social: "Social Media",
+  };
+
+  const [filter, setFilter] = useState(filters.all);
   const [hoveredVideo, setHoveredVideo] = useState<string | null>(null);
   const [hoveredName, setHoveredName] = useState<string | null>(null);
 
-  const filtered =
-    filter === "Tous"
-      ? projects
-      : projects.filter((p) => p.category === filter);
+  const filtered = useMemo(
+    () => filter === filters.all ? projects : projects.filter((p) => p.category === filter),
+    [filter, filters.all, projects]
+  );
+
+  const handleHover = useCallback((videoUrl: string, name: string) => {
+    setHoveredVideo(videoUrl);
+    setHoveredName(name);
+  }, []);
+
+  const handleLeave = useCallback(() => {
+    setHoveredVideo(null);
+    setHoveredName(null);
+  }, []);
 
   return (
     <div className="flex flex-col md:flex-row">
@@ -50,10 +92,9 @@ export function ProjetsPageClient({ projects }: { projects: Project[] }) {
             }}
           >
             <p className="text-xs font-medium tracking-widest text-[color:var(--color-foreground)]">
-              Chaque projet ci-dessous a été conçu avec un seul objectif :
-              générer des résultats mesurables. Pas juste un beau design.
+              {dict?.intro || "Chaque projet ci-dessous a été conçu avec un seul objectif : générer des résultats mesurables. Pas juste un beau design."}
             </p>
-            <FilterButtons onFilter={setFilter} />
+            <FilterButtons onFilter={setFilter} filters={filters} />
           </div>
         </div>
 
@@ -64,78 +105,20 @@ export function ProjetsPageClient({ projects }: { projects: Project[] }) {
               key={project.slug}
               {...project}
               index={i + 1}
-              onHover={(videoUrl, name) => {
-                setHoveredVideo(videoUrl);
-                setHoveredName(name);
-              }}
-              onLeave={() => {
-                setHoveredVideo(null);
-                setHoveredName(null);
-              }}
+              viewProjectLabel={dict?.viewProject || "Voir le projet"}
+              onHover={handleHover}
+              onLeave={handleLeave}
             />
           ))}
 
           {filtered.length === 0 && (
             <p className="text-center text-sm text-[color:var(--color-foreground)] py-20">
-              Aucun projet dans cette catégorie pour le moment.
+              {dict?.noProjects || "Aucun projet dans cette catégorie pour le moment."}
             </p>
           )}
         </div>
 
-        {/* Spacers */}
-        <div className="pt-4" />
-        <div className="pt-12" />
-        <div className="pt-12" />
-        <div className="pt-12" />
-
-        {/* Tagline */}
-        <div className="flex-1 text-center">
-          <div className="text-sm font-normal text-[color:var(--color-muted)]">
-            #CREATAMAZINGEVERYWHEREANYTIME
-          </div>
-        </div>
-
-        {/* Footer inline */}
-        <div className="pt-12" />
-        <div className="pt-12" />
-
-        <div className="flex flex-col items-center gap-8 p-2">
-          <div className="h-60 flex items-center">
-            <span
-              className="text-4xl font-black text-[color:var(--color-accent)]"
-              style={{
-                fontFamily: "'Palatino Linotype', Palatino, serif",
-                transform: "scale3d(1, 4.5, 1)",
-              }}
-            >
-              JULESSTUDIO
-            </span>
-          </div>
-
-          <div className="flex items-center justify-end gap-2 w-full -mt-18 px-2">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="text-[color:var(--color-muted)]"
-            >
-              <circle cx="12" cy="12" r="10" />
-              <path d="M14.83 14.83a4 4 0 1 1 0-5.66" />
-            </svg>
-            <span className="text-sm font-light text-[color:var(--color-foreground)]">
-              2026 JULESSTUDIO
-            </span>
-          </div>
-        </div>
-
-        <div className="pt-12" />
-        <div className="pt-12" />
+        <InlineFooter />
       </ContentPanel>
 
       <BackgroundVideoPanel

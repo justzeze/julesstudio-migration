@@ -1,0 +1,80 @@
+{
+  "nav": {
+    "studio": "STUDIO",
+    "projets": "PROJECTS",
+    "contact": "CONTACT"
+  },
+  "home": {
+    "tagline": ["Digital", "Design", "&", "Webflow", "Development", "Studio"],
+    "gallery": "Gallery",
+    "allProjects": "All projects",
+    "preview": "Preview",
+    "close": "Close",
+    "mobileTagline": {
+      "line1": "DIGITAL DESIGN",
+      "line2": "& WEBFLOW",
+      "line3": "DEVELOPMENT",
+      "line4": "STUDIO"
+    }
+  },
+  "projets": {
+    "meta": {
+      "title": "Web Design & Webflow Portfolio Paris — Our Work",
+      "description": "Discover our web design projects in Paris: showcase sites, landing pages, e-commerce and visual identities."
+    },
+    "intro": "Every project below was designed with one goal: deliver measurable results. Not just a pretty design.",
+    "viewProject": "View project",
+    "hoverHint": "Hover over a project to preview it",
+    "noProjects": "No projects in this category yet.",
+    "filters": {
+      "all": "All",
+      "showcase": "Showcase",
+      "ecommerce": "E-commerce",
+      "editorial": "Editorial",
+      "identity": "Visual Identity",
+      "portfolio": "Portfolio",
+      "social": "Social Media"
+    }
+  },
+  "contact": {
+    "meta": {
+      "title": "Contact — Book Your Free Discovery Call | Web Design Paris",
+      "description": "Ready to launch your web project? Contact Jules Studio, web design studio in Paris."
+    },
+    "title": "Let's talk about your project",
+    "intro": "Have a website project in mind? Write to us at",
+    "introMiddle": "or better yet, take action —",
+    "introLink": "book your free discovery call",
+    "introEnd": "30 min with Charles.",
+    "faq": {
+      "title": "Frequently asked questions",
+      "q1": "Who do we work with?",
+      "a1": "Freelancers, creators, coaches, startups, brands in Paris and across France. If you have a clear vision and the ambition to stand out, we're made to work together.",
+      "q2": "How much does it cost?",
+      "a2_vitrine": "Showcase website → from €890",
+      "a2_landing": "High-conversion landing page → from €1,690",
+      "a2_complet": "Full project (strategy + design + Webflow) → from €2,390",
+      "q3": "What's the process?",
+      "a3_1": "Immersion — We understand your brand, goals, and audience.",
+      "a3_2": "Creative direction — We define the visual identity and strategy.",
+      "a3_3": "Design — We craft every page, every interaction.",
+      "a3_4": "Development & launch — We build, test, and deliver."
+    },
+    "cta": {
+      "title": "READY TO LAUNCH?",
+      "text": "Book a free 30-min discovery call with Charles. Let's talk about your project, no strings attached.",
+      "button": "Book my free call"
+    }
+  },
+  "gallery": {
+    "moreProjects": "More projects",
+    "ctaTitle": "Come say hi!",
+    "ctaText": "Reach us at",
+    "services": "What we did",
+    "seeLive": "see live"
+  },
+  "common": {
+    "tagline": "#CREATAMAZINGEVERYWHEREANYTIME",
+    "copyright": "2026 JULESSTUDIO"
+  }
+}

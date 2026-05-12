@@ -1,8 +1,9 @@
 "use client";
 
+import { memo } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { SwipeLink } from "./SwipeLink";
+import { useLocale } from "@/i18n/locale-context";
 
 interface ProjectListItemProps {
   name: string;
@@ -13,11 +14,12 @@ interface ProjectListItemProps {
   task: string;
   liveUrl?: string;
   index: number;
+  viewProjectLabel?: string;
   onHover: (videoUrl: string, name: string) => void;
   onLeave: () => void;
 }
 
-export function ProjectListItem({
+export const ProjectListItem = memo(function ProjectListItem({
   name,
   slug,
   image,
@@ -26,13 +28,16 @@ export function ProjectListItem({
   liveUrl,
   videoUrl,
   index,
+  viewProjectLabel = "Voir le projet",
   onHover,
   onLeave,
 }: ProjectListItemProps) {
+  const locale = useLocale();
+
   return (
     <div
       className="flex flex-col gap-4 rounded-[5px] bg-[color:var(--color-beige)] hover:bg-white"
-      style={{ transition: "background-color 1.2s cubic-bezier(0.4, 0, 0.2, 1)" }}
+      style={{ transition: "background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1)" }}
       onMouseEnter={() => videoUrl && onHover(videoUrl, name)}
       onMouseLeave={onLeave}
     >
@@ -64,7 +69,7 @@ export function ProjectListItem({
       {/* Bottom action bar */}
       <div className="flex items-center gap-3 px-4 pb-4">
         <SwipeLink
-          href={`/gallerie-projets/${slug}`}
+          href={`/${locale}/gallerie-projets/${slug}`}
           className="whitespace-nowrap text-xs font-medium no-underline text-[color:var(--color-foreground)]"
           style={{
             backgroundImage: "linear-gradient(#f3f2f0, #919191 75%, #c4c4c4)",
@@ -73,7 +78,7 @@ export function ProjectListItem({
             padding: "0.75rem 0.75rem",
           }}
         >
-          Voir le projet
+          {viewProjectLabel}
         </SwipeLink>
 
         <span className="text-xs text-[color:var(--color-muted)]">{index}</span>
@@ -88,7 +93,7 @@ export function ProjectListItem({
               border: "1px solid var(--color-foreground)",
               borderRadius: "5px",
               padding: "0.75rem 0.75rem",
-              transition: "opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1)",
+              transition: "opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
             }}
           >
             {name.toLowerCase()}
@@ -97,4 +102,4 @@ export function ProjectListItem({
       </div>
     </div>
   );
-}
+});

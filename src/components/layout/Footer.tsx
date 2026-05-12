@@ -1,12 +1,16 @@
-import Link from "next/link";
+"use client";
 
-const socialLinks = [
-  { label: "Mail", href: "mailto:hello@julesstudio.fr" },
-  { label: "Insta", href: "https://instagram.com/julesstudio.fr" },
-  { label: "YouTube", href: "https://youtube.com/@julesstudioyt" },
-];
+import { useSiteSettings } from "@/lib/site-settings-context";
 
 export function Footer() {
+  const settings = useSiteSettings();
+
+  const socialLinks = [
+    { label: "Mail", href: `mailto:${settings.email}` },
+    { label: "Insta", href: settings.instagramUrl },
+    { label: "YouTube", href: settings.youtubeUrl },
+  ];
+
   return (
     <footer className="relative overflow-hidden">
       {/* Marquee */}
@@ -17,7 +21,7 @@ export function Footer() {
               key={i}
               className="text-xs font-medium tracking-[0.3em] text-[color:var(--color-muted)] mx-8"
             >
-              #CREATEAMAZINGEVERYWHEREANYTIME
+              {settings.tagline}
             </span>
           ))}
         </div>
@@ -35,7 +39,7 @@ export function Footer() {
 
       {/* Bottom bar */}
       <div className="flex items-center justify-between px-6 md:px-10 py-6 text-xs text-[color:var(--color-muted)]">
-        <span>&copy; {new Date().getFullYear()} JULESSTUDIO</span>
+        <span>&copy; {settings.copyright}</span>
 
         <div className="flex items-center gap-6">
           {socialLinks.map((link) => (

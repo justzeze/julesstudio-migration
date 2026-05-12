@@ -1,0 +1,80 @@
+{
+  "nav": {
+    "studio": "STUDIO",
+    "projets": "PROJETS",
+    "contact": "CONTACT"
+  },
+  "home": {
+    "tagline": ["Studio", "de", "Design", "Digital", "&", "de", "Developpement", "Webflow"],
+    "gallery": "Gallerie",
+    "allProjects": "Tous les projets",
+    "preview": "Aperçu",
+    "close": "Fermé",
+    "mobileTagline": {
+      "line1": "STUDIO DE DESIGN",
+      "line2": "DIGITAL & DE",
+      "line3": "DEVELOPPEMENT",
+      "line4": "WEBFLOW"
+    }
+  },
+  "projets": {
+    "meta": {
+      "title": "Portfolio Web Design & Webflow Paris — Nos Réalisations",
+      "description": "Découvrez nos réalisations web design à Paris : sites vitrines, landing pages, e-commerce et identités visuelles."
+    },
+    "intro": "Chaque projet ci-dessous a été conçu avec un seul objectif : générer des résultats mesurables. Pas juste un beau design.",
+    "viewProject": "Voir le projet",
+    "hoverHint": "Passez la souris au-dessus pour voir le projet",
+    "noProjects": "Aucun projet dans cette catégorie pour le moment.",
+    "filters": {
+      "all": "Tous",
+      "showcase": "Site Vitrine",
+      "ecommerce": "E-commerce",
+      "editorial": "Éditorial",
+      "identity": "Identité Visuelle",
+      "portfolio": "Portfolio",
+      "social": "Social Media"
+    }
+  },
+  "contact": {
+    "meta": {
+      "title": "Contact — Réservez Votre Appel Découverte Gratuit | Web Design Paris",
+      "description": "Prêt à lancer votre projet web ? Contactez Jules Studio, studio de web design à Paris."
+    },
+    "title": "Parlons de votre projet",
+    "intro": "Vous avez un projet de site web en tête ? Écrivez-nous à",
+    "introMiddle": "ou mieux encore, passez directement à l'action —",
+    "introLink": "réservez votre appel découverte gratuit",
+    "introEnd": "de 30 min avec Charles.",
+    "faq": {
+      "title": "Questions fréquentes",
+      "q1": "Pour qui on travaille ?",
+      "a1": "Indépendants, freelances, créateurs, coachs, startups, marques à Paris et partout en France. Si vous avez une vision claire et l'ambition de vous démarquer, on est faits pour travailler ensemble.",
+      "q2": "Combien ça coûte ?",
+      "a2_vitrine": "Site vitrine → à partir de 890 €",
+      "a2_landing": "Landing page haute conversion → à partir de 1 690 €",
+      "a2_complet": "Projet complet (stratégie + design + Webflow) → à partir de 2 390 €",
+      "q3": "Comment ça se passe ?",
+      "a3_1": "Immersion — On comprend votre marque, vos objectifs, votre audience.",
+      "a3_2": "Direction créative — On définit l'identité visuelle et la stratégie.",
+      "a3_3": "Design — On crée chaque page, chaque interaction.",
+      "a3_4": "Développement & lancement — On intègre, on teste, on livre."
+    },
+    "cta": {
+      "title": "PRÊT À LANCER ?",
+      "text": "Réservez un appel découverte gratuit de 30 min avec Charles. On parle de votre projet, sans engagement.",
+      "button": "Réserver mon appel gratuit"
+    }
+  },
+  "gallery": {
+    "moreProjects": "Plus de projets",
+    "ctaTitle": "Venez nous saluer !",
+    "ctaText": "Contactez-nous au",
+    "services": "Ce que nous avons fait",
+    "seeLive": "voir en live"
+  },
+  "common": {
+    "tagline": "#CREATAMAZINGEVERYWHEREANYTIME",
+    "copyright": "2026 JULESSTUDIO"
+  }
+}

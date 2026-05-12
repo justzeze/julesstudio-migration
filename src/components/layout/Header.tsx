@@ -4,15 +4,22 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { useLocale } from "@/i18n/locale-context";
 
-const navLinks = [
-  { href: "/studio", label: "STUDIO" },
-  { href: "/projets", label: "PROJETS" },
-  { href: "/contact", label: "CONTACT" },
-];
+const navLabels = {
+  fr: { studio: "STUDIO", projets: "PROJETS", contact: "CONTACT" },
+  en: { studio: "STUDIO", projets: "PROJECTS", contact: "CONTACT" },
+} as const;
 
 export function Header() {
   const pathname = usePathname();
+  const locale = useLocale();
+  const labels = navLabels[locale];
+  const navLinks = [
+    { href: `/${locale}/studio`, label: labels.studio },
+    { href: `/${locale}/projets`, label: labels.projets },
+    { href: `/${locale}/contact`, label: labels.contact },
+  ];
   const [entered, setEntered] = useState(false);
 
   useEffect(() => {
@@ -38,7 +45,7 @@ export function Header() {
         }}
       >
         <div className="flex items-center justify-between px-8 py-3 md:px-12">
-          <Link href="/" aria-label="Jules Studio — Accueil">
+          <Link href={`/${locale}`} aria-label="Jules Studio — Accueil">
             <Image
               src="/images/jslogo.svg"
               alt="Jules Studio"
@@ -59,7 +66,7 @@ export function Header() {
                     ? "text-[color:var(--color-foreground)]"
                     : "text-[color:var(--color-foreground)] hover:opacity-60"
                 }`}
-                style={{ transition: "opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1)" }}
+                style={{ transition: "opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1)" }}
               >
                 {link.label}
               </Link>
@@ -80,7 +87,7 @@ export function Header() {
         <div className="flex items-center justify-between w-full px-2">
           {/* Left: logo + Studio | Projets */}
           <div className="flex items-center gap-4">
-            <Link href="/" aria-label="Jules Studio — Accueil" className="flex items-center justify-center w-[4.5rem] h-[4.5rem] p-2 pb-4">
+            <Link href={`/${locale}`} aria-label="Jules Studio — Accueil" className="flex items-center justify-center w-[4.5rem] h-[4.5rem] p-2 pb-4">
               <Image
                 src="/images/jslogo-shape.svg"
                 alt="Jules Studio"
@@ -91,30 +98,30 @@ export function Header() {
             </Link>
             <div className="flex items-center gap-3">
               <Link
-                href="/studio"
+                href={`/${locale}/studio`}
                 className={`text-sm ${
-                  pathname === "/studio" ? "font-medium" : "font-normal"
+                  pathname === `/${locale}/studio` ? "font-medium" : "font-normal"
                 }`}
-                style={{ transition: "color 1.2s cubic-bezier(0.4, 0, 0.2, 1)" }}
+                style={{ transition: "color 0.3s cubic-bezier(0.4, 0, 0.2, 1)" }}
               >
                 Studio
               </Link>
               <div className="w-px h-8 bg-[#c4c4c4]" />
               <Link
-                href="/projets"
+                href={`/${locale}/projets`}
                 className={`text-sm ${
-                  pathname === "/projets" ? "font-medium" : "font-normal"
+                  pathname === `/${locale}/projets` ? "font-medium" : "font-normal"
                 }`}
-                style={{ transition: "color 1.2s cubic-bezier(0.4, 0, 0.2, 1)" }}
+                style={{ transition: "color 0.3s cubic-bezier(0.4, 0, 0.2, 1)" }}
               >
-                Projets
+                {locale === "en" ? "Projects" : "Projets"}
               </Link>
             </div>
           </div>
 
           {/* Right: Contact button */}
           <Link
-            href="/contact"
+            href={`/${locale}/contact`}
             className="text-sm font-normal px-2 py-2 rounded-[5px]"
             style={{
               backgroundImage: "linear-gradient(#f3f2f0, #afafaf 60%, #c4c4c4)",

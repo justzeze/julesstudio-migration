@@ -3,33 +3,41 @@ import Image from "next/image";
 import { getStudioPage } from "@/lib/queries";
 import { BackgroundVideoPanel } from "@/components/layout/BackgroundVideoPanel";
 import { ContentPanel } from "@/components/layout/ContentPanel";
+import { InlineFooter } from "@/components/layout/InlineFooter";
 import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
+import { buildPageMetadata } from "@/lib/seo";
 
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
   const data = await getStudioPage();
-  return {
+  return buildPageMetadata({
+    locale,
+    path: "/studio",
     title:
       data?.seoTitle ??
       "Studio Web Design Paris — Direction Artistique & Développement Webflow",
     description:
       data?.seoDescription ??
       "Jules Studio, studio de web design et design digital à Paris. Direction artistique, identité visuelle, développement Webflow. Découvrez notre équipe, notre vision et nos services.",
-    alternates: {
-      canonical: "https://julesstudio.fr/studio",
-    },
-    openGraph: {
-      title: "Jules Studio — Studio Web Design & Design Digital à Paris",
-      description:
-        "Notre studio créatif à Paris : direction artistique, web design et développement Webflow pour des projets sur mesure.",
-      url: "https://julesstudio.fr/studio",
-    },
-  };
+    ogTitle: "Jules Studio — Studio Web Design & Design Digital à Paris",
+    ogDescription:
+      "Notre studio créatif à Paris : direction artistique, web design et développement Webflow pour des projets sur mesure.",
+  });
 }
 
 export const revalidate = 60;
 
-export default async function StudioPage() {
-  const data = await getStudioPage();
+export default async function StudioPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const data = await getStudioPage(locale);
 
   if (!data) {
     return <div className="p-10">Chargement…</div>;
@@ -134,7 +142,7 @@ export default async function StudioPage() {
           </h3>
           <div className="w-full pt-4" />
           <p className="text-sm font-normal leading-relaxed text-[color:var(--color-foreground)]">
-            Nous concevons des expériences digitales complètes :
+            {data.servicesIntro || "Nous concevons des expériences digitales complètes :"}
           </p>
           <div className="mt-4 space-y-3">
             {data.services?.map(
@@ -208,60 +216,7 @@ export default async function StudioPage() {
           </p>
         </div>
 
-        {/* Spacers */}
-        <div className="pt-4" />
-        <div className="pt-12" />
-        <div className="pt-12" />
-        <div className="pt-12" />
-
-        {/* Tagline */}
-        <div className="flex-1 text-center">
-          <div className="text-sm font-normal text-[color:var(--color-muted)]">
-            #CREATAMAZINGEVERYWHEREANYTIME
-          </div>
-        </div>
-
-        {/* Footer inline */}
-        <div className="pt-12" />
-        <div className="pt-12" />
-
-        <div className="flex flex-col items-center gap-8 p-2">
-          <div className="h-60 flex items-center">
-            <span
-              className="text-4xl font-black text-[color:var(--color-accent)]"
-              style={{
-                fontFamily: "'Palatino Linotype', Palatino, serif",
-                transform: "scale3d(1, 4.5, 1)",
-              }}
-            >
-              JULESSTUDIO
-            </span>
-          </div>
-
-          <div className="flex items-center justify-end gap-2 w-full -mt-18 px-2">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="text-[color:var(--color-muted)]"
-            >
-              <circle cx="12" cy="12" r="10" />
-              <path d="M14.83 14.83a4 4 0 1 1 0-5.66" />
-            </svg>
-            <span className="text-sm font-light text-[color:var(--color-foreground)]">
-              2026 JULESSTUDIO
-            </span>
-          </div>
-        </div>
-
-        <div className="pt-12" />
-        <div className="pt-12" />
+        <InlineFooter />
       </ContentPanel>
 
       {/* ===== RIGHT PANEL (v2-right-panel) ===== */}

@@ -4,6 +4,9 @@ import { SwipeLink } from "@/components/ui/SwipeLink";
 import { BreadcrumbJsonLd, ProjectJsonLd } from "@/components/seo/JsonLd";
 import { getProjectBySlug, getAllProjectSlugs } from "@/lib/queries";
 import { notFound } from "next/navigation";
+import { getDictionary } from "@/i18n/get-dictionary";
+import type { Locale } from "@/i18n/config";
+import { buildPageMetadata } from "@/lib/seo";
 
 export const revalidate = 60;
 
@@ -15,10 +18,10 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ slug: string; locale: string }>;
 }): Promise<Metadata> {
-  const { slug } = await params;
-  const project = await getProjectBySlug(slug);
+  const { slug, locale } = await params;
+  const project = await getProjectBySlug(slug, locale);
   if (!project) return {};
 
   const title = `${project.name} — Projet Web Design Paris`;
@@ -26,20 +29,16 @@ export async function generateMetadata({
     project.shortDescription ||
     `Découvrez le projet ${project.name} réalisé par Jules Studio : direction artistique, web design et développement Webflow à Paris.`;
 
-  return {
+  const base = buildPageMetadata({
+    locale,
+    path: `/gallerie-projets/${slug}`,
     title,
     description,
-    alternates: {
-      canonical: `https://julesstudio.fr/gallerie-projets/${slug}`,
-    },
-    openGraph: {
-      title,
-      description,
-      url: `https://julesstudio.fr/gallerie-projets/${slug}`,
-      images: project.thumbnail
-        ? [{ url: project.thumbnail, width: 1200, height: 630, alt: project.name }]
-        : undefined,
-    },
+    ogImage: project.thumbnail || undefined,
+  });
+
+  return {
+    ...base,
     twitter: {
       card: "summary_large_image",
       title,
@@ -52,10 +51,11 @@ export async function generateMetadata({
 export default async function ProjetDetailPage({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ slug: string; locale: string }>;
 }) {
-  const { slug } = await params;
-  const project = await getProjectBySlug(slug);
+  const { slug, locale } = await params;
+  const dict = await getDictionary(locale as Locale);
+  const project = await getProjectBySlug(slug, locale);
 
   if (!project) return notFound();
 
@@ -114,7 +114,7 @@ export default async function ProjetDetailPage({
                 rel="noopener noreferrer"
                 className="underline text-[color:var(--color-foreground)] hover:text-[color:var(--color-muted)] transition-colors duration-[1.2s]"
               >
-                voir en live
+                {dict.gallery.seeLive}
               </a>
             </>
           )}
@@ -282,7 +282,14 @@ export default async function ProjetDetailPage({
                   className="overflow-clip"
                   style={{ borderRadius: "5px", width: "1030px", maxWidth: "90vw" }}
                 >
-                  {project.imageApproche.includes(".mp4") ||
+                  {project.imageApproche.includes("mediadelivery.net") ? (
+                    <iframe
+                      src={project.imageApproche.replace("/play/", "/embed/") + "?autoplay=true&loop=true&muted=true&preload=true&responsive=false"}
+                      allow="autoplay; encrypted-media"
+                      className="w-full border-0 pointer-events-none"
+                      style={{ aspectRatio: "16/9" }}
+                    />
+                  ) : project.imageApproche.includes(".mp4") ||
                   project.imageApproche.includes(".mov") ? (
                     <video
                       src={project.imageApproche}
@@ -316,15 +323,15 @@ export default async function ProjetDetailPage({
               className="font-[family-name:var(--font-merriweather)] font-bold mb-6"
               style={{ fontSize: "clamp(1.5rem, 3vw, 2.5rem)" }}
             >
-              Ce que nous avons fait
+              {dict.gallery.services}
             </h2>
             <ul className="space-y-2">
-              {project.services.map((service: string) => (
+              {project.services.map((service: { label: string }, i: number) => (
                 <li
-                  key={service}
+                  key={i}
                   className="text-sm text-[color:var(--color-muted)]"
                 >
-                  {service}
+                  {service.label}
                 </li>
               ))}
             </ul>
@@ -353,7 +360,7 @@ export default async function ProjetDetailPage({
         {/* Plus de projets */}
         <div className="mb-16 text-center">
           <SwipeLink
-            href="/projets"
+            href={`/${locale}/projets`}
             direction="back"
             className="text-sm font-medium no-underline text-[color:var(--color-foreground)]"
             style={{
@@ -363,7 +370,7 @@ export default async function ProjetDetailPage({
               padding: "0.5rem 1rem",
             }}
           >
-            Plus de projets
+            {dict.gallery.moreProjects}
           </SwipeLink>
         </div>
 
@@ -380,10 +387,10 @@ export default async function ProjetDetailPage({
             className="font-[family-name:var(--font-merriweather)] font-bold mb-2"
             style={{ fontSize: "clamp(1.25rem, 2vw, 2rem)" }}
           >
-            Venez nous saluer !
+            {dict.gallery.ctaTitle}
           </h3>
           <p className="text-sm text-[color:var(--color-foreground)]">
-            Contactez-nous au{" "}
+            {dict.gallery.ctaText}{" "}
             <a
               href="mailto:hello@julesstudio.fr"
               className="underline text-[color:var(--color-foreground)] hover:text-[color:var(--color-muted)] transition-colors duration-[1.2s]"
@@ -396,7 +403,7 @@ export default async function ProjetDetailPage({
         {/* Tagline */}
         <div className="text-center mt-16">
           <span className="text-sm font-normal text-[color:var(--color-muted)]">
-            #CREATAMAZINGEVERYWHEREANYTIME
+            {dict.common.tagline}
           </span>
         </div>
 
@@ -431,7 +438,7 @@ export default async function ProjetDetailPage({
               <path d="M14.83 14.83a4 4 0 1 1 0-5.66" />
             </svg>
             <span className="text-sm font-light text-[color:var(--color-foreground)]">
-              2026 JULESSTUDIO
+              {dict.common.copyright}
             </span>
           </div>
         </div>

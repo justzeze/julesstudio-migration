@@ -21,17 +21,21 @@ export function ContentPanel({ children }: { children: React.ReactNode }) {
       content: scrollRef.current,
     });
 
+    let rafId: number;
+
     function raf(time: number) {
       lenis.raf(time);
-      requestAnimationFrame(raf);
+      rafId = requestAnimationFrame(raf);
     }
 
-    requestAnimationFrame(raf);
+    rafId = requestAnimationFrame(raf);
 
-    // Reset scroll position on mount (page navigation)
     scrollRef.current.scrollTop = 0;
 
-    return () => lenis.destroy();
+    return () => {
+      cancelAnimationFrame(rafId);
+      lenis.destroy();
+    };
   }, []);
 
   return (
