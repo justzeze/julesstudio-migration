@@ -11,6 +11,7 @@ import { getSiteSettings } from "@/lib/queries";
 import {
   LocalBusinessJsonLd,
   WebSiteJsonLd,
+  SiteVideosJsonLd,
 } from "@/components/seo/JsonLd";
 
 const montserrat = Montserrat({
@@ -72,7 +73,7 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
-    googleBot: { index: true, follow: true, "max-video-preview": -1, "max-image-preview": "large", "max-snippet": -1 },
+    googleBot: { index: true, follow: true, "max-video-preview": 0, "max-image-preview": "large", "max-snippet": -1 },
   },
   verification: { google: "eM8xLgspSyzBRgk_vTd4_vjlu3VLAL9c6DkffqzZf58" },
   category: "Web Design",
@@ -109,6 +110,7 @@ export default async function LocaleLayout({
             <Preloader />
             <LocalBusinessJsonLd />
             <WebSiteJsonLd />
+            <SiteVideosJsonLd />
             <Header />
             <PersistentHome />
             <main className="flex-1">{children}</main>

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { SwipeLink } from "@/components/ui/SwipeLink";
-import { BreadcrumbJsonLd, ProjectJsonLd } from "@/components/seo/JsonLd";
+import { BreadcrumbJsonLd, ProjectJsonLd, ProjectVideosJsonLd } from "@/components/seo/JsonLd";
 import { getProjectBySlug, getAllProjectSlugs } from "@/lib/queries";
 import { notFound } from "next/navigation";
 import { getDictionary } from "@/i18n/get-dictionary";
@@ -74,6 +74,14 @@ export default async function ProjetDetailPage({
         description={project.shortDescription}
         image={project.thumbnail}
         datePublished={project.dateMiseAJour}
+      />
+      <ProjectVideosJsonLd
+        projects={[
+          ...(project.videoUrl ? [{ name: project.name, videoUrl: project.videoUrl, image: project.thumbnail }] : []),
+          ...(project.imageApproche && (project.imageApproche.includes("mediadelivery.net") || project.imageApproche.includes(".mp4") || project.imageApproche.includes(".mov"))
+            ? [{ name: project.name, videoUrl: project.imageApproche, image: project.thumbnail }]
+            : []),
+        ]}
       />
       {/* ===== SECTION 1: HERO ===== */}
       <section className="px-5 md:px-12 pt-24 pb-12 md:pt-24 md:pb-16">

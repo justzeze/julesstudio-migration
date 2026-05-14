@@ -4,6 +4,7 @@ import { BackgroundVideoPanel } from "@/components/layout/BackgroundVideoPanel";
 import { ContentPanel } from "@/components/layout/ContentPanel";
 import { getAllProjects } from "@/lib/queries";
 import { buildPageMetadata } from "@/lib/seo";
+import { ProjectVideosJsonLd } from "@/components/seo/JsonLd";
 
 export async function generateMetadata({
   params,
@@ -35,6 +36,7 @@ export default async function TousLesProjetsPage({
 
   return (
     <div className="flex flex-col md:flex-row">
+      <ProjectVideosJsonLd projects={projects} />
       {/* LEFT CONTENT PANEL */}
       <ContentPanel>
         <div
