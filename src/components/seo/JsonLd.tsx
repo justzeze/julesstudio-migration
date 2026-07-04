@@ -219,7 +219,7 @@ export function ProjectJsonLd({
 }
 
 export function SiteVideosJsonLd() {
-  const uploadDate = "2026-01-01";
+  const uploadDate = "2026-01-01T10:00:00+01:00";
   const thumbnail = "https://julesstudio.fr/opengraph-image";
   const videos = [
     {
@@ -259,7 +259,7 @@ export function ProjectVideosJsonLd({
 }: {
   projects: { name: string; videoUrl?: string; image?: string }[];
 }) {
-  const uploadDate = "2026-01-01";
+  const uploadDate = "2026-01-01T10:00:00+01:00";
   const videos = projects
     .filter((p) => p.videoUrl)
     .map((p) => {
