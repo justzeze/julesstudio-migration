@@ -11,7 +11,6 @@ import { getSiteSettings } from "@/lib/queries";
 import {
   LocalBusinessJsonLd,
   WebSiteJsonLd,
-  SiteVideosJsonLd,
 } from "@/components/seo/JsonLd";
 
 const montserrat = Montserrat({
@@ -110,7 +109,6 @@ export default async function LocaleLayout({
             <Preloader />
             <LocalBusinessJsonLd />
             <WebSiteJsonLd />
-            <SiteVideosJsonLd />
             <Header />
             <PersistentHome />
             <main className="flex-1">{children}</main>
