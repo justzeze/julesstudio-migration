@@ -6,6 +6,7 @@ import { BackgroundVideoPanel } from "@/components/layout/BackgroundVideoPanel";
 import { FilterButtons } from "@/components/ui/FilterButtons";
 import { ProjectListItem } from "@/components/ui/ProjectListItem";
 import { InlineFooter } from "@/components/layout/InlineFooter";
+import { useLocale } from "@/i18n/locale-context";
 
 interface Project {
   name: string;
@@ -39,6 +40,7 @@ interface ProjetsPageClientProps {
 }
 
 export function ProjetsPageClient({ projects, dict }: ProjetsPageClientProps) {
+  const locale = useLocale();
   const filters = dict?.filters || {
     all: "Tous",
     showcase: "Site Vitrine",
@@ -70,6 +72,11 @@ export function ProjetsPageClient({ projects, dict }: ProjetsPageClientProps) {
 
   return (
     <div className="flex flex-col md:flex-row">
+      <h1 className="sr-only">
+        {locale === "en"
+          ? "Web Design & Webflow Portfolio — Our Work in Paris"
+          : "Portfolio Web Design & Webflow — Nos Réalisations à Paris"}
+      </h1>
       <ContentPanel>
         {/* Header illustration + intro + filters — projets-header-left-content-wrapper */}
         <div
