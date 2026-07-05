@@ -51,22 +51,22 @@ export function BackgroundVideoPanel({
         className="md:hidden absolute z-10 left-1/2 -translate-x-1/2"
         style={{ top: "40%" }}
       >
-        <h1
+        <p
           className="text-white uppercase font-bold leading-[1.3]"
           style={{ fontSize: "1.25rem" }}
         >
-          <div>{t.mobileTagline.line1}</div>
-          <div style={{ paddingLeft: "5rem" }}>{t.mobileTagline.line2}</div>
-          <div style={{ paddingLeft: "2.5rem" }}>{t.mobileTagline.line3}</div>
-          <div className="flex items-center" style={{ paddingLeft: "4rem" }}>
+          <span className="block">{t.mobileTagline.line1}</span>
+          <span className="block" style={{ paddingLeft: "5rem" }}>{t.mobileTagline.line2}</span>
+          <span className="block" style={{ paddingLeft: "2.5rem" }}>{t.mobileTagline.line3}</span>
+          <span className="flex items-center" style={{ paddingLeft: "4rem" }}>
             <span>{t.mobileTagline.line4}</span>
             <span className="text-[0.55rem] font-medium ml-2 leading-tight opacity-80 whitespace-nowrap">
               ©2026
               <br />
               JULES STUDIO
             </span>
-          </div>
-        </h1>
+          </span>
+        </p>
       </div>
 
       {isProjectsMode ? (

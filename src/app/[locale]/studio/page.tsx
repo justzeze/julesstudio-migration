@@ -17,15 +17,26 @@ export async function generateMetadata({
   return buildPageMetadata({
     locale,
     path: "/studio",
-    title:
-      data?.seoTitle ??
-      "Studio Web Design Paris — Direction Artistique & Développement Webflow",
-    description:
-      data?.seoDescription ??
-      "Jules Studio, studio de web design et design digital à Paris. Direction artistique, identité visuelle, développement Webflow. Découvrez notre équipe, notre vision et nos services.",
-    ogTitle: "Jules Studio — Studio Web Design & Design Digital à Paris",
-    ogDescription:
-      "Notre studio créatif à Paris : direction artistique, web design et développement Webflow pour des projets sur mesure.",
+    title: {
+      fr:
+        data?.seoTitle ??
+        "Studio Web Design Paris — Direction Artistique & Webflow | Jules Studio",
+      en: "Creative Studio in Paris — Art Direction & Webflow | Jules Studio",
+    },
+    description: {
+      fr:
+        data?.seoDescription ??
+        "Jules Studio, studio de web design et design digital à Paris. Direction artistique, identité visuelle, développement Webflow. Découvrez notre équipe, notre vision et nos services.",
+      en: "Jules Studio, a web and digital design studio in Paris. Art direction, visual identity, Webflow development. Discover our team, our vision and our services.",
+    },
+    ogTitle: {
+      fr: "Jules Studio — Studio Web Design & Design Digital à Paris",
+      en: "Jules Studio — Web & Digital Design Studio in Paris",
+    },
+    ogDescription: {
+      fr: "Notre studio créatif à Paris : direction artistique, web design et développement Webflow pour des projets sur mesure.",
+      en: "Our creative studio in Paris: art direction, web design and Webflow development for custom projects.",
+    },
   });
 }
 

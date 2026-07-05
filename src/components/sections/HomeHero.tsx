@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect, useCallback } from "react";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import gsap from "gsap";
 import { useLocale } from "@/i18n/locale-context";
 import { useSiteSettings } from "@/lib/site-settings-context";
@@ -47,6 +48,11 @@ const i18n = {
 
 export function HomeHero({ isVisible = true }: { isVisible?: boolean }) {
   const locale = useLocale();
+  const pathname = usePathname();
+  // HomeHero stays mounted on every route (PersistentHome) — its tagline
+  // must only be the page <h1> on the homepage itself
+  const isHome = /^\/(fr|en)\/?$/.test(pathname ?? "");
+  const TaglineTag = isHome ? ("h1" as const) : ("p" as const);
   const settings = useSiteSettings();
   const t = i18n[locale];
   const TAGLINE_WORDS = locale === "en" ? TAGLINE_WORDS_EN : TAGLINE_WORDS_FR;
@@ -404,15 +410,15 @@ export function HomeHero({ isVisible = true }: { isVisible?: boolean }) {
         className="md:hidden absolute z-10 left-1/2 -translate-x-1/2"
         style={{ top: "40%" }}
       >
-        <h1 className="text-white uppercase font-bold leading-[1.3]" style={{ fontSize: "1.25rem" }}>
-          <div>{t.mobileTagline.line1}</div>
-          <div style={{ paddingLeft: "5rem" }}>{t.mobileTagline.line2}</div>
-          <div style={{ paddingLeft: "2.5rem" }}>{t.mobileTagline.line3}</div>
-          <div className="flex items-center" style={{ paddingLeft: "4rem" }}>
+        <p className="text-white uppercase font-bold leading-[1.3]" style={{ fontSize: "1.25rem" }}>
+          <span className="block">{t.mobileTagline.line1}</span>
+          <span className="block" style={{ paddingLeft: "5rem" }}>{t.mobileTagline.line2}</span>
+          <span className="block" style={{ paddingLeft: "2.5rem" }}>{t.mobileTagline.line3}</span>
+          <span className="flex items-center" style={{ paddingLeft: "4rem" }}>
             <span>{t.mobileTagline.line4}</span>
             <span className="text-[0.55rem] font-medium ml-2 leading-tight opacity-80 whitespace-nowrap">©2026<br/>JULES STUDIO</span>
-          </div>
-        </h1>
+          </span>
+        </p>
       </div>
 
       {/* ===== TAGLINE DESKTOP (GSAP animated) ===== */}
@@ -426,7 +432,7 @@ export function HomeHero({ isVisible = true }: { isVisible?: boolean }) {
           padding: "0.5rem 0.5rem 0",
         }}
       >
-        <h1
+        <TaglineTag
           className="text-white uppercase font-bold leading-[1.2] flex flex-wrap text-[2rem]"
         >
           {TAGLINE_WORDS.map((word, i) => (
@@ -441,7 +447,7 @@ export function HomeHero({ isVisible = true }: { isVisible?: boolean }) {
               {word.text}
             </span>
           ))}
-        </h1>
+        </TaglineTag>
         <div
           ref={yearsRef}
           className="absolute flex flex-col items-center text-white text-xs"

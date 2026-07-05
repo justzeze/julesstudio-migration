@@ -14,12 +14,22 @@ export async function generateMetadata({
   return buildPageMetadata({
     locale,
     path: "/tous-les-projets",
-    title: "Portfolio Complet — Tous Nos Projets Web Design & Webflow Paris",
-    description:
-      "Découvrez l'ensemble de nos réalisations web design à Paris : sites vitrines, landing pages, e-commerce et identités visuelles. Chaque projet Webflow est conçu sur mesure.",
-    ogTitle: "Tous les projets Jules Studio — Web Design & Webflow",
-    ogDescription:
-      "Portfolio complet de nos créations web : sites vitrines, landing pages, e-commerce conçus avec Webflow à Paris.",
+    title: {
+      fr: "Portfolio Complet — Tous Nos Projets Web Design & Webflow | Jules Studio",
+      en: "Full Portfolio — All Our Web Design & Webflow Projects | Jules Studio",
+    },
+    description: {
+      fr: "Découvrez l'ensemble de nos réalisations web design à Paris : sites vitrines, landing pages, e-commerce et identités visuelles. Chaque projet Webflow est conçu sur mesure.",
+      en: "Browse all of our web design work in Paris: showcase sites, landing pages, e-commerce and visual identities. Every Webflow project is custom-made.",
+    },
+    ogTitle: {
+      fr: "Tous les projets Jules Studio — Web Design & Webflow",
+      en: "All Jules Studio Projects — Web Design & Webflow",
+    },
+    ogDescription: {
+      fr: "Portfolio complet de nos créations web : sites vitrines, landing pages, e-commerce conçus avec Webflow à Paris.",
+      en: "Our complete portfolio of web work: showcase sites, landing pages and e-commerce built with Webflow in Paris.",
+    },
   });
 }
 

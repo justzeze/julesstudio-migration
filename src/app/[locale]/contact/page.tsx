@@ -18,13 +18,22 @@ export async function generateMetadata({
   return buildPageMetadata({
     locale,
     path: "/contact",
-    title:
-      "Contact — Réservez Votre Appel Découverte Gratuit | Web Design Paris",
-    description:
-      "Prêt à lancer votre projet web ? Contactez Jules Studio, studio de web design à Paris. Appel découverte gratuit de 30 min. Site vitrine dès 890€, landing page dès 1 690€. Webflow, identité visuelle, stratégie digitale.",
-    ogTitle: "Contactez Jules Studio — Appel Découverte Gratuit",
-    ogDescription:
-      "Réservez un appel découverte gratuit de 30 min avec Charles. On parle de votre projet web, sans engagement. Studio web design & Webflow à Paris.",
+    title: {
+      fr: "Contact — Réservez Votre Appel Découverte Gratuit | Jules Studio Paris",
+      en: "Contact — Book Your Free Discovery Call | Jules Studio Paris",
+    },
+    description: {
+      fr: "Prêt à lancer votre projet web ? Contactez Jules Studio, studio de web design à Paris. Appel découverte gratuit de 30 min. Site vitrine dès 890€, landing page dès 1 690€. Webflow, identité visuelle, stratégie digitale.",
+      en: "Ready to launch your web project? Contact Jules Studio, a web design studio in Paris. Free 30-minute discovery call. Showcase sites from €890, landing pages from €1,690. Webflow, visual identity, digital strategy.",
+    },
+    ogTitle: {
+      fr: "Contactez Jules Studio — Appel Découverte Gratuit",
+      en: "Contact Jules Studio — Free Discovery Call",
+    },
+    ogDescription: {
+      fr: "Réservez un appel découverte gratuit de 30 min avec Charles. On parle de votre projet web, sans engagement. Studio web design & Webflow à Paris.",
+      en: "Book a free 30-minute discovery call with Charles. Let's talk about your web project, no strings attached. Web design & Webflow studio in Paris.",
+    },
   });
 }
 

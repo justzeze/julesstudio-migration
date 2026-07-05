@@ -24,10 +24,15 @@ export async function generateMetadata({
   const project = await getProjectBySlug(slug, locale);
   if (!project) return {};
 
-  const title = `${project.name} — Projet Web Design Paris`;
+  const isEn = locale === "en";
+  const title = isEn
+    ? `${project.name} — Web Design Project Paris | Jules Studio`
+    : `${project.name} — Projet Web Design Paris | Jules Studio`;
   const description =
     project.shortDescription ||
-    `Découvrez le projet ${project.name} réalisé par Jules Studio : direction artistique, web design et développement Webflow à Paris.`;
+    (isEn
+      ? `Discover the ${project.name} project by Jules Studio: art direction, web design and Webflow development in Paris.`
+      : `Découvrez le projet ${project.name} réalisé par Jules Studio : direction artistique, web design et développement Webflow à Paris.`);
 
   const base = buildPageMetadata({
     locale,
